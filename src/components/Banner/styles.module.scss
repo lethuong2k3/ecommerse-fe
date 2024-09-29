@@ -1,0 +1,29 @@
+@import '@styles/mixins.module.scss';
+@import '@styles/variables.module.scss';
+
+.container {
+    @include flex_box_custom(center, center, 0px);
+    background-image: url(../../assets/images/Banner.jpeg);
+    min-height: 750px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content {
+    @include flex_box_custom(center, center, 10px);
+    flex-direction: column;
+}
+
+.title {
+    font-size: 42px;
+    color: $four_color;
+    font-weight: 400;
+    margin: 15px 0;
+}
+
+.description {
+    color: $thr_color;
+    font-weight: 400;
+    margin-bottom: 25px;
+}

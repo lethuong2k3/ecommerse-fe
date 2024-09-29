@@ -3,7 +3,7 @@ import BoxIcon from './BoxIcon/BoxIcon';
 import { dataBoxIcon, dataMenu } from './constants';
 import Menu from './Menu/Menu';
 import styles from './styles.module.scss';
-import Logo from '@images/Logo-retina.png';
+import Logo from '@images/Logo.png';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import cartIcon from '@icons/cartIcon.svg';
 import reload from '@icons/reload.svg';
@@ -39,7 +39,7 @@ function Header() {
                 <div>
                     <img
                         src={Logo}
-                        style={{ width: '153px', height: '53px' }}
+                        style={{ width: '80px', height: '80px' }}
                         alt='Logo'
                     />
                 </div>
