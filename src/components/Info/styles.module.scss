@@ -3,7 +3,6 @@
 
 .container {
     @include flex_box_custom(space-between, center, 0px);
-    position: relative;
     background-color: $primary_color;
     margin-top: -75px;
     padding: 20px 50px;
