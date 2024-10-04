@@ -1,7 +1,9 @@
 @import '@styles/mixins.module.scss';
 
 .container {
-    @include flex_box_custom(space-between, center, 10px);
+    @include flex_box_custom(flex-start, center, 10px);
+    flex-wrap: wrap;
+
     margin-top: 40px;
 }
 
