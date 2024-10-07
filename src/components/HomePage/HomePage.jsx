@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import getProducts from '@apis/productsService';
 import MainLayout from '@components/Layout/Layout';
 import SaleHomePage from '@components/SaleHomePage/SaleHomePage';
+import MyFooter from '@components/Footer/Footer';
 
 function HomePage() {
     const [lstProduct, setLstProducts] = useState([]);
@@ -34,6 +35,7 @@ function HomePage() {
                     )}
                 </MainLayout>
                 <SaleHomePage />
+                <MyFooter />
             </div>
         </>
     );
