@@ -19,11 +19,11 @@ const useTranslateXImage = () => {
     };
 
     const handleTranslateX = () => {
-        if (scrollDriction === 'down' && scrollPosition >= 1700) {
+        if (scrollDriction === 'down' && scrollPosition >= 1600) {
             setTranslateXPosition(
                 translateXPosition <= 0 ? 0 : translateXPosition - 1
             );
-        } else if (scrollDriction === 'up') {
+        } else if (scrollDriction === 'up' && scrollPosition <= 3200) {
             setTranslateXPosition(
                 translateXPosition >= 0 ? 30 : translateXPosition + 1
             );
