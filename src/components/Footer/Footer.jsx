@@ -19,8 +19,8 @@ function MyFooter() {
                 <img src={TypePayment} alt='' />
             </div>
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                Copyright © 2024 Fpoly Clouthes. Created by
-                leanhthuong2k3@gmail.com – WordPress WooCommerce themes.
+                Copyright © 2024 Fpoly Clothes. Created by
+                leanhthuong2k3@gmail.com – Website E-commerce.
             </div>
         </div>
     );
