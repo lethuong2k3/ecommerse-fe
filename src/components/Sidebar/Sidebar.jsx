@@ -4,6 +4,7 @@ import { SidebarContext } from '@contexts/SideBarProvider';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import Login from '@components/ContentSideBar/Login';
 
 function Sidebar() {
     const { isOpen, setIsOpen } = useContext(SidebarContext);
@@ -28,7 +29,7 @@ function Sidebar() {
                         <FontAwesomeIcon icon={faXmark} />
                     </div>
                 )}
-                sidebar
+                <Login />
             </div>
         </div>
     );
