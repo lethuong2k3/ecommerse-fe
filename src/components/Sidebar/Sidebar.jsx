@@ -2,14 +2,28 @@ import { useContext } from 'react';
 import styles from './styles.module.scss';
 import { SidebarContext } from '@contexts/SideBarProvider';
 import classNames from 'classnames';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import Login from '@components/ContentSideBar/Login';
+
+import Login from '@components/ContentSideBar/Login/Login';
+import Compare from '@components/ContentSideBar/Compare/Compare';
+import { MdClose } from "react-icons/md";
+
 
 function Sidebar() {
-    const { isOpen, setIsOpen } = useContext(SidebarContext);
+    const { isOpen, setIsOpen, type } = useContext(SidebarContext);
     const handleToggle = () => {
         setIsOpen(!isOpen);
+    };
+    const handleRenderContent = () => {
+        switch (type) {
+            case 'login':
+                return <Login />;
+            case 'compare':
+                return <Compare />;
+            case 'wishlist':
+                return 'wishlist';
+            case 'cart':
+                return 'cart';
+        }
     };
     return (
         <div className={styles.container}>
@@ -26,10 +40,10 @@ function Sidebar() {
             >
                 {isOpen && (
                     <div className={styles.boxIcon} onClick={handleToggle}>
-                        <FontAwesomeIcon icon={faXmark} />
+                        <MdClose />
                     </div>
                 )}
-                <Login />
+                {handleRenderContent()}
             </div>
         </div>
     );

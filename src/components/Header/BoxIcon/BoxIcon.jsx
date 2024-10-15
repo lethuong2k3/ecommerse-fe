@@ -1,31 +1,23 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../styles.module.scss';
-import {
-    faFacebookF,
-    faInstagram,
-    faYoutube,
-} from '@fortawesome/free-brands-svg-icons';
+import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 function BoxIcon({ type, href }) {
     const { boxIcon } = styles;
     const handleRenderIcon = type => {
         switch (type) {
             case 'fb':
-                return faFacebookF;
+                return <FaFacebookF />;
             case 'ins':
-                return faInstagram;
+                return <FaInstagram />;
             case 'ytb':
-                return faYoutube;
+                return <FaYoutube />;
         }
     };
     return (
         <div className={boxIcon}>
-            <FontAwesomeIcon
-                width={15}
-                height={15}
-                color='#fff'
-                icon={handleRenderIcon(type)}
-            />
+            <i style={{ width: '15px', height: '15px', color: '#fff' }}>
+                {handleRenderIcon(type)}
+            </i>
         </div>
     );
 }

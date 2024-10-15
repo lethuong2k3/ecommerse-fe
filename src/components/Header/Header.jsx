@@ -1,21 +1,26 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import BoxIcon from './BoxIcon/BoxIcon';
 import { dataBoxIcon, dataMenu } from './constants';
 import Menu from './Menu/Menu';
 import styles from './styles.module.scss';
 import Logo from '@images/Logo.png';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import cartIcon from '@icons/cartIcon.svg';
-import reload from '@icons/reload.svg';
+
 import useScrollHandling from '@hooks/useScrollHandling';
 import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { SidebarContext } from '@contexts/SideBarProvider';
+import { TfiReload } from 'react-icons/tfi';
+import { BsHeart } from 'react-icons/bs';
+
+import { BsCart3 } from 'react-icons/bs';
 
 function Header() {
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFixedPosition] = useState(false);
-    const { isOpen, setIsOpen } = useContext(SidebarContext);
+    const { setIsOpen, setType } = useContext(SidebarContext);
+    const handleOpenSideBar = type => {
+        setIsOpen(true);
+        setType(type);
+    };
     useEffect(() => {
         setFixedPosition(scrollPosition > 80);
     }, [scrollPosition]);
@@ -65,25 +70,22 @@ function Header() {
                                     key={key}
                                     content={item.content}
                                     href={item.href}
-                                    setIsOpen={setIsOpen}
                                 />
                             );
                         })}
                     </div>
-                    <div className={styles.containerBox}>
-                        <img
-                            src={reload}
-                            style={{ width: '25px', height: '25px' }}
-                            alt='reload'
+                    <div className={styles.containerBoxIcon}>
+                        <TfiReload
+                            size='22px'
+                            onClick={() => handleOpenSideBar('compare')}
                         />
-                        <FontAwesomeIcon
-                            style={{ width: '25px', height: '25px' }}
-                            icon={faHeart}
+                        <BsHeart
+                            size='22px'
+                            onClick={() => handleOpenSideBar('wishlist')}
                         />
-                        <img
-                            src={cartIcon}
-                            style={{ width: '25px', height: '25px' }}
-                            alt='cartIcon'
+                        <BsCart3
+                            size='22px'
+                            onClick={() => handleOpenSideBar('cart')}
                         />
                     </div>
                 </div>

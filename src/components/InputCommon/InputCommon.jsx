@@ -1,7 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './styles.module.scss';
-import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 function InputCommon({ label, type, isRequired = false }) {
     const [showPassword, setShowPassword] = useState(false);
@@ -25,11 +24,7 @@ function InputCommon({ label, type, isRequired = false }) {
                         className={styles.boxIcon}
                         onClick={handleShowPassword}
                     >
-                        {showPassword ? (
-                            <FontAwesomeIcon icon={faEyeSlash} />
-                        ) : (
-                            <FontAwesomeIcon icon={faEye} />
-                        )}
+                        {showPassword ? <FiEyeOff /> : <FiEye />}
                     </div>
                 )}
             </div>

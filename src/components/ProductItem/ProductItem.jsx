@@ -1,7 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './styles.module.scss';
-import { faBagShopping, faRotate } from '@fortawesome/free-solid-svg-icons';
-import { faEye, faHeart } from '@fortawesome/free-regular-svg-icons';
+import { BsBag, BsHeart, BsEye } from 'react-icons/bs';
+import { TfiReload } from 'react-icons/tfi';
 
 function ProductItem({ src, prevSrc, name, price }) {
     return (
@@ -11,16 +10,16 @@ function ProductItem({ src, prevSrc, name, price }) {
                 <img src={prevSrc} alt='' className={styles.showImgWhenHover} />
                 <div className={styles.showFncWhenHover}>
                     <div className={styles.boxIcon}>
-                        <FontAwesomeIcon icon={faBagShopping} />
+                        <BsBag />
                     </div>
                     <div className={styles.boxIcon}>
-                        <FontAwesomeIcon icon={faHeart} />
+                        <BsHeart />
                     </div>
                     <div className={styles.boxIcon}>
-                        <FontAwesomeIcon icon={faRotate} />
+                        <TfiReload />
                     </div>
                     <div className={styles.boxIcon}>
-                        <FontAwesomeIcon icon={faEye} />
+                        <BsEye />
                     </div>
                 </div>
             </div>

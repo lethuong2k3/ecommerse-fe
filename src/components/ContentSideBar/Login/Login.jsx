@@ -13,9 +13,10 @@ function Login() {
                 <input type='checkbox' />
                 <span>Remember me</span>
             </div>
-
-            <Button content={'LOGIN'} />
-            <div className={styles.lostPw}>Lost your password ?</div>
+            <div className={styles.boxBtn}>
+                <Button content={'LOGIN'} />
+            </div>
+            <div className={styles.lostPw}>Lost your password?</div>
         </div>
     );
 }
