@@ -13,7 +13,10 @@ function ItemProduct() {
             </div>
             <div className={styles.boxContent}>
                 <div className={styles.title}>Consectetur nibh at</div>
+                <div className={styles.size}>Size: M</div>
+
                 <div className={styles.price}>$199.99</div>
+                <div className={styles.price}>SKU: 12349</div>
             </div>
         </div>
     );

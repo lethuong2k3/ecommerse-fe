@@ -4,7 +4,7 @@ function HeaderSideBar({ icon, title }) {
     return (
         <div className={styles.container}>
             {icon}
-            <div>{title}</div>
+            <div className={styles.title}>{title}</div>
         </div>
     );
 }

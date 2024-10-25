@@ -5,8 +5,9 @@ import classNames from 'classnames';
 
 import Login from '@components/ContentSideBar/Login/Login';
 import Compare from '@components/ContentSideBar/Compare/Compare';
-import { MdClose } from "react-icons/md";
-
+import { MdClose } from 'react-icons/md';
+import WishList from '@components/ContentSideBar/WishList/WishList';
+import Cart from '@components/ContentSideBar/Cart/Cart';
 
 function Sidebar() {
     const { isOpen, setIsOpen, type } = useContext(SidebarContext);
@@ -20,9 +21,9 @@ function Sidebar() {
             case 'compare':
                 return <Compare />;
             case 'wishlist':
-                return 'wishlist';
+                return <WishList />;
             case 'cart':
-                return 'cart';
+                return <Cart />;
         }
     };
     return (

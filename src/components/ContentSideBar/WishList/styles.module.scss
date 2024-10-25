@@ -1,0 +1,18 @@
+@import '@styles/mixins.module.scss';
+
+.container {
+    @include flex_box_custom(space-between, unset, 10px);
+
+    flex-direction: column;
+    height: 95%;
+    padding: 30px 20px 0 20px;
+
+    .boxBtn {
+        @include flex_box_custom(space-between, unset, 10px);
+        flex-direction: column;
+
+        button {
+            width: 100%;
+        }
+    }
+}
