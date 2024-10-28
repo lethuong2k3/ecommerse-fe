@@ -6,13 +6,17 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useContext, useEffect, useState } from 'react';
 import { ToastContext } from '@contexts/ToastProvider';
-import { register, signIn, getInfo } from '@apis/authService';
+import { register, signIn } from '@apis/authService';
 import Cookies from 'js-cookie';
+import { SidebarContext } from '@contexts/SideBarProvider';
+import { StoreContext } from '@contexts/StoreProvider';
 
 function Login() {
     const [isRegister, setIsRegister] = useState(false);
     const { toast } = useContext(ToastContext);
     const [isLoading, setIsLoading] = useState(false);
+    const { setIsOpen } = useContext(SidebarContext);
+    const { setUserId } = useContext(StoreContext);
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -51,8 +55,12 @@ function Login() {
                     .then(res => {
                         setIsLoading(false);
                         const { id, token, refreshToken } = res.data;
+                        setUserId(id);
                         Cookies.set('token', token);
                         Cookies.set('refreshToken', refreshToken);
+                        Cookies.set('userId', id);
+                        toast.success('Sign in successfully!');
+                        setIsOpen(false);
                     })
                     .catch(error => {
                         setIsLoading(false);
@@ -65,10 +73,6 @@ function Login() {
         setIsRegister(!isRegister);
         formik.resetForm();
     };
-
-    useEffect(() => {
-        getInfo();
-    }, []);
 
     return (
         <div className={styles.container}>
