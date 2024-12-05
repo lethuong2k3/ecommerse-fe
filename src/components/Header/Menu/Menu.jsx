@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, memo } from 'react';
 import styles from '../styles.module.scss';
 import { SidebarContext } from '@contexts/SideBarProvider';
 import { StoreContext } from '@contexts/StoreProvider';
@@ -20,7 +20,7 @@ function Menu({ content, href }) {
     };
     const handleRenderText = content => {
         return content === 'Sign in' && userInfo
-            ? `Hello: ${userInfo?.username}`
+            ? `Hello: ${userInfo?.name}`
             : content;
     };
     const handleHover = () => {

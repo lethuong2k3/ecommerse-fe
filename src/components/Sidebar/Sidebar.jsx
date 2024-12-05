@@ -26,6 +26,7 @@ function Sidebar() {
                 return <Cart />;
         }
     };
+
     return (
         <div className={styles.container}>
             <div

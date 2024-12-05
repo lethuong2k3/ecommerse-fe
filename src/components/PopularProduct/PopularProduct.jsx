@@ -8,11 +8,11 @@ function HeadlingListProducts({ data }) {
             <CountDownBanner />
             {data.map(item => (
                 <ProductItem
-                    key={item._id}
-                    src={item.images[0]}
-                    prevSrc={item.images[1]}
+                    key={item.id}
+                    src={item.images[0].url}
+                    prevSrc={item.images[1].url}
                     name={item.name}
-                    price={item.price}
+                    item={item}
                 />
             ))}
         </div>

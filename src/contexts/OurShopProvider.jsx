@@ -34,12 +34,12 @@ export const OurShopProvider = ({ children }) => {
     useEffect(() => {
         const query = {
             sortType: sortId,
-            page: 1,
+            page: 0,
             limit: showId,
         };
         getProducts(query)
             .then(res => {
-                setProducts(res.contents);
+                setProducts(res.data.content);
             })
             .catch(err => {
                 console.log(err);

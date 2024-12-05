@@ -1,14 +1,15 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { refreshTokenApi } from '@apis/authService';
 
 const axiosClient = axios.create({
-    baseURL: 'https://be-project-reactjs.vercel.app/api/v1',
+    baseURL: 'http://localhost:8080',
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
     },
+    withCredentials: true,
 });
-
 axiosClient.interceptors.request.use(
     async config => {
         const token = Cookies.get('token');
@@ -21,7 +22,6 @@ axiosClient.interceptors.request.use(
         return Promise.reject(err);
     }
 );
-
 axiosClient.interceptors.response.use(
     res => {
         return res;
@@ -32,20 +32,17 @@ axiosClient.interceptors.response.use(
             originalRequest._retry = true;
             const refreshToken = Cookies.get('refreshToken');
             if (!refreshToken) return Promise.reject(err);
-            try {
-                const res = await axiosClient.post('/refresh-token', {
-                    token: refreshToken,
-                });
-                const newAccessToken = res.data.accessToken;
-                Cookies.set('token', newAccessToken);
-                originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                return axiosClient.originalRequest;
-            } catch (error) {
-                Cookies.remove('token');
-                Cookies.remove('refreshToken');
-            }
+            const res = await refreshTokenApi(refreshToken);
+            const newAccessToken = res.token;
+            const refreshNewToken = res.refreshToken;
+            Cookies.set('token', newAccessToken);
+            Cookies.set('refreshToken', refreshNewToken);
+            axiosClient.defaults.headers.common[
+                'Authorization'
+            ] = `Bearer ${newAccessToken}`;
+            return axiosClient(originalRequest);
         }
+        return Promise.reject(err);
     }
 );
-
 export default axiosClient;

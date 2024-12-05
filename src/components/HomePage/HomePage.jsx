@@ -14,9 +14,14 @@ function HomePage() {
     const [lstProduct, setLstProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
+        const query = {
+            page: 0,
+            limit: 10,
+            sortType: 0,
+        };
         setLoading(true);
-        getProducts().then(res => {
-            setLstProducts(res.contents);
+        getProducts(query).then(res => {
+            setLstProducts(res.data.content);
             setLoading(false);
         });
     }, []);

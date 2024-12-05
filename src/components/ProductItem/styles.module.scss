@@ -66,3 +66,48 @@
     color: $thr_color;
     font-weight: 400;
 }
+
+.boxSize {
+    @include flex_box_custom(center, center, 10px);
+
+    .sizes {
+        @include flex_box_custom(center, center, 0px);
+
+        border: 1px solid #e1e1e1;
+        padding: 4px 8px;
+        font-size: 10px;
+        cursor: pointer;
+
+        &:hover {
+            border: 1px solid $primary_color;
+            transition: border 500ms;
+        }
+    }
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.boxBtn {
+    width: 175px;
+    margin: 10px auto;
+}
+
+.containerItem {
+    @include flex_box_custom(flex-start, center, 20px);
+    margin-top: 10px;
+
+    .content {
+        @include flex_box_custom(flex-start, flex-start, 10px);
+        flex-direction: column;
+    }
+
+    .leftBtn {
+        margin: 0px;
+    }
+
+    .largImg {
+        width: 430px;
+    }
+}
