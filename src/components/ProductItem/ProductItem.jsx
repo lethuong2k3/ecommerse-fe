@@ -2,7 +2,7 @@ import styles from './styles.module.scss';
 import { BsBag, BsHeart, BsEye } from 'react-icons/bs';
 import { TfiReload } from 'react-icons/tfi';
 import _ from 'lodash';
-import { useContext, useMemo } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import cls from 'classnames';
 import Button from '@components/Button/Button';
 import { OurShopContext } from '@contexts/OurShopProvider';
@@ -20,7 +20,20 @@ function ProductItem({ src, prevSrc, name, item, isHomePage = true }) {
         const sizeSet = _.uniq(_.map(item?.productDetails, 'size.name'));
         return sizeSet;
     }, [item]);
-    const { isShowGrid } = useContext(OurShopContext);
+    const ourShopStore = useContext(OurShopContext);
+    const [isShowGrid, setIsShowGrid] = useState(ourShopStore?.isShowGrid);
+    const [sizeChoose, setSizeChoose] = useState('');
+    const handleChooseSize = size => {
+        setSizeChoose(size);
+    };
+    const handleClearSize = () => {
+        setSizeChoose('');
+    };
+    useEffect(() => {
+        isHomePage
+            ? setIsShowGrid(true)
+            : setIsShowGrid(ourShopStore?.isShowGrid);
+    }, [isHomePage, ourShopStore?.isShowGrid]);
     return (
         <div className={isShowGrid ? '' : styles.containerItem}>
             <div
@@ -45,17 +58,33 @@ function ProductItem({ src, prevSrc, name, item, isHomePage = true }) {
                     </div>
                 </div>
             </div>
-            <div className={isShowGrid ? '' : styles.content}>
+            <div
+                className={isShowGrid ? '' : styles.content}
+                style={{ marginTop: '10px' }}
+            >
                 {!isHomePage && (
                     <div className={styles.boxSize}>
                         {sizes?.map((size, index) => (
-                            <div className={styles.sizes} key={index}>
+                            <div
+                                className={cls(styles.sizes, {
+                                    [styles.isActiveSize]: sizeChoose === size,
+                                })}
+                                key={index}
+                                onClick={() => handleChooseSize(size)}
+                            >
                                 {size}
                             </div>
                         ))}
                     </div>
                 )}
-
+                {sizeChoose && (
+                    <div
+                        className={styles.btnClear}
+                        onClick={() => handleClearSize()}
+                    >
+                        clear
+                    </div>
+                )}
                 <div
                     className={cls(styles.title, {
                         [styles.textCenter]: !isHomePage,

@@ -6,6 +6,7 @@ import Banner from '@/pages/OurShop/components/Banner';
 import { OurShopProvider } from '@contexts/OurShopProvider';
 import Filter from '@pages/OurShop/components/Filter';
 import ListProducts from '@pages/OurShop/components/ListProducts';
+import MyFooter from '@components/Footer/Footer';
 
 function OurShop() {
     const navigate = useNavigate();
@@ -38,6 +39,7 @@ function OurShop() {
                     <ListProducts />
                 </div>
             </MainLayout>
+            <MyFooter />
         </OurShopProvider>
     );
 }

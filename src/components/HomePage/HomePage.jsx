@@ -9,6 +9,7 @@ import getProducts from '@apis/productsService';
 import MainLayout from '@components/Layout/Layout';
 import SaleHomePage from '@components/SaleHomePage/SaleHomePage';
 import MyFooter from '@components/Footer/Footer';
+import Loading from '@components/Loading/Loading';
 
 function HomePage() {
     const [lstProduct, setLstProducts] = useState([]);
@@ -34,7 +35,7 @@ function HomePage() {
                     <Info />
                     <AdvanceHeadling />
                     {loading ? (
-                        <div className={styles.loader}></div>
+                        <Loading />
                     ) : (
                         <PopularProduct data={lstProduct} />
                     )}

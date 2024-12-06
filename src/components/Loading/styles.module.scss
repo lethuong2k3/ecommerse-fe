@@ -1,0 +1,34 @@
+@import '@styles/mixins.module.scss';
+
+.boxLoader {
+    @include flex_box_custom(center, center, 10px);
+    height: 200px;
+    .loader {
+        width: 30px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 8px solid lightblue;
+        border-right-color: #333;
+        animation: l2 1s infinite linear;
+        margin: auto;
+
+        @keyframes l2 {
+            to {
+                transform: rotate(1turn);
+            }
+        }
+    }
+}
+
+.loadMore {
+    animation: loading 1s linear infinite;
+    transition: all 0.3s ease;
+    @keyframes loading {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}
