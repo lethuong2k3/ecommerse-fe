@@ -4,8 +4,13 @@ import { TfiReload } from 'react-icons/tfi';
 import _ from 'lodash';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import cls from 'classnames';
-import Button from '@components/Button/Button';
+import { CiRuler } from 'react-icons/ci';
 import { OurShopContext } from '@contexts/OurShopProvider';
+import Cookies from 'js-cookie';
+import { SidebarContext } from '@contexts/SideBarProvider';
+import { ToastContext } from '@contexts/ToastProvider';
+import { addProductToCart } from '@apis/cartService';
+import LoadMore from '@components/Loading/LoadMore';
 
 function ProductItem({ src, prevSrc, name, item, isHomePage = true }) {
     const getPriceRange = obj => {
@@ -20,14 +25,74 @@ function ProductItem({ src, prevSrc, name, item, isHomePage = true }) {
         const sizeSet = _.uniq(_.map(item?.productDetails, 'size.name'));
         return sizeSet;
     }, [item]);
+    const colors = useMemo(() => {
+        const colorSet = _.uniq(_.map(item?.productDetails, 'color.hex'));
+        return colorSet;
+    }, [item]);
     const ourShopStore = useContext(OurShopContext);
     const [isShowGrid, setIsShowGrid] = useState(ourShopStore?.isShowGrid);
     const [sizeChoose, setSizeChoose] = useState('');
+    const [colorChoose, setColorChoose] = useState('');
+    const [showSizeChoose, setShowSizeChoose] = useState(false);
+    const userId = Cookies.get('id');
+    const { setIsOpen, setType, handleGetListProductsCart } =
+        useContext(SidebarContext);
+    const { toast } = useContext(ToastContext);
+    const [isLoading, setIsLoading] = useState(false);
     const handleChooseSize = size => {
         setSizeChoose(size);
     };
+
+    const handleChooseColor = color => {
+        setColorChoose(color);
+    };
+
+    const handleAddToCart = () => {
+        if (!userId) {
+            setIsOpen(true);
+            setType('login');
+            toast.warning('Please login to add product to cart');
+            return;
+        }
+        if (!sizeChoose) {
+            setShowSizeChoose(true);
+            toast.warning('Please choose size!');
+            return;
+        }
+        if (!colorChoose) {
+            toast.warning('Please choose color!');
+            return;
+        }
+        let productDetail = item?.productDetails?.filter(
+            pd => pd.size.name === sizeChoose && pd.color.hex === colorChoose
+        )[0];
+        const query = {
+            orderItems: [
+                {
+                    productDetail: productDetail,
+                    quantity: 1,
+                },
+            ],
+        };
+        setIsLoading(true);
+        addProductToCart(query)
+            .then(res => {
+                setIsOpen(true);
+                setType('cart');
+                toast.success('Add product to cart successfully!');
+                setIsLoading(false);
+                handleGetListProductsCart(userId, 'cart');
+            })
+            .catch(err => {
+                toast.error('Add product to cart failed');
+                setIsLoading(false);
+            });
+    };
+
     const handleClearSize = () => {
         setSizeChoose('');
+        setColorChoose('');
+        setShowSizeChoose(false);
     };
     useEffect(() => {
         isHomePage
@@ -35,7 +100,10 @@ function ProductItem({ src, prevSrc, name, item, isHomePage = true }) {
             : setIsShowGrid(ourShopStore?.isShowGrid);
     }, [isHomePage, ourShopStore?.isShowGrid]);
     return (
-        <div className={isShowGrid ? '' : styles.containerItem}>
+        <div
+            className={isShowGrid ? '' : styles.containerItem}
+            style={{ cursor: 'pointer' }}
+        >
             <div
                 className={cls(styles.boxImg, {
                     [styles.largImg]: !isShowGrid,
@@ -43,9 +111,46 @@ function ProductItem({ src, prevSrc, name, item, isHomePage = true }) {
             >
                 <img src={src} alt='' />
                 <img src={prevSrc} alt='' className={styles.showImgWhenHover} />
-                <div className={styles.showFncWhenHover}>
-                    <div className={styles.boxIcon}>
-                        <BsBag />
+                {!isHomePage && (
+                    <>
+                        {showSizeChoose ? (
+                            <div className={styles.boxSize}>
+                                {sizes?.map((size, index) => (
+                                    <div
+                                        className={cls(styles.sizes, {
+                                            [styles.isActiveSize]:
+                                                sizeChoose === size,
+                                        })}
+                                        key={index}
+                                        onClick={() => handleChooseSize(size)}
+                                    >
+                                        {size}
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className={styles.boxAddSize}>
+                                <div
+                                    className={styles.addSize}
+                                    onClick={() => setShowSizeChoose(true)}
+                                >
+                                    <CiRuler size={25} />
+                                </div>
+                            </div>
+                        )}
+                    </>
+                )}
+
+                <div
+                    className={cls(styles.showFncWhenHover, {
+                        [styles.locationShowFnc]: !isHomePage,
+                    })}
+                >
+                    <div
+                        className={styles.boxIcon}
+                        onClick={() => handleAddToCart()}
+                    >
+                        {isLoading ? <LoadMore /> : <BsBag />}
                     </div>
                     <div className={styles.boxIcon}>
                         <BsHeart />
@@ -63,27 +168,32 @@ function ProductItem({ src, prevSrc, name, item, isHomePage = true }) {
                 style={{ marginTop: '10px' }}
             >
                 {!isHomePage && (
-                    <div className={styles.boxSize}>
-                        {sizes?.map((size, index) => (
-                            <div
-                                className={cls(styles.sizes, {
-                                    [styles.isActiveSize]: sizeChoose === size,
-                                })}
-                                key={index}
-                                onClick={() => handleChooseSize(size)}
-                            >
-                                {size}
-                            </div>
-                        ))}
-                    </div>
+                    <>
+                        <div className={styles.boxColor}>
+                            {colors?.map((color, index) => (
+                                <div
+                                    key={index}
+                                    className={cls(styles.colors, {
+                                        [styles.isActiveColor]:
+                                            colorChoose === color,
+                                    })}
+                                    style={{ backgroundColor: color }}
+                                    onClick={() => handleChooseColor(color)}
+                                ></div>
+                            ))}
+                        </div>
+                    </>
                 )}
-                {sizeChoose && (
+
+                {showSizeChoose | (colorChoose != '') ? (
                     <div
                         className={styles.btnClear}
                         onClick={() => handleClearSize()}
                     >
                         clear
                     </div>
+                ) : (
+                    ''
                 )}
                 <div
                     className={cls(styles.title, {
@@ -115,15 +225,6 @@ function ProductItem({ src, prevSrc, name, item, isHomePage = true }) {
                         </>
                     )}
                 </div>
-                {!isHomePage && (
-                    <div
-                        className={cls(styles.boxBtn, {
-                            [styles.leftBtn]: !isShowGrid,
-                        })}
-                    >
-                        <Button content={'ADD TO CART'} />
-                    </div>
-                )}
             </div>
         </div>
     );

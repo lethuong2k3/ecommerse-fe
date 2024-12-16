@@ -10,13 +10,13 @@ import classNames from 'classnames';
 import { SidebarContext } from '@contexts/SideBarProvider';
 import { TfiReload } from 'react-icons/tfi';
 import { BsHeart } from 'react-icons/bs';
-
 import { BsCart3 } from 'react-icons/bs';
 
 function Header() {
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFixedPosition] = useState(false);
-    const { setIsOpen, setType } = useContext(SidebarContext);
+    const { setIsOpen, setType, listProductCart } = useContext(SidebarContext);
+
     const handleOpenSideBar = type => {
         setIsOpen(true);
         setType(type);
@@ -83,10 +83,15 @@ function Header() {
                             size='22px'
                             onClick={() => handleOpenSideBar('wishlist')}
                         />
-                        <BsCart3
-                            size='22px'
-                            onClick={() => handleOpenSideBar('cart')}
-                        />
+                        <div className={styles.boxCart}>
+                            <BsCart3
+                                size='22px'
+                                onClick={() => handleOpenSideBar('cart')}
+                            />
+                            <div className={styles.quantity}>
+                                {listProductCart.length}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

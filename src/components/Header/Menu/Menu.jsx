@@ -1,4 +1,4 @@
-import { useContext, useState, memo } from 'react';
+import { useContext, useState, memo, useEffect } from 'react';
 import styles from '../styles.module.scss';
 import { SidebarContext } from '@contexts/SideBarProvider';
 import { StoreContext } from '@contexts/StoreProvider';
@@ -8,6 +8,7 @@ function Menu({ content, href }) {
     const { setIsOpen, setType } = useContext(SidebarContext);
     const { userInfo, handleLogout } = useContext(StoreContext);
     const [isShowSubMenu, setIsShowSubMenu] = useState(false);
+
     const navigate = useNavigate();
     const handleClickShowLogin = () => {
         if (content === 'Sign in' && !userInfo) {

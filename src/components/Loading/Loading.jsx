@@ -1,8 +1,8 @@
 import styles from './styles.module.scss';
 
-function Loading() {
+function Loading({ ...props }) {
     return (
-        <div className={styles.boxLoader}>
+        <div className={styles.boxLoader} {...props}>
             <div className={styles.loader}></div>
         </div>
     );

@@ -32,17 +32,23 @@ axiosClient.interceptors.response.use(
             originalRequest._retry = true;
             const refreshToken = Cookies.get('refreshToken');
             if (!refreshToken) return Promise.reject(err);
-            const res = await refreshTokenApi(refreshToken);
-            const newAccessToken = res.token;
-            const refreshNewToken = res.refreshToken;
-            Cookies.set('token', newAccessToken);
-            Cookies.set('refreshToken', refreshNewToken);
-            axiosClient.defaults.headers.common[
-                'Authorization'
-            ] = `Bearer ${newAccessToken}`;
-            return axiosClient(originalRequest);
+            try {
+                const res = await refreshTokenApi(refreshToken);
+                const newAccessToken = res.token;
+                const refreshNewToken = res.refreshToken;
+                Cookies.set('token', newAccessToken);
+                Cookies.set('refreshToken', refreshNewToken);
+                axiosClient.defaults.headers.common[
+                    'Authorization'
+                ] = `Bearer ${newAccessToken}`;
+                return axiosClient(originalRequest);
+            } catch (err) {
+                Cookies.remove('token');
+                Cookies.remove('refreshToken');
+                Cookies.remove('id');
+                return Promise.reject(err);
+            }
         }
-        return Promise.reject(err);
     }
 );
 export default axiosClient;

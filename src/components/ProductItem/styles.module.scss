@@ -35,6 +35,10 @@
         transition: opacity 200ms, right 200ms;
     }
 
+    .locationShowFnc {
+        bottom: 20% !important;
+    }
+
     &:hover .showFncWhenHover {
         opacity: 1;
         right: 20px;
@@ -69,24 +73,51 @@
 
 .boxSize {
     @include flex_box_custom(center, center, 10px);
-
+    position: absolute;
+    bottom: -10px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 100%;
+    min-height: 50px;
+    transform: translateY(-10px);
+    transition: transform 0.5s ease;
     .sizes {
         @include flex_box_custom(center, center, 0px);
 
-        border: 1px solid #e1e1e1;
+        border: 2px solid #e1e1e1;
         padding: 4px 8px;
         font-size: 10px;
         cursor: pointer;
 
         &:hover {
-            border: 1px solid $primary_color;
+            border: 2px solid $primary_color;
             transition: border 500ms;
         }
     }
 }
 
+.boxColor {
+    @include flex_box_custom(center, center, 10px);
+    height: 35px;
+    .colors {
+        width: 24px;
+        height: 24px;
+
+        &:hover {
+            transform: scale(1.05);
+            border: thick double #fff;
+
+            cursor: pointer;
+        }
+    }
+}
+
 .isActiveSize {
-    border: 1px solid $primary_color !important;
+    border: 2px solid $primary_color !important;
+}
+
+.isActiveColor {
+    border: thick double #fff;
 }
 
 .btnClear {
@@ -105,10 +136,25 @@
     margin: 10px auto;
 }
 
+.boxAddSize {
+    @include flex_box_custom(center, center, 0px);
+
+    .addSize {
+        @include flex_box_custom(center, center, 0px);
+        position: absolute;
+        bottom: 15px;
+        padding: 3px;
+        background-color: #fff;
+        border-radius: 50%;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        cursor: pointer;
+    }
+}
+
 .containerItem {
     @include flex_box_custom(flex-start, center, 20px);
     margin-top: 10px;
-
+    cursor: pointer;
     .content {
         @include flex_box_custom(flex-start, flex-start, 10px);
         flex-direction: column;
