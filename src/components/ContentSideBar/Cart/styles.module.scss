@@ -1,4 +1,5 @@
 @import '@styles/mixins.module.scss';
+@import '@styles/variables.module.scss';
 
 .container {
     @include flex_box_custom(space-between, unset, 10px);
@@ -34,4 +35,26 @@
             background-color: rgba(255, 255, 255, 0.5);
         }
     }
+
+    .boxEmpty {
+        text-align: center;
+        font-size: 14px;
+        color: $four_color;
+    }
+
+    .boxBtnEmpty {
+        width: 175px;
+        margin: 20px auto;
+    }
+
+    .containerListItem {
+        @include flex_box_custom(space-between, unset, 0px);
+        flex-direction: column;
+
+        flex-grow: 1;
+    }
+}
+
+.isEmpty {
+    justify-content: unset;
 }

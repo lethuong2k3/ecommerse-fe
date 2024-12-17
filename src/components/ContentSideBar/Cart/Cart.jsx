@@ -6,47 +6,80 @@ import Button from '@components/Button/Button';
 import { useContext } from 'react';
 import { SidebarContext } from '@contexts/SideBarProvider';
 import LoadMore from '@components/Loading/LoadMore';
+import cls from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 function Cart() {
-    const { listProductCart, isLoading } = useContext(SidebarContext);
+    const { listProductCart, isLoading, setIsOpen } =
+        useContext(SidebarContext);
+    const navigate = useNavigate();
+    const handleNavigateToShop = () => {
+        navigate('/shop');
+        setIsOpen(false);
+    };
+    console.log(listProductCart);
+    const subTotal = listProductCart.reduce((acc, item) => {
+        return acc + item.totalPrice;
+    }, 0);
 
     return (
-        <div className={styles.container}>
-            <div>
-                <HeaderSideBar icon={<BsCart3 size='24px' />} title='CART' />
-                <div className={styles.containerListProductCart}>
-                    {listProductCart?.map(item => {
-                        return (
-                            <ItemProduct
-                                key={item.id}
-                                src={item.productDetail.product.images[0].url}
-                                name={item.productDetail.product.name}
-                                price={item.itemPrice}
-                                sku={item.productDetail.product.sku}
-                                size={item.productDetail.size.name}
-                                color={item.productDetail.color.name}
-                                quantity={item.quantity}
-                                orderItemId={item.id}
-                            />
-                        );
-                    })}
-                    {isLoading && (
-                        <div className={styles.overlayLoading}>
-                            <LoadMore />
+        <div
+            className={cls(styles.container, {
+                [styles.isEmpty]: !listProductCart.length,
+            })}
+        >
+            <HeaderSideBar icon={<BsCart3 size='24px' />} title='CART' />
+            {listProductCart.length ? (
+                <div className={styles.containerListItem}>
+                    <div>
+                        <div className={styles.containerListProductCart}>
+                            {listProductCart?.map(item => {
+                                return (
+                                    <ItemProduct
+                                        key={item.id}
+                                        src={
+                                            item.productDetail.product.images[0]
+                                                .url
+                                        }
+                                        name={item.productDetail.product.name}
+                                        price={item.itemPrice}
+                                        sku={item.productDetail.product.sku}
+                                        size={item.productDetail.size.name}
+                                        color={item.productDetail.color.name}
+                                        quantity={item.quantity}
+                                        orderItemId={item.id}
+                                    />
+                                );
+                            })}
+                            {isLoading && (
+                                <div className={styles.overlayLoading}>
+                                    <LoadMore />
+                                </div>
+                            )}
                         </div>
-                    )}
+                    </div>
+                    <div>
+                        <div className={styles.total}>
+                            <p>SUBTOTAL: </p>
+                            <p>${subTotal}</p>
+                        </div>
+                        <div className={styles.boxBtn}>
+                            <Button content={'VIEW CART'} />
+                            <Button content={'CHECKOUT'} isPrimary={false} />
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <div className={styles.total}>
-                    <p>SUBTOTAL: </p>
-                    <p>$</p>
+            ) : (
+                <div className={styles.boxEmpty}>
+                    <div>No products in the cart.</div>
+                    <div className={styles.boxBtnEmpty}>
+                        <Button
+                            content={'RETURN TO SHOP'}
+                            onClick={handleNavigateToShop}
+                        />
+                    </div>
                 </div>
-                <div className={styles.boxBtn}>
-                    <Button content={'VIEW CART'} />
-                    <Button content={'CHECKOUT'} isPrimary={false} />
-                </div>
-            </div>
+            )}
         </div>
     );
 }

@@ -2,7 +2,7 @@
 @import '@styles/variables.module.scss';
 
 .container {
-    @include flex_box_custom(center, flex-start, 25px);
+    @include flex_box_custom(flex-start, flex-start, 25px);
 
     position: relative;
     padding: 20px;
