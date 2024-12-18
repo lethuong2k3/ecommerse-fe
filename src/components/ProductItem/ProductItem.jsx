@@ -99,6 +99,12 @@ function ProductItem({ src, prevSrc, name, item, isHomePage = true }) {
             ? setIsShowGrid(true)
             : setIsShowGrid(ourShopStore?.isShowGrid);
     }, [isHomePage, ourShopStore?.isShowGrid]);
+    useEffect(() => {
+        if (isHomePage) {
+            setSizeChoose(sizes[0]);
+            setColorChoose(colors[0]);
+        }
+    }, [isHomePage]);
     return (
         <div
             className={isShowGrid ? '' : styles.containerItem}
@@ -185,7 +191,7 @@ function ProductItem({ src, prevSrc, name, item, isHomePage = true }) {
                     </>
                 )}
 
-                {showSizeChoose | (colorChoose != '') ? (
+                {!isHomePage && showSizeChoose | (colorChoose != '') ? (
                     <div
                         className={styles.btnClear}
                         onClick={() => handleClearSize()}

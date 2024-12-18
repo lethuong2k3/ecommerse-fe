@@ -17,7 +17,6 @@ function Cart() {
         navigate('/shop');
         setIsOpen(false);
     };
-    console.log(listProductCart);
     const subTotal = listProductCart.reduce((acc, item) => {
         return acc + item.totalPrice;
     }, 0);

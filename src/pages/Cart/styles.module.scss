@@ -1,0 +1,55 @@
+@import '@styles/variables.module.scss';
+@import '@styles/mixins.module.scss';
+
+.container {
+    padding-top: 83px;
+}
+
+.containerSteps {
+    @include flex_box_custom(center, center, 0px);
+    background-color: #fafafa;
+    padding: 40px 0px;
+
+    .steps {
+        @include flex_box_custom(center, center, 30px);
+
+        .stepItem {
+            @include flex_box_custom(center, center, 30px);
+        }
+
+        .line {
+            min-width: 120px;
+            height: 1px;
+            background-color: #e1e1e1;
+        }
+    }
+
+    .stepper {
+        @include flex_box_custom(center, center, 10px);
+        text-transform: uppercase;
+        .numberStep {
+            @include flex_box_custom(center, center, 0px);
+            background-color: #333;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            border-radius: 50%;
+            color: $white_color;
+        }
+
+        .isDisabledNumber {
+            background-color: transparent;
+            border: 1px solid #e1e1e1;
+            color: #888;
+        }
+
+        .textStep {
+            color: $four_color;
+            font-size: 18px;
+        }
+
+        .isDisabledText {
+            color: #9a9a9a;
+        }
+    }
+}
