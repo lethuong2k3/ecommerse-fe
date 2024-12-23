@@ -4,7 +4,7 @@ import { FaRegTrashCan } from 'react-icons/fa6';
 import { updateItem } from '@apis/cartService';
 import LoadingCart from '@pages/Cart/components/Loading';
 
-const CartTable = ({ listProductCart, getData, isLoading }) => {
+const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
     const increment = (orderItemId, quantity) => {
         getData(orderItemId, { quantity: +quantity + 1 });
     };
@@ -14,7 +14,9 @@ const CartTable = ({ listProductCart, getData, isLoading }) => {
         }
         getData(orderItemId, { quantity: +quantity - 1 });
     };
-
+    const deleteItem = orderItemId => {
+        getDataDelete(orderItemId);
+    };
     return (
         <div className={styles.cartTable}>
             <table>
@@ -51,7 +53,7 @@ const CartTable = ({ listProductCart, getData, isLoading }) => {
                             </td>
                             <td>
                                 <div
-                                    onClick={() => handleDelete(item.id)}
+                                    onClick={() => deleteItem(item.id)}
                                     style={{
                                         fontSize: '16px',
                                         cursor: 'pointer',

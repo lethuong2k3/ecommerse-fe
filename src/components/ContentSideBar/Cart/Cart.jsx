@@ -10,9 +10,14 @@ import cls from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
 function Cart() {
+    const navigate = useNavigate();
+    const handleNavigateToCart = () => {
+        navigate('/cart');
+        setIsOpen(false);
+    };
     const { listProductCart, isLoading, setIsOpen } =
         useContext(SidebarContext);
-    const navigate = useNavigate();
+
     const handleNavigateToShop = () => {
         navigate('/shop');
         setIsOpen(false);
@@ -63,7 +68,10 @@ function Cart() {
                             <p>${subTotal}</p>
                         </div>
                         <div className={styles.boxBtn}>
-                            <Button content={'VIEW CART'} />
+                            <Button
+                                content={'VIEW CART'}
+                                onClick={handleNavigateToCart}
+                            />
                             <Button content={'CHECKOUT'} isPrimary={false} />
                         </div>
                     </div>
