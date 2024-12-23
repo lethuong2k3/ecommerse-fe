@@ -6,14 +6,14 @@ function Stepper({ number, content, isDisabled }) {
         <div className={styles.stepper}>
             <div
                 className={cls(styles.numberStep, {
-                    [styles.isDisabledNumber]: isDisabled,
+                    [styles.isDisableNumber]: isDisabled,
                 })}
             >
                 {number}
             </div>
             <div
                 className={cls(styles.textStep, {
-                    [styles.isDisabledText]: isDisabled,
+                    [styles.isDisableText]: isDisabled,
                 })}
             >
                 {content}

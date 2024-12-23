@@ -12,4 +12,8 @@ const deleteItem = async orderItemId => {
     return await axiosClient.delete(`/user/cart/${orderItemId}`);
 };
 
-export { addProductToCart, getCart, deleteItem };
+const updateItem = async (orderItemId, data) => {
+    return await axiosClient.put(`/user/cart/${orderItemId}`, data);
+};
+
+export { addProductToCart, getCart, deleteItem, updateItem };

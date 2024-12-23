@@ -35,6 +35,7 @@ export const SidebarProvider = ({ children }) => {
         handleGetListProductsCart,
         listProductCart,
         isLoading,
+        setIsLoading,
     };
     return (
         <SidebarContext.Provider value={value}>

@@ -7,37 +7,47 @@
 
 .containerSteps {
     @include flex_box_custom(center, center, 0px);
+
     background-color: #fafafa;
-    padding: 40px 0px;
+    padding: 2.3vw 0;
+    flex-direction: column;
+    margin-bottom: 2.3vw;
 
     .steps {
         @include flex_box_custom(center, center, 30px);
-
-        .stepItem {
-            @include flex_box_custom(center, center, 30px);
-        }
 
         .line {
             min-width: 120px;
             height: 1px;
             background-color: #e1e1e1;
         }
+
+        .stepItem {
+            @include flex_box_custom(center, center, 0px);
+        }
+    }
+
+    .textNoti {
+        font-size: 16px;
+        color: $four_color;
+        font-weight: 400;
+        padding-top: 35px;
     }
 
     .stepper {
         @include flex_box_custom(center, center, 10px);
         text-transform: uppercase;
+
         .numberStep {
             @include flex_box_custom(center, center, 0px);
             background-color: #333;
-            width: 30px;
-            height: 30px;
-            font-size: 18px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             color: $white_color;
         }
 
-        .isDisabledNumber {
+        .isDisableNumber {
             background-color: transparent;
             border: 1px solid #e1e1e1;
             color: #888;
@@ -45,11 +55,279 @@
 
         .textStep {
             color: $four_color;
-            font-size: 18px;
+            font-size: 21px;
+            font-weight: 300;
         }
 
-        .isDisabledText {
+        .isDisableText {
             color: #9a9a9a;
+        }
+    }
+}
+
+.containerContents {
+    @include flex_box_custom(space-between, flex-start, 30px);
+
+    .cartTable {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e1e1e1;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+
+            thead {
+                tr {
+                    th {
+                        padding: 10px 15px;
+                        border-bottom: 1px solid #ccc;
+                        font-size: 14px;
+                        font-weight: 300;
+                        text-align: center;
+                    }
+
+                    th:first-child {
+                        padding-left: 0;
+                        text-align: left;
+                    }
+
+                    th:last-child {
+                        padding-right: 0;
+                        text-align: right;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    td {
+                        padding: 15px;
+                        vertical-align: top;
+                        color: $seconddary_color;
+                        font-size: 14px;
+                        font-weight: 300;
+                        text-align: center;
+                        .quantitySelector {
+                            display: inline-flex;
+                            align-items: center;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                            font-family: Arial, sans-serif;
+
+                            .decrement,
+                            .increment {
+                                background-color: transparent;
+                                border: none;
+                                padding: 4px 8px;
+                                cursor: pointer;
+                                font-size: 18px;
+                                user-select: none;
+                            }
+
+                            .quantity {
+                                margin: 0 10px;
+                                font-size: 14px;
+                                min-width: 24px;
+                                text-align: center;
+                            }
+
+                            .decrement:focus,
+                            .increment:focus {
+                                outline: none;
+                            }
+
+                            .decrement:hover,
+                            .increment:hover {
+                                background-color: #f0f0f0;
+                            }
+                        }
+                        &:nth-child(1) {
+                            display: flex;
+                            padding-left: 0;
+                            color: $four_color;
+                            font-size: 16px;
+                            text-align: left;
+                            img {
+                                width: calc(100px - 0.71em);
+                                margin-right: 10px;
+                                border-radius: 2px;
+                            }
+
+                            div {
+                                flex-grow: 1;
+
+                                p:first-child {
+                                    margin: 0;
+                                }
+
+                                p:last-child {
+                                    font-size: 0.9em;
+                                    color: #777;
+                                }
+                            }
+                        }
+                        &:nth-child(4) {
+                            color: $thr_color;
+                        }
+
+                        &:nth-child(5) {
+                            select {
+                                width: 100%;
+                                padding: 8px;
+                                border: 1px solid #ccc;
+                                border-radius: 1px;
+                                color: $seconddary_color;
+                            }
+                        }
+
+                        &:last-child {
+                            text-align: right;
+                            padding-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .loadingCart {
+            @include flex_box_custom(center, center, 0px);
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+    }
+
+    .containerRight {
+        flex-grow: 1;
+        width: 40%;
+    }
+
+    .containerSummary {
+        padding: 25px;
+        border: 2px solid #333;
+
+        .title {
+            font-size: 14px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e1e1e1;
+            color: $primary_color;
+        }
+
+        .boxTotal {
+            @include flex_box_custom(space-between, center, 0px);
+            margin: 25px 0;
+        }
+
+        .boxBtn {
+            @include flex_box_custom(center, center, 10px);
+
+            flex-direction: column;
+
+            button {
+                width: 428px;
+            }
+        }
+        .subTotal {
+            color: $thr_color;
+
+            .price {
+                color: $seconddary_color;
+                font-weight: 300;
+                font-size: 14px;
+            }
+        }
+
+        .totals {
+            color: $four_color;
+            font-size: 20px;
+        }
+    }
+
+    .containerMethods {
+        padding: 25px 0;
+        position: relative;
+        width: 100%;
+        border: 1px solid #e1e1e1;
+        margin-top: 45px;
+
+        .titleMethods {
+            position: absolute;
+            top: -8px;
+            transform: translateX(-50%);
+            left: 50%;
+            background-color: #fff;
+            padding: 0px 10px;
+            text-transform: uppercase;
+            font-size: 14px;
+
+            span {
+                color: #2e7d32;
+            }
+        }
+
+        .boxImgMethods {
+            @include flex_box_custom(center, center, 10px);
+        }
+
+        .imgMethods {
+            border: 1px solid #e1e1e1;
+            max-width: 50%;
+            width: 50px;
+            height: 34px;
+            border-radius: 5px;
+        }
+    }
+
+    .textSecure {
+        text-align: center;
+        font-size: 14px;
+        color: $thr_color;
+        margin-top: 10px;
+    }
+
+    .boxFooter {
+        @include flex_box_custom(space-between, center, 0px);
+        margin-top: 15px;
+        .boxCoupon {
+            @include flex_box_custom(flex-start, center, 0px);
+
+            input {
+                border: 1px solid #e1e1e1;
+                padding: 8px 16px;
+                border-radius: 2px;
+                width: 300px;
+                outline: none;
+            }
+
+            button {
+                height: 36px;
+                width: 36px;
+                border-radius: 0px;
+                padding: 0px 10px;
+                font-size: 10px;
+            }
+        }
+
+        .boxBtnDelete {
+            button {
+                height: 36px;
+                font-size: 12px;
+                padding: 0 30px;
+                width: 240px;
+
+                div {
+                    @include flex_box_custom(center, center, 10px);
+
+                    height: 100%;
+                }
+            }
         }
     }
 }
