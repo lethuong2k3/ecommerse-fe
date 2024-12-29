@@ -8,6 +8,7 @@ export const SidebarProvider = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [type, setType] = useState('');
     const [listProductCart, setListProductCart] = useState([]);
+    const [product, setProduct] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const userId = Cookies.get('id');
 
@@ -36,6 +37,8 @@ export const SidebarProvider = ({ children }) => {
         listProductCart,
         isLoading,
         setIsLoading,
+        product,
+        setProduct,
     };
     return (
         <SidebarContext.Provider value={value}>

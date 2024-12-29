@@ -9,6 +9,7 @@ import { updateItem, deleteItem, deleteCart } from '@apis/cartService';
 import { BsCart3 } from 'react-icons/bs';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { ToastContext } from '@contexts/ToastProvider';
 
 function Contents() {
     const {
@@ -17,12 +18,20 @@ function Contents() {
         isLoading,
         setIsLoading,
     } = useContext(SidebarContext);
+    const { toast } = useContext(ToastContext);
+
     const userId = Cookies.get('id');
     const navigate = useNavigate();
     const handleQuantityChange = (orderItemId, data) => {
         setIsLoading(true);
         updateItem(orderItemId, data)
             .then(resp => {
+                if (resp.data.errors) {
+                    toast.error(resp.data.errors['400']);
+                    setIsLoading(false);
+
+                    return;
+                }
                 handleGetListProductsCart(userId, 'cart');
             })
             .catch(err => {

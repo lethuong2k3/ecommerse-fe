@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import styles from '../../styles.module.scss';
 import { FaRegTrashCan } from 'react-icons/fa6';
-import { updateItem } from '@apis/cartService';
 import LoadingCart from '@pages/Cart/components/Loading';
+import QuantitySelector from '@components/QuantitySelector/QuantitySelector';
 
 const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
-    const increment = (orderItemId, quantity) => {
-        getData(orderItemId, { quantity: +quantity + 1 });
+    const increment = (orderItemId, quantity, item) => {
+        if (quantity < item.productDetail.amount) {
+            getData(orderItemId, { quantity: +quantity + 1 });
+        }
     };
     const decrement = (orderItemId, quantity) => {
         if (quantity <= 1) {
@@ -53,7 +55,7 @@ const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
                             </td>
                             <td>
                                 <div
-                                    onClick={() => deleteItem(item.id)}
+                                    onClick={() => deleteItem(item.id, item)}
                                     style={{
                                         fontSize: '16px',
                                         cursor: 'pointer',
@@ -65,27 +67,11 @@ const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
                             <td>${item.itemPrice}</td>
                             <td>{item.productDetail.product.sku}</td>
                             <td>
-                                <div className={styles.quantitySelector}>
-                                    <button
-                                        className={styles.decrement}
-                                        onClick={() =>
-                                            decrement(item.id, item.quantity)
-                                        }
-                                    >
-                                        -
-                                    </button>
-                                    <span className={styles.quantity}>
-                                        {item.quantity}
-                                    </span>
-                                    <button
-                                        className={styles.increment}
-                                        onClick={() =>
-                                            increment(item.id, item.quantity)
-                                        }
-                                    >
-                                        +
-                                    </button>
-                                </div>
+                                <QuantitySelector
+                                    decrement={decrement}
+                                    increment={increment}
+                                    item={item}
+                                />
                             </td>
                             <td>${item.totalPrice.toFixed(2)}</td>
                         </tr>

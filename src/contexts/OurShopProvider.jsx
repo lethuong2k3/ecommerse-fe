@@ -1,25 +1,25 @@
 import { createContext, useEffect, useState } from 'react';
-import getProducts from '@apis/productsService';
+import { getProducts } from '@apis/productsService';
 
 export const OurShopContext = createContext();
 
 export const OurShopProvider = ({ children }) => {
     const sortOptions = [
-        { label: 'Default sorting', value: '0' },
-        { label: 'Sort by popularity', value: '1' },
-        { label: 'Sort by average rating', value: '2' },
-        { label: 'Sort by latest', value: '3' },
-        { label: 'Sort by price low to hight', value: '4' },
-        { label: 'Sort by price hight to low', value: '5' },
+        { label: 'Default sorting', value: 0 },
+        { label: 'Sort by popularity', value: 1 },
+        { label: 'Sort by average rating', value: 2 },
+        { label: 'Sort by latest', value: 3 },
+        { label: 'Sort by price low to hight', value: 4 },
+        { label: 'Sort by price hight to low', value: 5 },
     ];
     const showOptions = [
-        { label: '8', value: '8' },
-        { label: '12', value: '12' },
-        { label: 'All', value: 'all' },
+        { label: '8', value: 8 },
+        { label: '12', value: 12 },
+        { label: 'All', value: 0 },
     ];
 
-    const [sortId, setSortId] = useState('0');
-    const [showId, setShowId] = useState('8');
+    const [sortId, setSortId] = useState(0);
+    const [showId, setShowId] = useState(8);
     const [isShowGrid, setIsShowGrid] = useState(true);
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);

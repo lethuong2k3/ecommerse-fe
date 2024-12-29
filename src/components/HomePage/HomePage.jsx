@@ -5,7 +5,7 @@ import AdvanceHeadling from '@components/AdvanceHeadling/AdvanceHeadling';
 import Info from '@components/Info/Info';
 import PopularProduct from '@components/PopularProduct/PopularProduct';
 import { useEffect, useState } from 'react';
-import getProducts from '@apis/productsService';
+import { getProducts } from '@apis/productsService';
 import MainLayout from '@components/Layout/Layout';
 import SaleHomePage from '@components/SaleHomePage/SaleHomePage';
 import MyFooter from '@components/Footer/Footer';

@@ -8,6 +8,7 @@ import Compare from '@components/ContentSideBar/Compare/Compare';
 import { MdClose } from 'react-icons/md';
 import WishList from '@components/ContentSideBar/WishList/WishList';
 import Cart from '@components/ContentSideBar/Cart/Cart';
+import DetailProduct from '@components/ContentSideBar/ViewProduct/ViewProduct';
 
 function Sidebar() {
     const { isOpen, setIsOpen, type } = useContext(SidebarContext);
@@ -24,6 +25,8 @@ function Sidebar() {
                 return <WishList />;
             case 'cart':
                 return <Cart />;
+            case 'detail':
+                return <DetailProduct />;
         }
     };
 

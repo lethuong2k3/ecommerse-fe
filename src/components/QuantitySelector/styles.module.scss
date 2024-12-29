@@ -1,0 +1,34 @@
+.quantitySelector {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+
+    .decrement,
+    .increment {
+        background-color: transparent;
+        border: none;
+        padding: 4px 8px;
+        cursor: pointer;
+        font-size: 18px;
+        user-select: none;
+    }
+
+    .quantity {
+        margin: 0 10px;
+        font-size: 14px;
+        min-width: 24px;
+        text-align: center;
+    }
+
+    .decrement:focus,
+    .increment:focus {
+        outline: none;
+    }
+
+    .decrement:hover,
+    .increment:hover {
+        background-color: #f0f0f0;
+    }
+}

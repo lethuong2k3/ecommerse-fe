@@ -1,0 +1,25 @@
+.slick-slider:hover .slick-arrow {
+    color: #333;
+    width: 25px;
+    height: 25px;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.slick-slider:hover .slick-prev {
+    left: 10px;
+}
+
+.slick-slider:hover .slick-next {
+    right: 10px;
+}
+
+.slick-prev {
+    left: 0px;
+    z-index: 999;
+}
+
+.slick-next {
+    right: 0px;
+    z-index: 999;
+}

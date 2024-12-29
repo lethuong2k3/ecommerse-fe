@@ -1,21 +1,20 @@
 import axios from 'axios';
-import axiosClient from './axiosClient';
-import Cookies from 'js-cookie';
+import axiosUser from './axiosUser';
 
 const register = async body => {
-    return await axiosClient.post('/register', body);
+    return await axiosUser.post('/register', body);
 };
 
 const signIn = async body => {
-    return await axiosClient.post('/login', body);
+    return await axiosUser.post('/login', body);
 };
 
 const getInfo = async userId => {
-    return await axiosClient.get(`/user/info/${userId}`);
+    return await axiosUser.get(`/user/info/${userId}`);
 };
 
 const logOut = async () => {
-    return await axiosClient.post('/user/logout');
+    return await axiosUser.post('/user/logout');
 };
 
 const refreshTokenApi = async refreshToken => {

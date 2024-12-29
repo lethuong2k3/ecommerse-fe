@@ -19,12 +19,17 @@
         position: fixed;
         top: 0;
         right: 0;
-        width: 350px;
+        width: 400px;
         background-color: $white_color;
         z-index: 1001;
         height: 100vh;
-        transform: translateX(350px);
+        transform: translateX(400px);
         transition: all 0.3s ease;
+        overflow-y: auto;
+    }
+
+    .sideBar::-webkit-scrollbar {
+        display: none;
     }
 
     .sideSideBar {
@@ -42,7 +47,7 @@
         background-color: $white_color;
         border-radius: 50%;
         cursor: pointer;
-
+        z-index: 1002;
         &:hover {
             background-color: $background_color;
         }
