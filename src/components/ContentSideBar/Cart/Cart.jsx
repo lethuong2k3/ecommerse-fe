@@ -32,7 +32,11 @@ function Cart() {
                 [styles.isEmpty]: !listProductCart.length,
             })}
         >
-            <HeaderSideBar icon={<BsCart3 size='24px' />} title='CART' />
+            <HeaderSideBar
+                icon={<BsCart3 size='24px' />}
+                title='CART'
+                handleNavigate={handleNavigateToCart}
+            />
             {listProductCart.length ? (
                 <div className={styles.containerListItem}>
                     <div>
@@ -51,7 +55,8 @@ function Cart() {
                                         size={item.productDetail.size.name}
                                         color={item.productDetail.color.name}
                                         quantity={item.quantity}
-                                        orderItemId={item.id}
+                                        item={item}
+                                        isViewCart
                                     />
                                 );
                             })}

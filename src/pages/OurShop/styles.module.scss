@@ -3,23 +3,6 @@
 
 .container {
     padding-top: 83px;
-
-    .functionBox {
-        @include flex_box_custom(space-between, center, 0px);
-
-        color: $seconddary_color;
-        font-size: 14px;
-        font-weight: 300;
-
-        .specialText {
-            color: $primary_color;
-            font-weight: 400;
-        }
-
-        .btnBack {
-            cursor: pointer;
-        }
-    }
 }
 
 .containerBanner {

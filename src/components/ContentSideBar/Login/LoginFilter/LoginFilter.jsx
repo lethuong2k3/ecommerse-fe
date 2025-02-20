@@ -14,7 +14,6 @@ function LoginFilter({ onIncrease }) {
     const [isLoading, setIsLoading] = useState(false);
     const { setUserId } = useContext(StoreContext);
     const { toast } = useContext(ToastContext);
-    const { setIsOpen, handleGetListProductsCart } = useContext(SidebarContext);
 
     const formik = useFormik({
         initialValues: {
@@ -43,8 +42,6 @@ function LoginFilter({ onIncrease }) {
                     Cookies.set('id', userId);
                     setUserId(userId);
                     toast.success('Sign in successfully!');
-                    setIsOpen(false);
-                    handleGetListProductsCart(userId, 'cart');
                     formik.resetForm();
                 })
                 .catch(error => {

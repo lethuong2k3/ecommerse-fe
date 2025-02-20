@@ -11,11 +11,13 @@ import { SidebarContext } from '@contexts/SideBarProvider';
 import { TfiReload } from 'react-icons/tfi';
 import { BsHeart } from 'react-icons/bs';
 import { BsCart3 } from 'react-icons/bs';
+import { PiList } from 'react-icons/pi';
 
 function Header() {
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFixedPosition] = useState(false);
-    const { setIsOpen, setType, listProductCart } = useContext(SidebarContext);
+    const { setIsOpen, setType, listProductCart, listWList, compareList } =
+        useContext(SidebarContext);
 
     const handleOpenSideBar = type => {
         setIsOpen(true);
@@ -55,7 +57,10 @@ function Header() {
                         })}
                     </div>
                 </div>
-                <div>
+                <span className={styles.elementer}>
+                    <PiList size={25} />
+                </span>
+                <div className={styles.logo}>
                     <img
                         src={Logo}
                         style={{ width: '80px', height: '80px' }}
@@ -75,14 +80,28 @@ function Header() {
                         })}
                     </div>
                     <div className={styles.containerBoxIcon}>
-                        <TfiReload
-                            size='22px'
-                            onClick={() => handleOpenSideBar('compare')}
-                        />
-                        <BsHeart
-                            size='22px'
-                            onClick={() => handleOpenSideBar('wishlist')}
-                        />
+                        <div className={styles.boxCart}>
+                            <TfiReload
+                                size='22px'
+                                onClick={() => handleOpenSideBar('compare')}
+                            />
+                            {compareList.length > 0 && (
+                                <div className={styles.quantity}>
+                                    {compareList.length}
+                                </div>
+                            )}
+                        </div>
+                        <div className={styles.boxCart}>
+                            <BsHeart
+                                size='22px'
+                                onClick={() => handleOpenSideBar('wishlist')}
+                            />
+                            {listWList.length > 0 && (
+                                <div className={styles.quantity}>
+                                    {listWList.length}
+                                </div>
+                            )}
+                        </div>
                         <div className={styles.boxCart}>
                             <BsCart3
                                 size='22px'

@@ -1,9 +1,9 @@
 import { CiRuler } from 'react-icons/ci';
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 import cls from 'classnames';
 
 function Size({
-    showSizeChoose,
+    showSizeChoose = false,
     isViewProduct,
     handleSetShowSizeChoose,
     handleChooseSize,

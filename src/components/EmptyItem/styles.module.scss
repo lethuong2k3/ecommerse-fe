@@ -1,0 +1,22 @@
+@import '@styles/mixins.module.scss';
+@import '@styles/variables.module.scss';
+
+.boxEmptyCart {
+    @include flex_box_custom(center, center, 20px);
+    flex-direction: column;
+    width: 100%;
+    font-size: 14px;
+    color: $thr_color;
+
+    .titleEmpty {
+        font-size: 24px;
+        color: $primary_color;
+    }
+
+    .boxBtnEmpty {
+        button {
+            padding: 0 20px;
+            font-size: 12px;
+        }
+    }
+}

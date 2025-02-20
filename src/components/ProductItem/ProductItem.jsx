@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { BsBag, BsHeart, BsEye, BsCart3 } from 'react-icons/bs';
+import { BsBag, BsHeart, BsEye, BsCart3, BsHeartFill } from 'react-icons/bs';
 import { TfiReload, TfiEmail } from 'react-icons/tfi';
 import {
     FaXTwitter,
@@ -24,9 +24,13 @@ import Size from '@components/ProductItem/Size/Size';
 import Color from '@components/ProductItem/Color/Color';
 import QuantitySelector from '@components/QuantitySelector/QuantitySelector';
 import Button from '@components/Button/Button';
+import getPriceRange from '@hooks/useFomatPrice';
 
 import { addProductToCart } from '@apis/cartService';
 import { getProductDetail } from '@apis/productsService';
+import { useNavigate } from 'react-router-dom';
+import { createWishList, deleteWishList } from '@apis/wishlist';
+import { deleteCompare, createCompare } from '@apis/compare';
 
 function ProductItem({
     src,
@@ -35,14 +39,20 @@ function ProductItem({
     item,
     isHomePage = true,
     isViewProduct = false,
+    slideItem = false,
+    isRelatedProducts,
 }) {
     const ourShopStore = useContext(OurShopContext);
     const {
         setIsOpen,
         setType,
         handleGetListProductsCart,
+        handleGetListWishList,
         setProduct,
         listProductCart,
+        listWList,
+        compareList,
+        handleGetListCompare,
     } = useContext(SidebarContext);
     const { toast } = useContext(ToastContext);
 
@@ -53,24 +63,27 @@ function ProductItem({
     const [colorChoose, setColorChoose] = useState('');
     const [showSizeChoose, setShowSizeChoose] = useState(false);
     const [productDetail, setProductDetail] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingCart, setIsLoadingCart] = useState(false);
+    const [isLoadingWList, setIsLoadingWList] = useState(false);
+    const [isLoadingCompare, setIsLoadingCompare] = useState(false);
     const [quantity, setQuantity] = useState(1);
+    const navigate = useNavigate();
 
     const sizes = useMemo(() => {
         const sizeSet = _.uniq(_.map(item?.productDetails, 'size.name'));
         return sizeSet;
     }, [item]);
     const colors = useMemo(() => {
-        const colorSet = _.uniq(_.map(item?.productDetails, 'color.hex'));
+        const colorSet = _.uniqBy(
+            item?.productDetails?.map(({ color }) => ({
+                hex: color.hex,
+                name: color.name,
+            })),
+            'hex'
+        );
         return colorSet;
     }, [item]);
 
-    const getPriceRange = obj => {
-        const prices = obj.map(product => product.price);
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
-        return { minPrice, maxPrice };
-    };
     const { minPrice, maxPrice } = getPriceRange(item.productDetails);
     const isSamePrice = minPrice === maxPrice;
     const productDetailCart = listProductCart.filter(
@@ -89,8 +102,95 @@ function ProductItem({
         setColorChoose(color);
     };
 
+    const isInWishlist = listWList?.some(w => w.product.id === item.id);
+
+    const handleAddToCompare = () => {
+        if (!userId) {
+            setIsOpen(true);
+            setType('login');
+            toast.warning('Please login to add product to WISHLIST');
+            return;
+        }
+        const compare = compareList.find(c => c.product.id === item.id);
+        setIsLoadingCompare(true);
+        if (compare) {
+            let dataCompare = {
+                id: compare.id,
+                product: item,
+            };
+            deleteCompare(dataCompare)
+                .then(res => {
+                    handleGetListCompare(userId);
+                    setIsLoadingCompare(false);
+                })
+                .catch(err => {
+                    setIsLoadingCompare(false);
+                    console.log(err);
+                });
+        } else {
+            createCompare({ product: item })
+                .then(res => {
+                    setIsOpen(true);
+                    setType('compare');
+                    toast.success(
+                        'Add ' +
+                            res.data.data.product.name +
+                            ' to WishList successfully!'
+                    );
+                    setIsLoadingCompare(false);
+                    handleGetListCompare(userId);
+                })
+                .catch(err => {
+                    setIsLoadingCompare(false);
+                    console.log(err);
+                });
+        }
+    };
+
+    const handleAddToWishList = () => {
+        if (!userId) {
+            setIsOpen(true);
+            setType('login');
+            toast.warning('Please login to add product to WishList');
+            return;
+        }
+        const wishlistItem = listWList.find(w => w.product.id === item.id);
+        setIsLoadingWList(true);
+        if (wishlistItem) {
+            deleteWishList(wishlistItem.id)
+                .then(res => {
+                    handleGetListWishList(userId);
+                    setIsLoadingWList(false);
+                })
+                .catch(err => {
+                    console.log(err);
+                    setIsLoadingWList(false);
+                });
+        } else {
+            const query = {
+                product: { id: item.id },
+            };
+
+            createWishList(query)
+                .then(res => {
+                    setIsOpen(true);
+                    setType('wishlist');
+                    toast.success('Add product to WishList successfully!');
+                    setIsLoadingWList(false);
+                    handleGetListWishList(userId);
+                })
+                .catch(err => {
+                    setIsLoadingWList(false);
+                    console.log(err);
+                });
+        }
+    };
+
     const handleAddToCart = () => {
-        if (isHomePage) return;
+        if (isHomePage) {
+            handleNavigateToDetail();
+            return;
+        }
         if (!userId) {
             setIsOpen(true);
             setType('login');
@@ -115,23 +215,24 @@ function ProductItem({
                 },
             ],
         };
-        setIsLoading(true);
+        setIsLoadingCart(true);
         addProductToCart(query)
             .then(res => {
                 if (res.data.errors) {
                     toast.error(res.data.errors['400']);
-                    setIsLoading(false);
+                    handleGetListProductsCart(userId);
+                    setIsLoadingCart(false);
                     return;
                 }
                 setIsOpen(true);
                 setType('cart');
                 toast.success('Add product to cart successfully!');
-                setIsLoading(false);
-                handleGetListProductsCart(userId, 'cart');
+                setIsLoadingCart(false);
+                handleGetListProductsCart(userId);
             })
             .catch(err => {
                 console.log(err);
-                setIsLoading(false);
+                setIsLoadingCart(false);
             });
     };
 
@@ -175,6 +276,14 @@ function ProductItem({
         }
     };
 
+    const handleNavigateToDetail = () => {
+        if (isViewProduct) {
+            setIsOpen(false);
+        }
+        const path = `/product/${item.id}`;
+        navigate(path);
+    };
+
     useEffect(() => {
         isHomePage
             ? setIsShowGrid(true)
@@ -185,26 +294,32 @@ function ProductItem({
         if (colorChoose && sizeChoose) {
             let productDetail = item?.productDetails?.filter(
                 pd =>
-                    pd.size.name === sizeChoose && pd.color.hex === colorChoose
+                    pd.size.name === sizeChoose &&
+                    pd.color.hex === colorChoose.hex
             )[0];
             getProductDetail(productDetail.id)
                 .then(resp => {
                     setProductDetail(resp.data.data);
-                    handleGetListProductsCart(userId, 'cart');
+                    if (userId) handleGetListProductsCart(userId);
                 })
                 .catch(err => {
                     console.log(err);
                 });
         }
     }, [colorChoose, sizeChoose]);
+
+    useEffect(() => {
+        if (slideItem) setIsShowGrid(true);
+    }, [slideItem]);
+
     return (
         <div
             className={cls({
                 [styles.containerItem]: !isShowGrid && !isViewProduct,
                 [styles.containerViewItem]: isViewProduct,
+                [styles.containerRelatedProducts]: isRelatedProducts,
             })}
             style={{
-                cursor: isViewProduct ? 'default' : 'pointer',
                 flexDirection: isViewProduct ? 'column' : '',
             }}
         >
@@ -215,14 +330,17 @@ function ProductItem({
                 style={{ width: isViewProduct ? '100%' : '' }}
             >
                 {!isViewProduct ? (
-                    <>
+                    <div
+                        onClick={handleNavigateToDetail}
+                        style={{ cursor: 'pointer' }}
+                    >
                         <img src={src} alt='' />
                         <img
                             src={prevSrc}
                             alt=''
                             className={styles.showImgWhenHover}
                         />
-                    </>
+                    </div>
                 ) : (
                     <SliderCommon data={item.images} />
                 )}
@@ -248,12 +366,24 @@ function ProductItem({
                             className={styles.boxIcon}
                             onClick={() => handleAddToCart()}
                         >
-                            {isLoading ? <LoadMore /> : <BsBag />}
+                            {isLoadingCart ? <LoadMore /> : <BsBag />}
                         </div>
-                        <div className={styles.boxIcon}>
-                            <BsHeart />
+                        <div
+                            className={styles.boxIcon}
+                            onClick={() => handleAddToWishList()}
+                        >
+                            {isLoadingWList ? (
+                                <LoadMore />
+                            ) : isInWishlist ? (
+                                <BsHeartFill />
+                            ) : (
+                                <BsHeart />
+                            )}
                         </div>
-                        <div className={styles.boxIcon}>
+                        <div
+                            className={styles.boxIcon}
+                            onClick={() => handleAddToCompare()}
+                        >
                             <TfiReload />
                         </div>
                         <div
@@ -296,6 +426,8 @@ function ProductItem({
                     className={cls(styles.title, {
                         [styles.textCenter]: !isHomePage && !isViewProduct,
                     })}
+                    onClick={handleNavigateToDetail}
+                    style={{ cursor: 'pointer' }}
                 >
                     {name}
                 </div>
@@ -316,13 +448,13 @@ function ProductItem({
                     style={{ color: isHomePage ? '#333' : '#888' }}
                 >
                     {productDetail ? (
-                        <div>${productDetail.price}</div>
+                        <span>${productDetail.price}</span>
                     ) : isSamePrice ? (
-                        <div>${minPrice}</div>
+                        <span>${minPrice}</span>
                     ) : (
-                        <div>
+                        <span>
                             ${minPrice} - ${maxPrice}
-                        </div>
+                        </span>
                     )}
                 </div>
 
@@ -331,19 +463,17 @@ function ProductItem({
                         <div className={styles.des}>{item.description}</div>
 
                         <div className={styles.labelSize}>
-                            Size {productDetail?.size.name}
+                            Size {sizeChoose}
                         </div>
                         <Size
-                            showSizeChoose={showSizeChoose}
                             isViewProduct={isViewProduct}
-                            handleSetShowSizeChoose={handleSetShowSizeChoose}
                             handleChooseSize={handleChooseSize}
                             sizes={sizes}
                             sizeChoose={sizeChoose}
                         />
 
                         <div className={styles.labelColor}>
-                            Color {productDetail?.color.name}
+                            Color {colorChoose.name}
                         </div>
                         <Color
                             colors={colors}
@@ -374,25 +504,24 @@ function ProductItem({
                                 productDetail={productDetail}
                                 productDetailCart={productDetailCart}
                             />
-                            <div>
-                                <Button
-                                    content={
-                                        <>
-                                            <BsCart3 /> ADD TO CART
-                                        </>
-                                    }
-                                    onClick={handleAddToCart}
-                                />
-                            </div>
+                            <Button
+                                content={
+                                    <>
+                                        <BsCart3 /> ADD TO CART
+                                    </>
+                                }
+                                disabled={
+                                    +productDetail?.amount -
+                                        +productDetailCart?.quantity ===
+                                    0
+                                }
+                                onClick={handleAddToCart}
+                            />
                         </div>
 
                         {productDetail && (
                             <div className={styles.labelQty}>
-                                Current quantity:{' '}
-                                {productDetailCart
-                                    ? +productDetail.amount -
-                                      +productDetailCart.quantity
-                                    : productDetail.amount}
+                                Current quantity: {productDetail.amount}
                             </div>
                         )}
 

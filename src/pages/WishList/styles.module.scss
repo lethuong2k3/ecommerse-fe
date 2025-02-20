@@ -1,0 +1,135 @@
+@import '@styles/mixins.module.scss';
+@import '@styles/variables.module.scss';
+
+.container {
+    padding-top: 83px;
+}
+
+.wishlistTable {
+    width: 100%;
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        thead {
+            tr {
+                th {
+                    text-align: left;
+                    font-size: 14px;
+                    padding: 10px;
+                    color: #666;
+                    border-bottom: 1px solid #e1e1e1;
+                    font-weight: 400;
+
+                    &:last-child {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+        tbody {
+            tr {
+                border-bottom: 1px solid #eee;
+
+                .checkBox {
+                    padding: 21px 10px;
+                }
+
+                .productInfo {
+                    padding: 21px 0px;
+                }
+
+                td {
+                    padding: 21px 9px;
+
+                    &:last-child {
+                        padding-right: 0px;
+                    }
+                }
+                .productInfo {
+                    @include flex_box_custom(flex-start, center, 0px);
+
+                    img {
+                        width: 84px;
+                        height: 100px;
+                        object-fit: cover;
+                        margin-right: 15px;
+                    }
+
+                    p {
+                        margin: 0;
+                        font-size: 15px;
+
+                        span {
+                            color: $seconddary_color;
+                        }
+                    }
+                }
+
+                select {
+                    padding: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                }
+
+                .inStock {
+                    color: green;
+                }
+
+                .outOfStock {
+                    color: red;
+                }
+
+                .actions {
+                    text-align: end;
+                    .boxBtn {
+                        @include flex_box_custom(flex-end, center, 10px);
+
+                        button {
+                            width: 39px;
+                            font-size: 12px;
+                            &:nth-child(2) {
+                                width: 163px;
+                            }
+                        }
+                    }
+                    span {
+                        margin-top: 7px;
+                        font-size: 12px;
+                        color: $seconddary_color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.formActions {
+    @include flex_box_custom(space-between, center, 0px);
+
+    padding: 21px 0px 24px 0px;
+
+    button {
+        @include flex_box_custom(center, center, 10px);
+        width: 215px;
+    }
+}
+
+.containerDialog {
+    @include flex_box_custom(space-between, center, 0px);
+
+    .boxInfo {
+        width: 40%;
+
+        @include flex_box_custom(flex-start, flex-start, 0px);
+        flex-direction: column;
+        padding: 0px 50px;
+        background-color: $four_color;
+        .boxContentInfo {
+            @include flex_box_custom(flex-start, flex-start, 0px);
+        }
+    }
+
+    .boxContact {
+        width: 60%;
+    }
+}

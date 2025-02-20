@@ -31,3 +31,14 @@
         color: $white_color;
     }
 }
+
+.btnDisabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+
+    &:hover {
+        color: #fff;
+        background-color: #ccc;
+        border: none;
+    }
+}

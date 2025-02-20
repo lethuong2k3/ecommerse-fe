@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 import { getCart } from '@apis/cartService';
 import Cookies from 'js-cookie';
+import { getWishList } from '@apis/wishlist';
+import { getListCompare } from '@apis/compare';
 
 export const SidebarContext = createContext();
 
@@ -8,12 +10,15 @@ export const SidebarProvider = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [type, setType] = useState('');
     const [listProductCart, setListProductCart] = useState([]);
+    const [listWList, setListWList] = useState([]);
+    const [compareList, setCompareList] = useState([]);
     const [product, setProduct] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const userId = Cookies.get('id');
 
-    const handleGetListProductsCart = (userId, type) => {
-        if (userId && type === 'cart') {
+    const handleGetListProductsCart = userId => {
+        if (userId) {
+            setIsLoading(true);
             getCart()
                 .then(res => {
                     setListProductCart(res.data.orderItems);
@@ -25,8 +30,38 @@ export const SidebarProvider = ({ children }) => {
                 });
         }
     };
+    const handleGetListWishList = userId => {
+        if (userId) {
+            setIsLoading(true);
+            getWishList()
+                .then(res => {
+                    setListWList(res.data);
+                    setIsLoading(false);
+                })
+                .catch(err => {
+                    setListWList([]);
+                    setIsLoading(false);
+                });
+        }
+    };
+    const handleGetListCompare = userId => {
+        if (userId) {
+            setIsLoading(true);
+            getListCompare()
+                .then(res => {
+                    setCompareList(res.data.data);
+                    setIsLoading(false);
+                })
+                .catch(err => {
+                    setCompareList([]);
+                    setIsLoading(false);
+                });
+        }
+    };
     useEffect(() => {
-        handleGetListProductsCart(userId, 'cart');
+        handleGetListProductsCart(userId);
+        handleGetListWishList(userId);
+        handleGetListCompare(userId);
     }, []);
     const value = {
         isOpen,
@@ -39,6 +74,13 @@ export const SidebarProvider = ({ children }) => {
         setIsLoading,
         product,
         setProduct,
+        listWList,
+        handleGetListWishList,
+        setListWList,
+        setListProductCart,
+        compareList,
+        setCompareList,
+        handleGetListCompare,
     };
     return (
         <SidebarContext.Provider value={value}>

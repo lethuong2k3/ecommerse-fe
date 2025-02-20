@@ -13,6 +13,22 @@ const routers = [
         path: '/cart',
         component: lazy(() => import('@pages/Cart/Cart')),
     },
+    {
+        path: '/product/:id',
+        component: lazy(() => import('@pages/DetailProduct')),
+    },
+    {
+        path: '/wishlist',
+        component: lazy(() => import('@pages/WishList/WishList')),
+    },
+    {
+        path: '/compare',
+        component: lazy(() => import('@pages/Compare/Compare')),
+    },
+    {
+        path: '/about-us',
+        component: lazy(() => import('@pages/AboutUs/AboutUs')),
+    },
 ];
 
 export default routers;

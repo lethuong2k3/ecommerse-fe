@@ -7,7 +7,6 @@
     flex-direction: column;
     height: 95%;
     padding: 30px 20px 0 20px;
-
     .total {
         @include flex_box_custom(space-between, center, 0px);
     }

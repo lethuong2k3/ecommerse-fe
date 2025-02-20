@@ -4,8 +4,9 @@ import { TfiClose } from 'react-icons/tfi';
 import { useContext, useState } from 'react';
 import { SidebarContext } from '@contexts/SideBarProvider';
 import Cookies from 'js-cookie';
-import Loading from '@components/Loading/Loading';
 import LoadMore from '@components/Loading/LoadMore';
+import { deleteWishList } from '@apis/wishlist';
+import { deleteCompare } from '@apis/compare';
 
 function ItemProduct({
     src,
@@ -15,22 +16,53 @@ function ItemProduct({
     quantity,
     size,
     color,
-    orderItemId,
+    item,
+    isViewCart = false,
 }) {
     const [isDelete, setIsDelete] = useState(false);
-    const { handleGetListProductsCart } = useContext(SidebarContext);
+    const {
+        handleGetListProductsCart,
+        handleGetListWishList,
+        handleGetListCompare,
+        type,
+    } = useContext(SidebarContext);
     const userId = Cookies.get('id');
     const handleRemoveItem = () => {
         setIsDelete(true);
-        deleteItem(orderItemId)
-            .then(res => {
-                setIsDelete(false);
-
-                handleGetListProductsCart(userId, 'cart');
-            })
-            .catch(err => {
-                setIsDelete(false);
-            });
+        switch (type) {
+            case 'cart':
+                deleteItem(item.id)
+                    .then(res => {
+                        setIsDelete(false);
+                        handleGetListProductsCart(userId);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        setIsDelete(false);
+                    });
+                break;
+            case 'wishlist':
+                deleteWishList(item.id)
+                    .then(res => {
+                        setIsDelete(false);
+                        handleGetListWishList(userId);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        setIsDelete(false);
+                    });
+                break;
+            case 'compare':
+                deleteCompare({ id: item.id, product: item.product })
+                    .then(res => {
+                        setIsDelete(false);
+                        handleGetListCompare(userId);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        setIsDelete(false);
+                    });
+        }
     };
     return (
         <div className={styles.container}>
@@ -40,14 +72,18 @@ function ItemProduct({
             </div>
             <div className={styles.boxContent}>
                 <div className={styles.title}>{name}</div>
-                <div className={styles.size}>
-                    {color}, {size}
-                </div>
+                {isViewCart && (
+                    <>
+                        <div className={styles.size}>
+                            {color}, {size}
+                        </div>
+                        <div className={styles.price}>
+                            {quantity} x ${price}
+                        </div>
+                    </>
+                )}
 
-                <div className={styles.price}>
-                    {quantity} x ${price}
-                </div>
-                <div className={styles.price}>SKU: {sku}</div>
+                <div className={styles.sku}>SKU: {sku}</div>
             </div>
             {isDelete && (
                 <div className={styles.overlayLoading}>

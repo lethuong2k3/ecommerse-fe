@@ -3,13 +3,16 @@ import styles from '../../styles.module.scss';
 import CartSummary from '@pages/Cart/components/contents/CartSummary';
 import Button from '@components/Button/Button';
 import { FaRegTrashCan } from 'react-icons/fa6';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { SidebarContext } from '@contexts/SideBarProvider';
 import { updateItem, deleteItem, deleteCart } from '@apis/cartService';
 import { BsCart3 } from 'react-icons/bs';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { ToastContext } from '@contexts/ToastProvider';
+import EmptyItem from '@components/EmptyItem/EmptyItem';
+import { ConfirmDialog } from 'primereact/confirmdialog';
+import { IoWarningOutline } from 'react-icons/io5';
 
 function Contents() {
     const {
@@ -19,7 +22,7 @@ function Contents() {
         setIsLoading,
     } = useContext(SidebarContext);
     const { toast } = useContext(ToastContext);
-
+    const [visible, setVisible] = useState(false);
     const userId = Cookies.get('id');
     const navigate = useNavigate();
     const handleQuantityChange = (orderItemId, data) => {
@@ -29,7 +32,6 @@ function Contents() {
                 if (resp.data.errors) {
                     toast.error(resp.data.errors['400']);
                     setIsLoading(false);
-
                     return;
                 }
                 handleGetListProductsCart(userId, 'cart');
@@ -50,6 +52,7 @@ function Contents() {
                 console.log(err);
             });
     };
+
     const handleDeleteCart = () => {
         setIsLoading(true);
         deleteCart()
@@ -61,6 +64,7 @@ function Contents() {
                 console.log(err);
             });
     };
+
     const handleNavigateToShop = () => {
         navigate('/shop');
     };
@@ -81,6 +85,20 @@ function Contents() {
                                 <Button content={'OK'} isPrimary={false} />
                             </div>
                             <div className={styles.boxBtnDelete}>
+                                <ConfirmDialog
+                                    group='declarative'
+                                    visible={visible}
+                                    onHide={() => setVisible(false)}
+                                    message='Are you sure you want to proceed?'
+                                    header='Confirmation'
+                                    style={{ width: '50vw' }}
+                                    breakpoints={{
+                                        '1100px': '75vw',
+                                        '960px': '100vw',
+                                    }}
+                                    icon={<IoWarningOutline size={30} />}
+                                    accept={handleDeleteCart}
+                                />
                                 <Button
                                     content={
                                         <div>
@@ -89,7 +107,7 @@ function Contents() {
                                         </div>
                                     }
                                     isPrimary={false}
-                                    onClick={handleDeleteCart}
+                                    onClick={() => setVisible(true)}
                                 />
                             </div>
                         </div>
@@ -97,22 +115,11 @@ function Contents() {
                     <CartSummary />
                 </div>
             ) : (
-                <div className={styles.boxEmptyCart}>
-                    <BsCart3 size={40} />
-                    <div className={styles.titleEmpty}>
-                        YOUR SHOPPING CART IS EMPTY
-                    </div>
-                    <div>
-                        We invite you to get acquainted with an assortment of
-                        our shop. Surely you can find something for yourself!
-                    </div>
-                    <div className={styles.boxBtnEmpty}>
-                        <Button
-                            content={'RETURN TO SHOP'}
-                            onClick={handleNavigateToShop}
-                        />
-                    </div>
-                </div>
+                <EmptyItem
+                    icon={<BsCart3 size={40} />}
+                    title={'SHOPPING CART'}
+                    handleNavigateToShop={handleNavigateToShop}
+                />
             )}
         </>
     );

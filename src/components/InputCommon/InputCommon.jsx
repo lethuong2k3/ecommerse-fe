@@ -16,13 +16,19 @@ function InputCommon({ label, type, isRequired = false, ...props }) {
 
     const isErr = formik.touched[id] && formik.errors[id];
     const messageErr = formik.errors[id];
+    const Comp = type === 'textarea' ? 'textarea' : 'input';
     return (
         <div className={styles.container}>
-            <div className={styles.labelInput}>
-                {label} {isRequired && <span>*</span>}
-            </div>
-            <div className={styles.boxInput}>
-                <input
+            {label && (
+                <div className={styles.labelInput}>
+                    {label} {isRequired && <span>*</span>}
+                </div>
+            )}
+            <div
+                className={styles.boxInput}
+                style={{ height: type === 'textarea' ? '100%' : '' }}
+            >
+                <Comp
                     type={isShowTestPassword}
                     {...props}
                     onBlur={formik.handleBlur}

@@ -12,8 +12,9 @@
     .boxInput {
         width: 100%;
         position: relative;
-
-        input {
+        height: 53px;
+        input,
+        textarea {
             width: 100%;
             border: 1px solid #e1e1e1;
             outline: none;
@@ -23,7 +24,7 @@
         .boxIcon {
             position: absolute;
             top: 12px;
-            right: 0;
+            right: 10px;
             cursor: pointer;
         }
 

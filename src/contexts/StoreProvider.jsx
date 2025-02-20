@@ -3,11 +3,21 @@ import Cookies from 'js-cookie';
 import { getInfo } from '@apis/authService';
 import { ToastContext } from '@contexts/ToastProvider';
 import { logOut } from '@apis/authService';
+import { SidebarContext } from '@contexts/SideBarProvider';
 
 export const StoreContext = createContext();
 
 export const StoreProvider = ({ children }) => {
     const { toast } = useContext(ToastContext);
+    const {
+        handleGetListProductsCart,
+        handleGetListWishList,
+        handleGetListCompare,
+        setIsOpen,
+        setListWList,
+        setListProductCart,
+        setCompareList,
+    } = useContext(SidebarContext);
 
     const [userInfo, setUserInfo] = useState(null);
     const [userId, setUserId] = useState(Cookies.get('id'));
@@ -18,6 +28,9 @@ export const StoreProvider = ({ children }) => {
             Cookies.remove('id');
             setUserInfo(null);
             setUserId(null);
+            setListWList([]);
+            setListProductCart([]);
+            setCompareList([]);
             toast.success('Log out successfully!');
         });
     };
@@ -26,6 +39,10 @@ export const StoreProvider = ({ children }) => {
             getInfo(userId)
                 .then(res => {
                     setUserInfo(res.data.data);
+                    setIsOpen(false);
+                    handleGetListProductsCart(userId);
+                    handleGetListWishList(userId);
+                    handleGetListCompare(userId);
                 })
                 .catch(err => {
                     console.log(err);

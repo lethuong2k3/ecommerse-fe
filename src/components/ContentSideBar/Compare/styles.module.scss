@@ -1,16 +1,22 @@
 @import '@styles/mixins.module.scss';
 
+.header {
+    padding-top: 30px;
+}
+
 .container {
     @include flex_box_custom(space-between, unset, 10px);
 
     flex-direction: column;
-    padding: 30px 20px;
-    height: 93vh;
+    padding: 0px 20px 0px 20px;
+    height: 80%;
 
-    .boxContent {
-    }
+    .boxBtn {
+        @include flex_box_custom(space-between, unset, 10px);
+        flex-direction: column;
 
-    .boxBtn button {
-        width: 100%;
+        button {
+            width: 100%;
+        }
     }
 }

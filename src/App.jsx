@@ -5,12 +5,13 @@ import { SidebarProvider } from '@contexts/SidebarProvider';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { ToastProvider } from '@contexts/ToastProvider';
 import { StoreProvider } from '@contexts/StoreProvider';
+import 'primereact/resources/themes/lara-light-cyan/theme.css';
 
 function App() {
     return (
         <ToastProvider>
-            <StoreProvider>
-                <SidebarProvider>
+            <SidebarProvider>
+                <StoreProvider>
                     <BrowserRouter>
                         <Sidebar />
                         <Suspense fallback={<div>...Loading</div>}>
@@ -27,8 +28,8 @@ function App() {
                             </Routes>
                         </Suspense>
                     </BrowserRouter>
-                </SidebarProvider>
-            </StoreProvider>
+                </StoreProvider>
+            </SidebarProvider>
         </ToastProvider>
     );
 }

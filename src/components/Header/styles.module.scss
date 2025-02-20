@@ -22,6 +22,11 @@
     z-index: 999;
     transform: translateY(83px);
     transition: transform 0.7s ease;
+
+    @include respond(mobile-tablet) {
+        top: -64px;
+        transform: translateY(64px);
+    }
 }
 
 .containerHeader {
@@ -30,6 +35,24 @@
     align-items: center;
     justify-content: space-between;
     height: 83px;
+
+    .elementer {
+        display: none;
+    }
+
+    @include respond(mobile-tablet) {
+        height: 64px;
+        padding: 0 15px;
+        .logo img {
+            width: 60px !important;
+            height: 60px !important;
+        }
+
+        .elementer {
+            display: flex;
+            cursor: pointer;
+        }
+    }
 }
 
 .containerBoxIcon {
@@ -42,10 +65,26 @@
 
 .containerBox {
     @include flex_box_custom(center, center, 20px);
+
+    @include respond(mobile-tablet) {
+        display: none;
+
+        &:last-child {
+            display: flex;
+        }
+    }
 }
 
 .containerMenu {
     @include flex_box_custom(center, center, 40px);
+
+    @include respond(mobile-tablet) {
+        display: none;
+
+        &:last-child {
+            display: flex;
+        }
+    }
 }
 
 .boxIcon {
@@ -105,5 +144,13 @@
         height: 15px;
         @include flex_box_custom(center, center, 0px);
         font-size: 10px;
+    }
+
+    @include respond(mobile-tablet) {
+        display: none;
+
+        &:last-child {
+            display: flex;
+        }
     }
 }
