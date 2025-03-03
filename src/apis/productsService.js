@@ -1,11 +1,13 @@
 import axiosClient from '@apis/axiosClient';
 
 const getProducts = async query => {
-    const { sortType, page, limit } = query;
+    const { sortType, page, limit, categoryName } = query;
     const queryLimmit = limit === 0 ? '' : `limit=${limit}`;
+    const queryCategoryName =
+        categoryName === 'all' ? '' : `categoryName=${categoryName}`;
     try {
         const respone = await axiosClient.get(
-            `/products?sortType=${sortType}&page=${page}&${queryLimmit}`
+            `/products?sortType=${sortType}&page=${page}&${queryLimmit}&${queryCategoryName}`
         );
         return respone.data;
     } catch (error) {

@@ -29,8 +29,8 @@ import getPriceRange from '@hooks/useFomatPrice';
 import { addProductToCart } from '@apis/cartService';
 import { getProductDetail } from '@apis/productsService';
 import { useNavigate } from 'react-router-dom';
-import { createWishList, deleteWishList } from '@apis/wishlist';
-import { deleteCompare, createCompare } from '@apis/compare';
+import { createWishList, deleteWishList } from '@apis/wishlistService';
+import { deleteCompare, createCompare } from '@apis/compareService';
 
 function ProductItem({
     src,
@@ -384,7 +384,7 @@ function ProductItem({
                             className={styles.boxIcon}
                             onClick={() => handleAddToCompare()}
                         >
-                            <TfiReload />
+                            {isLoadingCompare ? <LoadMore /> : <TfiReload />}
                         </div>
                         <div
                             className={styles.boxIcon}

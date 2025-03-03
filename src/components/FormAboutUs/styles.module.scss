@@ -27,7 +27,7 @@
         background-color: #fff;
 
         .containerInfo {
-            @include flex_box_custom(center, flex-start, 10px);
+            @include flex_box_custom(flex-start, flex-start, 10px);
             padding: 43px;
             flex-direction: column;
             width: 30%;
@@ -61,6 +61,7 @@
         .title {
             font-weight: 400;
             border-bottom: 1px solid #e1e1e1;
+            margin-top: 10px;
             margin-bottom: 0px;
             padding-bottom: 15px;
             width: 100%;
@@ -91,7 +92,7 @@
                 }
             }
             .saveInfo {
-                @include flex_box_custom(center, center, 0px);
+                @include flex_box_custom(flex-start, center, 0px);
 
                 margin-bottom: 20px;
 
@@ -125,6 +126,51 @@
                 &:hover {
                     cursor: pointer;
                     background-color: $background_color;
+                }
+            }
+        }
+    }
+
+    .contactUs {
+        position: unset;
+        width: 100%;
+        margin: 40px 0px;
+        transform: none;
+
+        .containerInfo {
+            width: 25%;
+            background-color: unset;
+            color: $four_color;
+            border: 1px solid $line_color;
+            .boxInfo {
+                .contentInfo {
+                    h3 {
+                        font-weight: 400;
+                    }
+
+                    p {
+                        color: $thr_color;
+                    }
+                }
+            }
+            .containerIcons {
+                .iconInfo {
+                    background-color: $four_color;
+                    color: $white_color;
+                }
+            }
+        }
+
+        .containerContact {
+            border-width: 1px 1px 1px 0px;
+            border-style: solid;
+            border-color: $line_color;
+            height: 100%;
+            padding: 55px 100px;
+
+            .containerInput {
+                input {
+                    width: 320px;
                 }
             }
         }

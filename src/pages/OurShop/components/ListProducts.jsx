@@ -16,6 +16,7 @@ function ListProducts() {
         total,
         isLoadMore,
     } = useContext(OurShopContext);
+
     return (
         <div className={styles.sectionListProduct}>
             <MainLayout>

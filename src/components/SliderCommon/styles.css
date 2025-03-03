@@ -24,8 +24,18 @@
     z-index: 999;
 }
 
+.next {
+    right: 30px;
+}
+
+.slick-track {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
 .boxItem {
-    display: flex;
+    display: flex !important;
     justify-content: center;
     align-items: center;
 }

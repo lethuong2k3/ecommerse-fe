@@ -1,3 +1,64 @@
+@import '@styles/mixins.module.scss';
+@import '@styles/variables.module.scss';
+
 .container {
     margin-top: 83px;
+    .header {
+        @include flex_box_custom(center, center, 10px);
+        flex-direction: column;
+        padding: 30px 15px;
+
+        span {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: $thr_color;
+        }
+
+        h2 {
+            @include flex_box_custom(center, center, 0px);
+            width: 100%;
+            font-size: 24px;
+            margin: 0px 0px 10px 0px;
+            font-weight: 400;
+            color: $primary_color;
+            &:before {
+                content: '';
+                border-bottom: 4px double $line_color;
+                flex: 1;
+                margin-right: 60px;
+            }
+
+            &:after {
+                content: '';
+                border-bottom: 4px double $line_color;
+                flex: 1;
+                margin-left: 60px;
+            }
+        }
+    }
+
+    .containerContent {
+        @include flex_box_custom(center, center, 0px);
+
+        width: 100%;
+        .boxContent {
+            width: calc(100% / 3);
+            padding: 15px;
+            .boxImg {
+                margin-bottom: 30px;
+            }
+
+            p {
+                color: $thr_color;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 26px;
+            }
+        }
+    }
+
+    .sliderBrands {
+        margin-top: 40px;
+        margin-bottom: 50px;
+    }
 }

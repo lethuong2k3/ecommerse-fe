@@ -11,7 +11,7 @@ import EmptyItem from '@components/EmptyItem/EmptyItem';
 import { useContext, useState } from 'react';
 import { SidebarContext } from '@contexts/SideBarProvider';
 import { useNavigate } from 'react-router-dom';
-import { deleteWishList, removeAllWishList } from '@apis/wishlist';
+import { deleteWishList, removeAllWishList } from '@apis/wishlistService';
 import { BsHeart } from 'react-icons/bs';
 import { CiMail } from 'react-icons/ci';
 import { FaRegTrashCan, FaXTwitter } from 'react-icons/fa6';
@@ -19,45 +19,7 @@ import { ToastContext } from '@contexts/ToastProvider';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { IoWarningOutline } from 'react-icons/io5';
 import FormAboutUs from '@components/FormAboutUs/FormAboutUs';
-import { IoHomeOutline } from 'react-icons/io5';
-import { BiPhoneCall } from 'react-icons/bi';
-import { WiTime9 } from 'react-icons/wi';
-import { RiFacebookFill } from 'react-icons/ri';
-import { FaPinterestP, FaTelegramPlane } from 'react-icons/fa';
-import { createContact } from '@apis/contact';
-
-const dataAboutUs = [
-    {
-        icon: <IoHomeOutline size={30} />,
-        title: 'Address',
-        description: '7895 Piermont Dr NE Albuquerque, NM 198866',
-    },
-    {
-        icon: <BiPhoneCall size={30} />,
-        title: 'Phones',
-        description: '+391 (0)35 2568 4593 hello@domain.com',
-    },
-    {
-        icon: <WiTime9 size={20} style={{ marginTop: '5px' }} />,
-        title: "We're Open",
-        description: 'Every day 11am to 7pm',
-    },
-];
-
-const dataIcon = [
-    {
-        icon: <RiFacebookFill size={20} />,
-    },
-    {
-        icon: <FaPinterestP size={20} />,
-    },
-    {
-        icon: <FaTelegramPlane size={20} />,
-    },
-    {
-        icon: <FaXTwitter size={20} />,
-    },
-];
+import { createContact } from '@apis/contactService';
 
 function WishList() {
     const { listWList, setIsOpen, setType, setProduct, handleGetListWishList } =
@@ -145,7 +107,7 @@ function WishList() {
     const handleCreateContact = body => {
         createContact(body)
             .then(res => {
-                console.log(res);
+                toast.success('Thank you for your message. It has been sent.');
             })
             .catch(err => {
                 console.log(err);
@@ -216,8 +178,6 @@ function WishList() {
                 )}
             </div>
             <FormAboutUs
-                data={dataAboutUs}
-                icons={dataIcon}
                 handleCreateContact={handleCreateContact}
                 isOpenAboutUs={isOpenAboutUs}
                 handleHideContact={handleHideContact}

@@ -1,9 +1,20 @@
 import { createContext, useEffect, useState } from 'react';
 import { getProducts } from '@apis/productsService';
+import { useParams } from 'react-router-dom';
 
 export const OurShopContext = createContext();
 
 export const OurShopProvider = ({ children }) => {
+    const [sortId, setSortId] = useState(0);
+    const [showId, setShowId] = useState(8);
+    const [isShowGrid, setIsShowGrid] = useState(true);
+    const [products, setProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [page, setPage] = useState(0);
+    const [total, setTotal] = useState(0);
+    const [isLoadMore, setIsLoadMore] = useState(false);
+
+    const param = useParams();
     const sortOptions = [
         { label: 'Default sorting', value: 0 },
         { label: 'Sort by popularity', value: 1 },
@@ -18,20 +29,13 @@ export const OurShopProvider = ({ children }) => {
         { label: 'All', value: 0 },
     ];
 
-    const [sortId, setSortId] = useState(0);
-    const [showId, setShowId] = useState(8);
-    const [isShowGrid, setIsShowGrid] = useState(true);
-    const [products, setProducts] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [page, setPage] = useState(0);
-    const [total, setTotal] = useState(0);
-    const [isLoadMore, setIsLoadMore] = useState(false);
     const handleLoadMore = () => {
         const query = {
             sortType: sortId,
             page: +page + 1,
             limit: showId,
         };
+        if (param.categoryName) query.categoryName = param.categoryName;
         setIsLoadMore(true);
         getProducts(query)
             .then(res => {
@@ -66,6 +70,8 @@ export const OurShopProvider = ({ children }) => {
             page: 0,
             limit: showId,
         };
+        if (param.categoryName) query.categoryName = param.categoryName;
+        console.log(query);
         setIsLoading(true);
         getProducts(query)
             .then(res => {
@@ -77,7 +83,7 @@ export const OurShopProvider = ({ children }) => {
                 setIsLoading(false);
                 console.log(err);
             });
-    }, [sortId, showId]);
+    }, [sortId, showId, param]);
     return (
         <OurShopContext.Provider value={values}>
             {children}

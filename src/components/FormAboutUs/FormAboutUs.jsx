@@ -6,13 +6,51 @@ import InputCommon from '@components/InputCommon/InputCommon';
 import Button from '@components/Button/Button';
 import cls from 'classnames';
 import { useEffect, useState } from 'react';
+import { IoHomeOutline } from 'react-icons/io5';
+import { BiPhoneCall } from 'react-icons/bi';
+import { WiTime9 } from 'react-icons/wi';
+import { RiFacebookFill } from 'react-icons/ri';
+import { FaPinterestP, FaTelegramPlane } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
+
+const dataAboutUs = [
+    {
+        icon: <IoHomeOutline size={30} />,
+        title: 'Address',
+        description: '7895 Piermont Dr NE Albuquerque, NM 198866',
+    },
+    {
+        icon: <BiPhoneCall size={30} />,
+        title: 'Phones',
+        description: '+391 (0)35 2568 4593 hello@domain.com',
+    },
+    {
+        icon: <WiTime9 size={20} style={{ marginTop: '5px' }} />,
+        title: "We're Open",
+        description: 'Every day 11am to 7pm',
+    },
+];
+
+const dataIcon = [
+    {
+        icon: <RiFacebookFill size={20} />,
+    },
+    {
+        icon: <FaPinterestP size={20} />,
+    },
+    {
+        icon: <FaTelegramPlane size={20} />,
+    },
+    {
+        icon: <FaXTwitter size={20} />,
+    },
+];
 
 function FormAboutUs({
-    data,
-    icons,
     isOpenAboutUs,
     handleCreateContact,
     handleHideContact,
+    isAboutUs,
 }) {
     const [saveInfo, setSaveInfo] = useState(false);
     useEffect(() => {
@@ -57,11 +95,15 @@ function FormAboutUs({
         <>
             <div className={styles.container}>
                 <div className={cls({ [styles.overlay]: isOpenAboutUs })} />
-                {isOpenAboutUs && (
-                    <div className={styles.formAboutUs}>
+                {isOpenAboutUs | isAboutUs && (
+                    <div
+                        className={cls(styles.formAboutUs, {
+                            [styles.contactUs]: isAboutUs,
+                        })}
+                    >
                         <div className={styles.containerInfo}>
                             <h2 className={styles.title}>Information</h2>
-                            {data.map((item, index) => {
+                            {dataAboutUs.map((item, index) => {
                                 return (
                                     <div className={styles.boxInfo} key={index}>
                                         {item.icon}
@@ -73,7 +115,7 @@ function FormAboutUs({
                                 );
                             })}
                             <div className={styles.containerIcons}>
-                                {icons.map((item, index) => {
+                                {dataIcon.map((item, index) => {
                                     return (
                                         <div
                                             key={index}
@@ -112,7 +154,7 @@ function FormAboutUs({
                                     type='textarea'
                                     formik={formik}
                                     placeholder='Message'
-                                    rows='6'
+                                    rows={isAboutUs ? '8' : '6'}
                                 />
                                 <div className={styles.saveInfo}>
                                     <input
@@ -134,12 +176,14 @@ function FormAboutUs({
                                 />
                             </form>
                         </div>
-                        <div
-                            className={styles.boxIcon}
-                            onClick={() => handleHideContact()}
-                        >
-                            <MdClose size={18} />
-                        </div>
+                        {!isAboutUs && (
+                            <div
+                                className={styles.boxIcon}
+                                onClick={() => handleHideContact()}
+                            >
+                                <MdClose size={18} />
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

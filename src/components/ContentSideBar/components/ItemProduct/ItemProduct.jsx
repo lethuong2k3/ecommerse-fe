@@ -5,8 +5,8 @@ import { useContext, useState } from 'react';
 import { SidebarContext } from '@contexts/SideBarProvider';
 import Cookies from 'js-cookie';
 import LoadMore from '@components/Loading/LoadMore';
-import { deleteWishList } from '@apis/wishlist';
-import { deleteCompare } from '@apis/compare';
+import { deleteWishList } from '@apis/wishlistService';
+import { deleteCompare } from '@apis/compareService';
 
 function ItemProduct({
     src,

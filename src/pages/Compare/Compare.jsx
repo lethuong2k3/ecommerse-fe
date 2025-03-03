@@ -14,7 +14,7 @@ import { SidebarContext } from '@contexts/SideBarProvider';
 import { useNavigate } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa6';
 import { IoMdClose } from 'react-icons/io';
-import { deleteCompare, deleteAllCompare } from '@apis/compare';
+import { deleteCompare, deleteAllCompare } from '@apis/compareService';
 import LoadMore from '@components/Loading/LoadMore';
 import Cookies from 'js-cookie';
 import CheckBox from '@components/CheckBox/CheckBox';

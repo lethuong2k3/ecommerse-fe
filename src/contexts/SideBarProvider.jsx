@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 import { getCart } from '@apis/cartService';
 import Cookies from 'js-cookie';
-import { getWishList } from '@apis/wishlist';
-import { getListCompare } from '@apis/compare';
+import { getWishList } from '@apis/wishlistService';
+import { getListCompare } from '@apis/compareService';
 
 export const SidebarContext = createContext();
 

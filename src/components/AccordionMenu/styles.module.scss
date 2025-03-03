@@ -1,4 +1,5 @@
 @import '@styles/mixins.module.scss';
+@import '@styles/variables.module.scss';
 
 .container {
     .title {
@@ -31,5 +32,37 @@
 
     .borderBottom {
         border-bottom: 1px solid #e1e1e1;
+    }
+}
+
+.aboutUs {
+    @include flex_box_custom(center, center, 0px);
+    flex-direction: column;
+    .title {
+        justify-content: space-between;
+        font-size: 20px;
+        width: 861px;
+        padding: 25px 0px;
+        &:hover {
+            color: unset;
+        }
+    }
+
+    .activeTitle {
+        background-color: transparent;
+    }
+
+    .contentMenu {
+        width: 861px;
+        color: $thr_color;
+        line-height: 26px;
+        transition: all 0.5s ease;
+        text-align: justify;
+        padding: 0px;
+    }
+
+    .isVisibility {
+        height: auto;
+        padding: 25px 0px;
     }
 }
