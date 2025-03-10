@@ -1,13 +1,15 @@
 import axiosClient from '@apis/axiosClient';
 
 const getProducts = async query => {
-    const { sortType, page, limit, categoryName } = query;
-    const queryLimmit = limit === 0 ? '' : `limit=${limit}`;
+    const { sortType, page, limit, categoryName, keyword } = query;
+
     const queryCategoryName =
-        categoryName === 'all' ? '' : `categoryName=${categoryName}`;
+        categoryName === 'all' ? '' : `&categoryName=${categoryName}`;
+    const queryKeyword =
+        keyword === '' || !keyword ? '' : `&keyword=${keyword}`;
     try {
         const respone = await axiosClient.get(
-            `/products?sortType=${sortType}&page=${page}&${queryLimmit}&${queryCategoryName}`
+            `/products?sortType=${sortType}&page=${page}&limit=${limit}${queryKeyword}${queryCategoryName}`
         );
         return respone.data;
     } catch (error) {

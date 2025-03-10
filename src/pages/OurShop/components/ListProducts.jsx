@@ -29,6 +29,17 @@ function ListProducts() {
                                 isShowGrid ? styles.containerProduct : ''
                             }
                         >
+                            {' '}
+                            {!products.length && (
+                                <span
+                                    style={{
+                                        textAlign: 'center',
+                                        width: '100%',
+                                    }}
+                                >
+                                    No products found
+                                </span>
+                            )}
                             {products.map(item => (
                                 <ProductItem
                                     key={item.id}

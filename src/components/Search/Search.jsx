@@ -1,19 +1,30 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import { getCategories } from '@apis/categoryService';
 import { MdClear } from 'react-icons/md';
 import { IoIosSearch } from 'react-icons/io';
 import { TfiClose } from 'react-icons/tfi';
 import LoadMore from '@components/Loading/LoadMore';
-import Button from '@components/Button/Button';
 import { SearchContext } from '@contexts/SearchProvider';
 import cls from 'classnames';
 import { useNavigate } from 'react-router-dom';
+import { getProducts } from '@apis/productsService';
+import useDebounce from '@hooks/useDebounce';
+import Categories from '@components/Search/Categories/Categories';
+import Products from '@components/Search/Products/Products';
 
 function Search() {
     const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('all');
+    const [isLoading, setIsLoading] = useState(false);
     const { showSearch, setShowSearch } = useContext(SearchContext);
+
     const navigate = useNavigate();
+    const inputRef = useRef();
+    const debouncedValue = useDebounce(searchValue, 500);
+
     const trendingSearches = [
         {
             title: 'Shirt',
@@ -32,17 +43,42 @@ function Search() {
             href: '/#',
         },
     ];
-    const totalProducts = categories?.reduce(
-        (total, category) => total + category.countProducts,
-        0
-    );
 
     const handleClose = () => {
         setShowSearch(false);
     };
 
+    const handleClearInput = () => {
+        setSearchValue('');
+        setProducts([]);
+        inputRef.current.focus();
+    };
+
     const handleNavigateToShop = categoryName => {
         var path = `/shop/${categoryName}`;
+        setShowSearch(false);
+        navigate(path);
+    };
+
+    const handleNavigateToDetail = id => {
+        var path = `/product/${id}`;
+        setShowSearch(false);
+        navigate(path);
+    };
+
+    const handleChangeSelected = e => {
+        setSelectedCategory(e.target.value);
+    };
+
+    const handleChangeSearch = e => {
+        const searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
+        }
+    };
+
+    const handleBtnSearch = () => {
+        const path = `/shop/${selectedCategory}/${searchValue}`;
         setShowSearch(false);
         navigate(path);
     };
@@ -57,6 +93,31 @@ function Search() {
             });
     }, []);
 
+    useEffect(() => {
+        if (!debouncedValue.trim()) {
+            setProducts([]);
+            return;
+        }
+
+        const query = {
+            sortType: 0,
+            page: 0,
+            limit: 0,
+            categoryName: selectedCategory,
+            keyword: debouncedValue,
+        };
+        setIsLoading(true);
+        getProducts(query)
+            .then(res => {
+                setProducts(res.data.content);
+                setIsLoading(false);
+            })
+            .catch(err => {
+                console.log(err);
+                setIsLoading(false);
+            });
+    }, [debouncedValue]);
+
     return (
         <div
             className={cls(styles.container, {
@@ -70,13 +131,17 @@ function Search() {
                             What Are You Looking For?
                         </div>
                         <div className={styles.formInput}>
-                            <select className={styles.formSelect}>
-                                <option value={0} key={0}>
+                            <select
+                                className={styles.formSelect}
+                                value={selectedCategory}
+                                onChange={handleChangeSelected}
+                            >
+                                <option value={'all'} key={0}>
                                     All Categories
                                 </option>
                                 {categories?.map(item => {
                                     return (
-                                        <option key={item.id} value={item.id}>
+                                        <option key={item.id} value={item.name}>
                                             {item.name}
                                         </option>
                                     );
@@ -85,15 +150,27 @@ function Search() {
                             <div className={styles.inputSearch}>
                                 <input
                                     type='text'
+                                    value={searchValue}
                                     placeholder='Search for products'
+                                    onChange={handleChangeSearch}
+                                    spellCheck={false}
+                                    ref={inputRef}
                                 />
                                 <span>
-                                    <LoadMore size={13} />
-                                    <MdClear style={{ cursor: 'pointer' }} />
+                                    {isLoading && <LoadMore size={13} />}
+                                    {!!searchValue && (
+                                        <MdClear
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => handleClearInput()}
+                                        />
+                                    )}
                                 </span>
                             </div>
                             <div className={styles.boxBtn}>
-                                <button type='submit'>
+                                <button
+                                    type='submit'
+                                    onClick={() => handleBtnSearch()}
+                                >
                                     <IoIosSearch size={16} />
                                     SEARCH
                                 </button>
@@ -105,55 +182,38 @@ function Search() {
                             </span>
                             {trendingSearches.map((item, index) => {
                                 return (
-                                    <a key={index} href={item.href}>
-                                        {item.title}
-                                    </a>
-                                );
-                            })}
-                        </div>
-                    </div>
-                    <div className={styles.containerContent}>
-                        <h2 className={styles.titleContent}>
-                            Popular Categories
-                        </h2>
-                        <div className={styles.sliderContent}>
-                            <div className={styles.productCategory}>
-                                <img
-                                    src='https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.1-min.jpg'
-                                    alt='image-all'
-                                    onClick={() => handleNavigateToShop('all')}
-                                />
-                                <div className={styles.categoriesMask}>
-                                    <p>ALL</p>
-                                    <span>{totalProducts} products</span>
-                                </div>
-                            </div>
-                            {categories.map(item => {
-                                return (
-                                    <div
-                                        key={item.id}
-                                        className={styles.productCategory}
+                                    <span
+                                        key={index}
+                                        href={item.href}
+                                        onClick={() =>
+                                            setSearchValue(item.title)
+                                        }
                                     >
-                                        <img
-                                            src={item.imageUrl}
-                                            onClick={() =>
-                                                handleNavigateToShop(item.name)
-                                            }
-                                        />
-                                        <div className={styles.categoriesMask}>
-                                            <p>{item.name}</p>
-                                            <span>
-                                                {item.countProducts} products
-                                            </span>
-                                        </div>
-                                    </div>
+                                        {item.title}
+                                    </span>
                                 );
                             })}
                         </div>
-                        <div className={styles.btnViewAll}>
-                            <Button content={'VIEW ALL CATEGORIES'} />
-                        </div>
                     </div>
+                    {products.length > 0 &&
+                        (isLoading ? (
+                            <LoadMore />
+                        ) : (
+                            <Products
+                                data={products}
+                                searchValue={searchValue}
+                                handleNavigateToDetail={handleNavigateToDetail}
+                            />
+                        ))}
+                    {!!searchValue && !products.length && (
+                        <span>No results were found!</span>
+                    )}
+                    {!searchValue && (
+                        <Categories
+                            categories={categories}
+                            handleNavigateToShop={handleNavigateToShop}
+                        />
+                    )}
                 </form>
             </div>
             <span className={styles.btnClose} onClick={() => handleClose()}>

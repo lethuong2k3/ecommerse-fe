@@ -70,7 +70,7 @@ function Cart() {
                     <div>
                         <div className={styles.total}>
                             <p>SUBTOTAL: </p>
-                            <p>${subTotal}</p>
+                            <p>${parseFloat(subTotal.toFixed(2))}</p>
                         </div>
                         <div className={styles.boxBtn}>
                             <Button

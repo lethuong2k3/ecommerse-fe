@@ -10,7 +10,7 @@ function Cart() {
         <>
             <Header />
             <div className={styles.container}>
-                <Steps />
+                <Steps step={1} />
                 <MainLayout>
                     <Contents />
                 </MainLayout>

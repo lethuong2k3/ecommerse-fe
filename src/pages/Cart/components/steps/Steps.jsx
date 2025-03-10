@@ -1,7 +1,7 @@
 import Stepper from '@pages/Cart/components/steps/Stepper';
 import styles from '../../styles.module.scss';
 
-function Steps() {
+function Steps({ step }) {
     const dataSteps = [
         { number: 1, content: 'Shopping cart' },
         { number: 2, content: 'Checkout' },
@@ -17,7 +17,7 @@ function Steps() {
                                 key={index}
                                 number={item.number}
                                 content={item.content}
-                                isDisabled={index !== 0}
+                                isDisabled={index + 1 > step}
                             />
                             {index !== dataSteps.length - 1 && (
                                 <div className={styles.line}></div>

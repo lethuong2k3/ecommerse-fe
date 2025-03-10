@@ -19,6 +19,7 @@ function HomePage() {
             page: 0,
             limit: 10,
             sortType: 0,
+            categoryName: 'all',
         };
         setLoading(true);
         getProducts(query).then(res => {

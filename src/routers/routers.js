@@ -14,6 +14,10 @@ const routers = [
         component: lazy(() => import('@pages/OurShop/OurShop')),
     },
     {
+        path: '/shop/:categoryName/:keyword',
+        component: lazy(() => import('@pages/OurShop/OurShop')),
+    },
+    {
         path: '/cart',
         component: lazy(() => import('@pages/Cart/Cart')),
     },
@@ -36,6 +40,10 @@ const routers = [
     {
         path: '/contact-us',
         component: lazy(() => import('@pages/Contact/Contact')),
+    },
+    {
+        path: '/checkout',
+        component: lazy(() => import('@pages/CheckOut/Checkout')),
     },
 ];
 

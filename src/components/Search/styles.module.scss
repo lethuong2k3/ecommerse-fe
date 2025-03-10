@@ -106,52 +106,53 @@
                 color: $thr_color;
             }
 
-            a {
+            span {
                 padding: 5px 12px;
                 line-height: 1;
                 background-color: #f3f3f3;
                 text-decoration: none;
                 color: $four_color;
+                cursor: pointer;
+            }
+        }
+
+        .titleContent {
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-weight: 400;
+            color: $primary_color;
+            text-align: center;
+        }
+        .sliderContent {
+            @include flex_box_custom(flex-start, flex-start, 20px);
+            margin-top: 30px;
+            .productCategory {
+                img {
+                    width: 180px;
+                    height: 215px;
+                    cursor: pointer;
+                }
+
+                .categoriesMask {
+                    text-align: center;
+                    padding: 13px 22px 10px 22px;
+                    font-size: 14px;
+                    p {
+                        cursor: pointer;
+                        margin: 0;
+                    }
+
+                    span {
+                        cursor: pointer;
+                        color: $seconddary_color;
+                    }
+                }
             }
         }
 
         .containerContent {
             width: 100%;
-            .titleContent {
-                font-size: 24px;
-                margin-bottom: 12px;
-                font-weight: 400;
-                color: $primary_color;
-                text-align: center;
-            }
-            .sliderContent {
-                @include flex_box_custom(flex-start, center, 5px);
 
-                margin-top: 30px;
-                .productCategory {
-                    padding: 0px 15px;
-                    img {
-                        width: 180px;
-                        height: 215px;
-                        cursor: pointer;
-                    }
-
-                    .categoriesMask {
-                        text-align: center;
-                        padding: 13px 22px 10px 22px;
-                        font-size: 14px;
-                        p {
-                            cursor: pointer;
-                            margin: 0;
-                        }
-
-                        span {
-                            cursor: pointer;
-                            color: $seconddary_color;
-                        }
-                    }
-                }
-            }
             .btnViewAll {
                 @include flex_box_custom(center, center, 0px);
 
@@ -162,6 +163,68 @@
                     font-size: 14px;
                     width: 222px;
                 }
+            }
+        }
+
+        .containerProducts {
+            width: 100%;
+
+            .productItem {
+                width: 230px;
+                font-size: 14px;
+                .boxImg {
+                    width: 100%;
+                    position: relative;
+                    img {
+                        width: 100%;
+                        height: 274px;
+                        cursor: pointer;
+                    }
+
+                    .btnCart {
+                        @include flex_box_custom(center, center, 10px);
+
+                        visibility: hidden;
+                        position: absolute;
+                        bottom: 0px;
+
+                        left: 50%;
+                        transform: translate(-50%, 20%);
+                        transition: all 0.2s ease-in-out;
+                        width: 190px;
+                        height: 35px;
+                        opacity: 0;
+                        border: none;
+                        background-color: #000;
+                        color: #fff;
+                        font-size: 12px;
+                        cursor: pointer;
+                    }
+                }
+
+                .productMask {
+                    margin-top: 20px;
+                    .categoryName {
+                        line-height: 1.5;
+                        color: $four_color;
+                    }
+
+                    .productName {
+                        margin: 2px 0px 10px 0px;
+                        font-size: 16px;
+                        cursor: pointer;
+                    }
+
+                    .productPrice {
+                        color: $seconddary_color;
+                    }
+                }
+            }
+
+            .productItem:hover .btnCart {
+                visibility: visible;
+                transform: translate(-50%, 0);
+                opacity: 1;
             }
         }
     }

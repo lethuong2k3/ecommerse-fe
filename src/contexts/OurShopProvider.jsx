@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { getProducts } from '@apis/productsService';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const OurShopContext = createContext();
 
@@ -13,6 +13,7 @@ export const OurShopProvider = ({ children }) => {
     const [page, setPage] = useState(0);
     const [total, setTotal] = useState(0);
     const [isLoadMore, setIsLoadMore] = useState(false);
+    const navigate = useNavigate();
 
     const param = useParams();
     const sortOptions = [
@@ -34,6 +35,7 @@ export const OurShopProvider = ({ children }) => {
             sortType: sortId,
             page: +page + 1,
             limit: showId,
+            categoryName: 'all',
         };
         if (param.categoryName) query.categoryName = param.categoryName;
         setIsLoadMore(true);
@@ -69,9 +71,10 @@ export const OurShopProvider = ({ children }) => {
             sortType: sortId,
             page: 0,
             limit: showId,
+            categoryName: 'all',
         };
         if (param.categoryName) query.categoryName = param.categoryName;
-        console.log(query);
+        if (param.keyword) query.keyword = param.keyword;
         setIsLoading(true);
         getProducts(query)
             .then(res => {
@@ -84,6 +87,11 @@ export const OurShopProvider = ({ children }) => {
                 console.log(err);
             });
     }, [sortId, showId, param]);
+    useEffect(() => {
+        if (param.keyword && products.length == 1) {
+            navigate(`/product/${products[0].id}`);
+        }
+    }, [products, param]);
     return (
         <OurShopContext.Provider value={values}>
             {children}

@@ -1,0 +1,43 @@
+@import '@styles/mixins.module.scss';
+@import '@styles/variables.module.scss';
+
+.container {
+    margin-top: 83px;
+    .info {
+        color: $four_color;
+        margin-bottom: 20px;
+        span {
+            margin-left: 5px;
+            text-decoration: underline;
+            font-weight: 400;
+        }
+    }
+    .containerCheckOut {
+        @include flex_box_custom(flex-start, center, 20px);
+        font-size: 14px;
+
+        .first {
+            width: 60%;
+
+            .titleStep {
+                font-size: 14px;
+                font-weight: 400;
+                color: $primary_color;
+                padding-bottom: 14px;
+                border-bottom: 1px solid $line_color;
+            }
+
+            .inputGroup {
+                @include flex_box_custom(space-between, center, 20px);
+
+                input {
+                    width: 342px;
+                }
+            }
+        }
+
+        .last {
+            width: 40%;
+        }
+    }
+}
