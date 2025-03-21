@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import routers from '@routers/routers';
+import { privateRouters, publicRouters } from '@routers/routers';
 import { Suspense } from 'react';
 import { SidebarProvider } from '@contexts/SidebarProvider';
 import Sidebar from '@components/Sidebar/Sidebar';
@@ -8,6 +8,7 @@ import { StoreProvider } from '@contexts/StoreProvider';
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
 import { SearchProvider } from '@contexts/SearchProvider';
 import Search from '@components/Search/Search';
+import ProtectedRoute from '@routers/ProtectedRoute';
 
 function App() {
     return (
@@ -20,7 +21,18 @@ function App() {
                             <Search />
                             <Suspense fallback={<div>...Loading</div>}>
                                 <Routes>
-                                    {routers.map((item, index) => {
+                                    <Route element={<ProtectedRoute />}>
+                                        {privateRouters.map((item, index) => {
+                                            return (
+                                                <Route
+                                                    path={item.path}
+                                                    element={<item.component />}
+                                                    key={index}
+                                                />
+                                            );
+                                        })}
+                                    </Route>
+                                    {publicRouters.map((item, index) => {
                                         return (
                                             <Route
                                                 path={item.path}

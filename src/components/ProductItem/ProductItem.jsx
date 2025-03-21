@@ -289,7 +289,6 @@ function ProductItem({
             ? setIsShowGrid(true)
             : setIsShowGrid(ourShopStore?.isShowGrid);
     }, [isHomePage, ourShopStore?.isShowGrid]);
-
     useEffect(() => {
         if (colorChoose && sizeChoose) {
             let productDetail = item?.productDetails?.filter(

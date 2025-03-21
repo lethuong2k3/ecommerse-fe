@@ -30,6 +30,7 @@ export const SidebarProvider = ({ children }) => {
                 });
         }
     };
+
     const handleGetListWishList = userId => {
         if (userId) {
             setIsLoading(true);

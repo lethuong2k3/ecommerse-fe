@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-const routers = [
+const publicRouters = [
     {
         path: '/',
         component: lazy(() => import('@components/HomePage/HomePage')),
@@ -41,10 +41,13 @@ const routers = [
         path: '/contact-us',
         component: lazy(() => import('@pages/Contact/Contact')),
     },
+];
+
+const privateRouters = [
     {
         path: '/checkout',
-        component: lazy(() => import('@pages/CheckOut/Checkout')),
+        component: lazy(() => import('@pages/CheckOut/CheckOut')),
     },
 ];
 
-export default routers;
+export { privateRouters, publicRouters };

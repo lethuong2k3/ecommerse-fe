@@ -1,14 +1,24 @@
+import { useEffect, useState } from 'react';
 import styles from './styles.module.scss';
+import { getAllPaymentTypes } from '@apis/paymentTypeService';
+import LoadMore from '@components/Loading/LoadMore';
 
 function PaymentMethods() {
-    const srcMethods = [
-        'https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/visa.jpeg',
-        'https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/master-card.jpeg',
-        'https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/paypal.jpeg',
-        'https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/american-express.jpeg',
-        'https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/maestro.jpeg',
-        'https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/bitcoin.jpeg',
-    ];
+    const [listMethod, setListMethod] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    useEffect(() => {
+        setIsLoading(true);
+        getAllPaymentTypes()
+            .then(res => {
+                setListMethod(res.data.data);
+                setIsLoading(false);
+            })
+            .catch(err => {
+                console.log(err);
+                setIsLoading(false);
+            });
+    }, []);
+
     return (
         <>
             <div className={styles.containerMethods}>
@@ -16,11 +26,12 @@ function PaymentMethods() {
                     Guaranteed <span>safe</span> checkout
                 </div>
                 <div className={styles.boxImgMethods}>
-                    {srcMethods.map((src, key) => {
+                    {isLoading && <LoadMore />}
+                    {listMethod.map((item, key) => {
                         return (
                             <img
                                 key={key}
-                                src={src}
+                                src={item.imageUrl}
                                 alt=''
                                 className={styles.imgMethods}
                             />

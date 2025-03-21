@@ -35,6 +35,7 @@ function Contents() {
                     return;
                 }
                 handleGetListProductsCart(userId, 'cart');
+                setIsLoading(false);
             })
             .catch(err => {
                 setIsLoading(false);
@@ -57,7 +58,8 @@ function Contents() {
         setIsLoading(true);
         deleteCart()
             .then(resp => {
-                handleGetListProductsCart(userId, 'cart');
+                handleGetListProductsCart(userId);
+                setIsLoading(false);
             })
             .catch(err => {
                 setIsLoading(false);

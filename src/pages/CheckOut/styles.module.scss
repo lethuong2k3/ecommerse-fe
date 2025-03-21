@@ -13,19 +13,18 @@
         }
     }
     .containerCheckOut {
-        @include flex_box_custom(flex-start, center, 20px);
+        @include flex_box_custom(flex-start, flex-start, 20px);
         font-size: 14px;
-
+        .titleStep {
+            font-size: 14px;
+            font-weight: 400;
+            color: $primary_color;
+            padding-bottom: 14px;
+            border-bottom: 1px solid $line_color;
+            text-transform: uppercase;
+        }
         .first {
             width: 60%;
-
-            .titleStep {
-                font-size: 14px;
-                font-weight: 400;
-                color: $primary_color;
-                padding-bottom: 14px;
-                border-bottom: 1px solid $line_color;
-            }
 
             .inputGroup {
                 @include flex_box_custom(space-between, center, 20px);
@@ -38,6 +37,94 @@
 
         .last {
             width: 40%;
+            padding: 1.7em 1.5em 1.5em;
+            border: 2px solid $four_color;
+            .shopTable {
+                @include flex_box_custom(flex-start, flex-start, 10px);
+                padding-bottom: 20px;
+                img {
+                    width: 90px;
+                    height: 110px;
+                }
+                .productInfo {
+                    @include flex_box_custom(unset, unset, 7px);
+                    flex-direction: column;
+                    font-size: 16px;
+                    font-weight: 400;
+                    color: $four_color;
+                    .productPriceQty {
+                        @include flex_box_custom(flex-start, center, 10px);
+                    }
+
+                    .variation {
+                        span {
+                            margin-left: 5px;
+                            color: $seconddary_color;
+                        }
+                    }
+
+                    .productRemove {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .footShopTable {
+                border-width: 1px 0px 1px 0px;
+                border-style: solid;
+                border-color: $line_color;
+                padding-bottom: 10px;
+                .cartSubtotal {
+                    @include flex_box_custom(space-between, center, 0px);
+                    padding: 15px 0px;
+                    color: $thr_color;
+                    font-size: 16px;
+                }
+
+                .orderTotal {
+                    @include flex_box_custom(space-between, center, 0px);
+
+                    text-transform: uppercase;
+                    padding: 15px 0px;
+                    font-size: 20px;
+                }
+            }
+
+            .paymentMethods {
+                padding-top: 20px;
+                font-size: 16px;
+                color: $four_color;
+                .boxPaymentMethods {
+                    @include flex_box_custom(flex-start, flex-start, 10px);
+                    margin-bottom: 10px;
+                    input {
+                        margin-top: 10px;
+                    }
+
+                    img {
+                        width: 40px;
+                        height: 40px;
+                    }
+
+                    .paymentDes {
+                        margin-top: 5px;
+                        color: $thr_color;
+                        line-height: 1.5;
+                        height: 0px;
+                        overflow: hidden;
+                        transition: all 0.3s ease;
+                    }
+
+                    .paymentDesActive {
+                        height: auto;
+                    }
+
+                    .disabledMethodPay {
+                        color: $seconddary_color;
+                    }
+                }
+            }
         }
     }
 }
