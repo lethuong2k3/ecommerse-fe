@@ -26,4 +26,12 @@
     color: $thr_color;
     font-weight: 400;
     margin-bottom: 25px;
+
+    @include respond(phone) {
+        width: 370px;
+    }
+
+    @include respond(tablet) {
+        width: 100%;
+    }
 }

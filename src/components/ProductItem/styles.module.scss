@@ -1,10 +1,22 @@
 @import '@styles/variables.module.scss';
 @import '@styles/mixins.module.scss';
 
+.container {
+    @include respond(phone) {
+        @include flex_box_custom(flex-start, center, 0px);
+        width: 170px;
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 .boxImg {
     width: 300px;
     height: 100%;
     position: relative;
+
     img {
         width: 100%;
         height: 100%;
@@ -56,6 +68,10 @@
             background-color: $background_color;
             transition: background-color 500ms;
         }
+    }
+
+    @include respond(phone) {
+        width: 100%;
     }
 }
 
@@ -109,10 +125,15 @@
     margin: 10px auto;
 }
 
+.boxContent {
+    width: 100%;
+}
+
 .containerItem {
     @include flex_box_custom(flex-start, center, 20px);
     margin-top: 10px;
     cursor: pointer;
+
     .content {
         @include flex_box_custom(flex-start, flex-start, 10px);
         flex-direction: column;

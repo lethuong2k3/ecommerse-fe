@@ -16,16 +16,28 @@ import { PiList } from 'react-icons/pi';
 function Header() {
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFixedPosition] = useState(false);
-    const { setIsOpen, setType, listProductCart, listWList, compareList } =
-        useContext(SidebarContext);
+    const {
+        setIsOpen,
+        setType,
+        listProductCart,
+        listWList,
+        compareList,
+        setLeftSideBar,
+    } = useContext(SidebarContext);
 
     const handleOpenSideBar = type => {
         setIsOpen(true);
         setType(type);
     };
+
+    const handleOpenSideBarMenu = () => {
+        setLeftSideBar(true);
+    };
+
     useEffect(() => {
         setFixedPosition(scrollPosition > 80);
     }, [scrollPosition]);
+
     return (
         <div
             className={classNames(styles.container, styles.topHeader, {
@@ -57,7 +69,10 @@ function Header() {
                         })}
                     </div>
                 </div>
-                <span className={styles.elementer}>
+                <span
+                    className={styles.elementer}
+                    onClick={() => handleOpenSideBarMenu()}
+                >
                     <PiList size={25} />
                 </span>
                 <div className={styles.logo}>

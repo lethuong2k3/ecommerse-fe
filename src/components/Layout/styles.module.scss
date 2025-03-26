@@ -1,3 +1,5 @@
+@import '@styles/mixins.module.scss';
+
 .wrapLayout {
     display: flex;
     justify-content: center;
@@ -5,4 +7,8 @@
 
 .container {
     width: 1250px;
+
+    @include respond(phone) {
+        width: 100%;
+    }
 }

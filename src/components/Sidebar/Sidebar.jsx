@@ -15,6 +15,7 @@ function Sidebar() {
     const handleToggle = () => {
         setIsOpen(!isOpen);
     };
+
     const handleRenderContent = () => {
         switch (type) {
             case 'login':

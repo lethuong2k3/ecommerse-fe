@@ -21,6 +21,7 @@ import CheckBox from '@components/CheckBox/CheckBox';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { IoWarningOutline } from 'react-icons/io5';
 import { ToastContext } from '@contexts/ToastProvider';
+import getPriceRange from '@hooks/useFomatPrice';
 
 function Compare() {
     const { compareList, handleGetListCompare } = useContext(SidebarContext);
@@ -35,17 +36,6 @@ function Compare() {
     }, [compareList]);
     const navigate = useNavigate();
     const scrollContainerRef = useRef(null);
-    const getPriceRange = obj => {
-        const prices = obj.map(product => product.price);
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
-        if (minPrice === maxPrice) return <>${maxPrice}</>;
-        return (
-            <>
-                ${minPrice} - ${maxPrice}
-            </>
-        );
-    };
     while (compares?.length < 4 && compares?.length > 0) {
         compares.push({
             product: [

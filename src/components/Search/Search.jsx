@@ -78,7 +78,7 @@ function Search() {
     };
 
     const handleBtnSearch = () => {
-        const path = `/shop/${selectedCategory}/${searchValue}`;
+        const path = `/shop/${selectedCategory}/${debouncedValue}`;
         setShowSearch(false);
         navigate(path);
     };
@@ -205,7 +205,7 @@ function Search() {
                                 handleNavigateToDetail={handleNavigateToDetail}
                             />
                         ))}
-                    {!!searchValue && !products.length && (
+                    {debouncedValue && !products.length && !isLoading && (
                         <span>No results were found!</span>
                     )}
                     {!searchValue && (

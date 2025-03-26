@@ -8,6 +8,7 @@ export const SidebarContext = createContext();
 
 export const SidebarProvider = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [leftSideBar, setLeftSideBar] = useState(false);
     const [type, setType] = useState('');
     const [listProductCart, setListProductCart] = useState([]);
     const [listWList, setListWList] = useState([]);
@@ -82,6 +83,8 @@ export const SidebarProvider = ({ children }) => {
         compareList,
         setCompareList,
         handleGetListCompare,
+        leftSideBar,
+        setLeftSideBar,
     };
     return (
         <SidebarContext.Provider value={value}>

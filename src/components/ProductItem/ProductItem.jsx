@@ -84,8 +84,6 @@ function ProductItem({
         return colorSet;
     }, [item]);
 
-    const { minPrice, maxPrice } = getPriceRange(item.productDetails);
-    const isSamePrice = minPrice === maxPrice;
     const productDetailCart = listProductCart.filter(
         lst => lst.productDetail.id === productDetail?.id
     )[0];
@@ -313,7 +311,7 @@ function ProductItem({
 
     return (
         <div
-            className={cls({
+            className={cls(styles.container, {
                 [styles.containerItem]: !isShowGrid && !isViewProduct,
                 [styles.containerViewItem]: isViewProduct,
                 [styles.containerRelatedProducts]: isRelatedProducts,
@@ -396,7 +394,7 @@ function ProductItem({
             </div>
 
             <div
-                className={cls({
+                className={cls(styles.boxContent, {
                     [styles.content]: !isShowGrid && !isViewProduct,
                 })}
                 style={{ marginTop: '10px' }}
@@ -448,12 +446,8 @@ function ProductItem({
                 >
                     {productDetail ? (
                         <span>${productDetail.price}</span>
-                    ) : isSamePrice ? (
-                        <span>${minPrice}</span>
                     ) : (
-                        <span>
-                            ${minPrice} - ${maxPrice}
-                        </span>
+                        getPriceRange(item?.productDetails)
                     )}
                 </div>
 

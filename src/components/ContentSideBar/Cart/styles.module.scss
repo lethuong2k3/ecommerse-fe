@@ -33,6 +33,15 @@
             height: 100%;
             background-color: rgba(255, 255, 255, 0.5);
         }
+
+        @include respond(mobile-tablet) {
+            height: 600px;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                overflow: hidden;
+            }
+        }
     }
 
     .boxEmpty {
@@ -49,7 +58,6 @@
     .containerListItem {
         @include flex_box_custom(space-between, unset, 0px);
         flex-direction: column;
-
         flex-grow: 1;
     }
 }

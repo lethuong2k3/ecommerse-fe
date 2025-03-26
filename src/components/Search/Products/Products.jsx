@@ -1,29 +1,9 @@
+import getPriceRange from '@hooks/useFomatPrice';
 import styles from '../styles.module.scss';
 import { BsCart3 } from 'react-icons/bs';
+import highlightText from '@hooks/useHighlightText';
 
 function Products({ data, searchValue, handleNavigateToDetail }) {
-    const getPriceRange = obj => {
-        const prices = obj.map(product => product.price);
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
-        if (minPrice === maxPrice) return <>${maxPrice}</>;
-        return (
-            <>
-                ${minPrice} - ${maxPrice}
-            </>
-        );
-    };
-
-    const highlightText = (text, searchValue) => {
-        if (!searchValue) return text;
-        const regex = new RegExp(`(${searchValue})`, 'gi');
-        return text
-            .split(regex)
-            .map((part, index) =>
-                regex.test(part) ? <b key={index}>{part}</b> : part
-            );
-    };
-
     return (
         <div className={styles.containerProducts}>
             <h2 className={styles.titleContent}>

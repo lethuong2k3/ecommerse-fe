@@ -19,6 +19,10 @@
         cursor: pointer;
         transform: translateX(30px);
         transition: all 0.3s ease;
+
+        @include respond(mobile-tablet) {
+            transform: translateX(0px);
+        }
     }
 
     .boxContent {

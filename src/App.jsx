@@ -9,6 +9,7 @@ import 'primereact/resources/themes/lara-light-cyan/theme.css';
 import { SearchProvider } from '@contexts/SearchProvider';
 import Search from '@components/Search/Search';
 import ProtectedRoute from '@routers/ProtectedRoute';
+import SidebarMenu from '@components/Sidebar/SidebarMenu';
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <StoreProvider>
                         <BrowserRouter>
                             <Sidebar />
+                            <SidebarMenu />
                             <Search />
                             <Suspense fallback={<div>...Loading</div>}>
                                 <Routes>

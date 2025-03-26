@@ -30,6 +30,7 @@ import { SidebarContext } from '@contexts/SideBarProvider';
 import { ToastContext } from '@contexts/ToastProvider';
 import { BsCart3 } from 'react-icons/bs';
 import LoadMore from '@components/Loading/LoadMore';
+import getPriceRange from '@hooks/useFomatPrice';
 
 function DetailProduct() {
     const { handleGetListProductsCart, listProductCart, setIsOpen, setType } =
@@ -66,18 +67,6 @@ function DetailProduct() {
         return colorSet;
     }, [data]);
     const param = useParams();
-    const getPriceRange = obj => {
-        if (!obj) return;
-        const prices = obj.map(product => product.price);
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
-        if (minPrice === maxPrice) return <>${maxPrice}</>;
-        return (
-            <>
-                ${minPrice} - ${maxPrice}
-            </>
-        );
-    };
     const handleSelectedColor = color => {
         setColorSelected(color);
     };

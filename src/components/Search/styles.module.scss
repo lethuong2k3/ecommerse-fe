@@ -8,11 +8,14 @@
     right: 0;
     bottom: 0;
     background-color: #fff;
-    z-index: 9999;
+    z-index: 999;
     padding: 25px;
     transform: translateY(-800px);
     transition: all 0.7s ease;
-
+    visibility: hidden;
+    @include respond(mobile-tablet) {
+        display: none;
+    }
     form {
         @include flex_box_custom(center, center, 40px);
         flex-direction: column;
@@ -244,9 +247,6 @@
 }
 
 .showSearch {
+    visibility: visible;
     transform: translate(0);
-
-    ::-webkit-scrollbar {
-        display: none;
-    }
 }

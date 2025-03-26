@@ -20,6 +20,7 @@ import { ConfirmDialog } from 'primereact/confirmdialog';
 import { IoWarningOutline } from 'react-icons/io5';
 import FormAboutUs from '@components/FormAboutUs/FormAboutUs';
 import { createContact } from '@apis/contactService';
+import getPriceRange from '@hooks/useFomatPrice';
 
 function WishList() {
     const { listWList, setIsOpen, setType, setProduct, handleGetListWishList } =
@@ -30,18 +31,6 @@ function WishList() {
     const [visible, setVisible] = useState(false);
     const [isOpenAboutUs, setIsOpenAboutUs] = useState(false);
     const navigate = useNavigate();
-
-    const getPriceRange = obj => {
-        const prices = obj.map(product => product.price);
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
-        if (minPrice === maxPrice) return <>${maxPrice}</>;
-        return (
-            <>
-                ${minPrice} - ${maxPrice}
-            </>
-        );
-    };
 
     const acceptRemove = () => {
         console.log(selected);

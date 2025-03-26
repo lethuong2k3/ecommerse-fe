@@ -19,6 +19,12 @@
     width: 60%;
     padding: 0px 50px;
     line-height: 0px;
+
+    @include respond(phone) {
+        width: 100%;
+        padding: 15px;
+        text-align: center;
+    }
 }
 
 .description {
@@ -31,4 +37,5 @@
     font-size: 24px;
     color: $primary_color;
     font-weight: 400;
+    width: 100%;
 }
