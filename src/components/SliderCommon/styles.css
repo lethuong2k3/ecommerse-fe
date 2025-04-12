@@ -24,18 +24,20 @@
     z-index: 999;
 }
 
-.next {
-    right: 30px;
-}
-
-.slick-track {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-}
-
 .boxItem {
     display: flex !important;
     justify-content: center;
     align-items: center;
+}
+
+@media only screen and (max-width: 64em) {
+    .slick-slider:hover .slick-prev,
+    .slick-prev {
+        display: none;
+    }
+
+    .slick-slider:hover .slick-prev,
+    .slick-next {
+        display: none;
+    }
 }

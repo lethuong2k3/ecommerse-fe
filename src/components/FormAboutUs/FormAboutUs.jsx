@@ -15,17 +15,17 @@ import { FaXTwitter } from 'react-icons/fa6';
 
 const dataAboutUs = [
     {
-        icon: <IoHomeOutline size={30} />,
+        icon: <IoHomeOutline />,
         title: 'Address',
         description: '7895 Piermont Dr NE Albuquerque, NM 198866',
     },
     {
-        icon: <BiPhoneCall size={30} />,
+        icon: <BiPhoneCall />,
         title: 'Phones',
         description: '+391 (0)35 2568 4593 hello@domain.com',
     },
     {
-        icon: <WiTime9 size={20} style={{ marginTop: '5px' }} />,
+        icon: <WiTime9 style={{ marginTop: '5px' }} />,
         title: "We're Open",
         description: 'Every day 11am to 7pm',
     },
@@ -33,16 +33,16 @@ const dataAboutUs = [
 
 const dataIcon = [
     {
-        icon: <RiFacebookFill size={20} />,
+        icon: <RiFacebookFill />,
     },
     {
-        icon: <FaPinterestP size={20} />,
+        icon: <FaPinterestP />,
     },
     {
-        icon: <FaTelegramPlane size={20} />,
+        icon: <FaTelegramPlane />,
     },
     {
-        icon: <FaXTwitter size={20} />,
+        icon: <FaXTwitter />,
     },
 ];
 
@@ -95,7 +95,7 @@ function FormAboutUs({
         <>
             <div className={styles.container}>
                 <div className={cls({ [styles.overlay]: isOpenAboutUs })} />
-                {isOpenAboutUs | isAboutUs && (
+                {(isOpenAboutUs || isAboutUs) && (
                     <div
                         className={cls(styles.formAboutUs, {
                             [styles.contactUs]: isAboutUs,
@@ -106,7 +106,7 @@ function FormAboutUs({
                             {dataAboutUs.map((item, index) => {
                                 return (
                                     <div className={styles.boxInfo} key={index}>
-                                        {item.icon}
+                                        <i>{item.icon}</i>
                                         <div className={styles.contentInfo}>
                                             <h3>{item.title}</h3>
                                             <p>{item.description}</p>

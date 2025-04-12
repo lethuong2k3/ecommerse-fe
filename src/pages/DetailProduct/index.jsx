@@ -232,8 +232,14 @@ function DetailProduct() {
                 <div className={styles.container}>
                     <MainLayout>
                         <div className={styles.navigateSection}>
-                            <div>Home &gt; Men</div>
-                            <div style={{ cursor: 'pointer' }}>
+                            <div className={styles.breadcrumb}>
+                                Home &gt;{' '}
+                                <span style={{ color: '#000' }}>Men</span>
+                            </div>
+                            <div
+                                className={styles.previousPage}
+                                style={{ cursor: 'pointer' }}
+                            >
                                 {' '}
                                 &lt; Return to previous page
                             </div>
@@ -251,6 +257,11 @@ function DetailProduct() {
                                         />
                                     );
                                 })}
+                            </div>
+                            <div className={styles.sliderCommon}>
+                                {data.images && (
+                                    <SliderCommon data={data.images} />
+                                )}
                             </div>
                             <div className={styles.infoBox}>
                                 <h1>{data.name}</h1>
@@ -386,7 +397,7 @@ function DetailProduct() {
                                 })}
                             </div>
                         </div>
-                        <div>
+                        <div className={styles.containerRelatedProduct}>
                             <h2 className={styles.lableRelatedProduct}>
                                 Related Products
                             </h2>

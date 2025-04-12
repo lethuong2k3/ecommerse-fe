@@ -26,9 +26,9 @@
     color: $thr_color;
     font-weight: 400;
     margin-bottom: 25px;
-
+    text-align: center;
     @include respond(phone) {
-        width: 370px;
+        width: 100%;
     }
 
     @include respond(tablet) {

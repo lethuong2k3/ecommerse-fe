@@ -56,6 +56,10 @@
                     }
                 }
             }
+
+            @include respond(phone) {
+                padding: 30px !important;
+            }
         }
 
         .title {
@@ -90,6 +94,23 @@
                         border: 1px solid #000;
                     }
                 }
+
+                @include respond(phone) {
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+
+                    input {
+                        width: 100% !important;
+                    }
+                }
+
+                @include respond(tablet) {
+                    gap: 20px;
+                    input {
+                        width: 100% !important;
+                    }
+                }
             }
             .saveInfo {
                 @include flex_box_custom(flex-start, center, 0px);
@@ -100,6 +121,10 @@
                     margin-left: 10px;
                     color: $seconddary_color;
                 }
+            }
+
+            @include respond(phone) {
+                padding: 30px !important;
             }
         }
 
@@ -117,32 +142,53 @@
         .containerIcons {
             @include flex_box_custom(center, center, 15px);
             color: #000;
+
             .iconInfo {
                 @include flex_box_custom(center, center, 0px);
                 background-color: #fff;
                 padding: 7px;
                 border-radius: 50%;
-
                 &:hover {
                     cursor: pointer;
                     background-color: $background_color;
                 }
             }
         }
+
+        @include respond(phone) {
+            flex-direction: column;
+            border: 1px solid $line_color;
+            height: 100%;
+            width: 90% !important;
+            margin: 20px auto !important;
+            .containerInfo {
+                width: 100% !important;
+            }
+
+            .containerContact {
+                width: 100% !important;
+            }
+        }
     }
 
     .contactUs {
         position: unset;
-        width: 100%;
-        margin: 40px 0px;
+        width: 90%;
+        margin: 40px auto;
         transform: none;
 
         .containerInfo {
-            width: 25%;
+            width: 30%;
             background-color: unset;
             color: $four_color;
             border: 1px solid $line_color;
             .boxInfo {
+                i {
+                    @include flex_box_custom(center, center, 0px);
+
+                    margin-top: 2px;
+                    font-size: 16px;
+                }
                 .contentInfo {
                     h3 {
                         font-weight: 400;
@@ -159,6 +205,10 @@
                     color: $white_color;
                 }
             }
+
+            @include respond(phone) {
+                border: none;
+            }
         }
 
         .containerContact {
@@ -169,10 +219,19 @@
             padding: 55px 100px;
 
             .containerInput {
+                gap: 20px;
                 input {
-                    width: 320px;
+                    width: 100%;
                 }
             }
+
+            @include respond(phone) {
+                border: none;
+            }
+        }
+
+        @include respond(phone) {
+            margin: 0px;
         }
     }
 }

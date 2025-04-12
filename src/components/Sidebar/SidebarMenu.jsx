@@ -12,10 +12,12 @@ import { getProducts } from '@apis/productsService';
 import useDebounce from '@hooks/useDebounce';
 import LoadMore from '@components/Loading/LoadMore';
 import getPriceRange from '@hooks/useFomatPrice';
+import { StoreContext } from '@contexts/StoreProvider';
 
 function SidebarMenu() {
     const { leftSideBar, setLeftSideBar, listProductCart } =
         useContext(SidebarContext);
+    const { userInfo } = useContext(StoreContext);
     const [isLoading, setIsLoading] = useState(false);
     const [searchValue, setSearchValue] = useState('');
     const [showResult, setShowResult] = useState(false);
@@ -68,6 +70,13 @@ function SidebarMenu() {
         setProducts([]);
         inputRef.current.focus();
     };
+
+    const handleRenderText = content => {
+        return content === 'Account' && userInfo
+            ? `Hello: ${userInfo?.name}`
+            : content;
+    };
+
     return (
         <div className={styles.container}>
             <div
@@ -160,7 +169,8 @@ function SidebarMenu() {
                         {dataMenu.map((item, index) => {
                             return (
                                 <a key={index} href={item.href}>
-                                    {item.icon && <item.icon />} {item.content}{' '}
+                                    {item.icon && <item.icon />}{' '}
+                                    {handleRenderText(item.content)}{' '}
                                     {item.content === 'Cart' &&
                                         `$${parseFloat(subTotal.toFixed(2))}`}
                                 </a>

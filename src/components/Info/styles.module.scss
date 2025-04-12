@@ -5,22 +5,20 @@
     @include flex_box_custom(space-between, center, 0px);
     background-color: $primary_color;
     margin-top: -75px;
-    padding: 20px 50px;
-
+    padding: 20px 40px;
+    margin-left: auto;
+    margin-right: auto;
     @include respond(phone) {
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        padding: 0px 15px;
-        width: 360px;
-        margin-left: auto;
-        margin-right: auto;
+        width: 95%;
     }
 
     @include respond(tablet) {
         margin-left: auto;
         margin-right: auto;
-        width: 800px;
+        width: 100%;
         flex-wrap: wrap;
     }
 }

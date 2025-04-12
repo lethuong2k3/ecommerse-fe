@@ -9,13 +9,14 @@ import styles from '../styles.module.scss';
 import Button from '@components/Button/Button';
 import { StoreContext } from '@contexts/StoreProvider';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterFilter({ onIncrease }) {
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useContext(ToastContext);
     const { setIsOpen } = useContext(SidebarContext);
     const { setUserId } = useContext(StoreContext);
-
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -51,6 +52,7 @@ function RegisterFilter({ onIncrease }) {
                     toast.success('Register successfully!');
                     setIsOpen(false);
                     formik.resetForm();
+                    navigate('/');
                 })
                 .catch(err => {
                     setIsLoading(false);

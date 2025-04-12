@@ -35,8 +35,7 @@
     .left {
         left: 0;
         right: unset;
-        width: 70vw;
-        transform: translateX(-100vw);
+        transform: translateX(-600px);
     }
 
     .sideSideBar {
@@ -69,7 +68,7 @@
         @include flex_box_custom(unset, center, 20px);
         flex-direction: column;
         padding: 20px 30px;
-
+        width: 100%;
         .logo {
             width: 100%;
             img {
@@ -87,7 +86,7 @@
             border: 1px solid $line_color;
             height: 35px;
             input {
-                width: 203px;
+                width: 90%;
                 font-size: 14px;
                 line-height: 2rem;
                 border-width: 0;
@@ -104,7 +103,7 @@
 
             .boxBtn {
                 @include flex_box_custom(center, center, 0px);
-                width: 100%;
+                width: 10%;
                 height: 100%;
                 cursor: pointer;
             }

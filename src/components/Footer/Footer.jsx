@@ -7,7 +7,13 @@ function MyFooter() {
     return (
         <div className={styles.container}>
             <div>
-                <img src={Logo} alt='' width={120} height={120} />
+                <img
+                    className={styles.logo}
+                    src={Logo}
+                    alt=''
+                    width={120}
+                    height={120}
+                />
             </div>
             <div className={styles.boxNav}>
                 {dataMenu.map((item, key) => (
@@ -16,9 +22,12 @@ function MyFooter() {
             </div>
             <div>
                 <p style={{ textAlign: 'center' }}>Guaranteed safe checkout</p>
-                <img src={TypePayment} alt='' />
+                <img className={styles.payments} src={TypePayment} alt='' />
             </div>
-            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <div
+                className={styles.copyRight}
+                style={{ textAlign: 'center', marginTop: '20px' }}
+            >
                 Copyright © 2024 Fpoly Clothes. Created by
                 leanhthuong2k3@gmail.com – Website E-commerce.
             </div>

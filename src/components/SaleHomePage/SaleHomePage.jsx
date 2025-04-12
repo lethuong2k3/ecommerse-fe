@@ -1,6 +1,7 @@
 import Button from '@components/Button/Button';
 import styles from './styles.module.scss';
 import useTranslateXImage from '@hooks/useTranslateXImage';
+import cls from 'classnames';
 
 function SaleHomePage() {
     const { translateXPosition } = useTranslateXImage();
@@ -8,7 +9,7 @@ function SaleHomePage() {
     return (
         <div className={styles.container}>
             <div
-                className={styles.boxImage}
+                className={cls(styles.boxImage, styles.responsive)}
                 style={{
                     transform: `translateX(${translateXPosition}px)`,
                     transition: 'transform 0.6s ease',

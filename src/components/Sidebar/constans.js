@@ -8,7 +8,7 @@ const dataMenu = [
     { content: 'Shop', href: '/shop' },
     { content: 'About us', href: '/about-us' },
     { content: 'Contacts', href: '/contact-us' },
-    { content: 'Account', href: '#', icon: FaRegUser },
+    { content: 'Account', href: '/login', icon: FaRegUser },
     { content: 'Cart', href: '/cart', icon: BsCart3 },
     { content: 'Wishlist', href: '/wishlist', icon: BsHeart },
     { content: 'Compare', href: '/compare', icon: TfiReload },

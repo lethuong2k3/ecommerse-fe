@@ -13,6 +13,7 @@ function AboutUs() {
     const [isLoading, setIsLoading] = useState(false);
     const [brands, setBrands] = useState([]);
     const [menuSelected, setMenuSelected] = useState(1);
+    const [showItems, setShowItems] = useState(4);
 
     const handleSetMenuSelected = id => {
         if (menuSelected === id) {
@@ -74,6 +75,24 @@ function AboutUs() {
                 console.log(err);
             });
     }, []);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 1024) {
+                setShowItems(5);
+            } else if (window.innerWidth >= 768) {
+                setShowItems(4);
+            } else {
+                setShowItems(1);
+            }
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
         <>
             <Header />
@@ -122,7 +141,7 @@ function AboutUs() {
                         <Loading />
                     ) : (
                         <div className={styles.sliderBrands}>
-                            <SliderBrand data={brands} />
+                            <SliderBrand data={brands} size={showItems} />
                         </div>
                     )}
                     <section

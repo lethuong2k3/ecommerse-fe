@@ -5,6 +5,7 @@ import FormAboutUs from '@components/FormAboutUs/FormAboutUs';
 import { createContact } from '@apis/contactService';
 import { useContext } from 'react';
 import { ToastContext } from '@contexts/ToastProvider';
+import MyFooter from '@components/Footer/Footer';
 
 function Contact() {
     const { toast } = useContext(ToastContext);
@@ -37,6 +38,7 @@ function Contact() {
                     handleCreateContact={handleCreateContact}
                 />
             </MainLayout>
+            <MyFooter />
         </>
     );
 }

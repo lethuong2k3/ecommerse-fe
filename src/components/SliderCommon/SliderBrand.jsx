@@ -27,14 +27,17 @@ function SamplePrevArrow(props) {
     );
 }
 
-function SliderBrand({ data }) {
+function SliderBrand({ data, size }) {
     var settings = {
         infinite: true,
         speed: 500,
-        slidesToShow: 5,
+        slidesToShow: Math.min(size, data.length),
         slidesToScroll: 1,
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        pauseOnHover: true,
     };
     return (
         <Slider {...settings}>

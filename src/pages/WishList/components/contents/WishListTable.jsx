@@ -1,6 +1,6 @@
 import Button from '@components/Button/Button';
 import styles from '../../styles.module.scss';
-import { BsEye } from 'react-icons/bs';
+import { BsEye, BsCart3 } from 'react-icons/bs';
 import { FaRegTrashCan } from 'react-icons/fa6';
 import moment from 'moment';
 import CheckBox from '@components/CheckBox/CheckBox';
@@ -28,10 +28,10 @@ function WishListTable({
                                 updateValue={handleSelectAll}
                             />
                         </th>
-                        <th>PRODUCT</th>
-                        <th>PRICE</th>
-                        <th>STOCK STATUS</th>
-                        <th>ACTION</th>
+                        <th className={styles.columnProduct}>PRODUCT</th>
+                        <th className={styles.columnPrice}>PRICE</th>
+                        <th className={styles.columnStatus}>STOCK STATUS</th>
+                        <th className={styles.columnAction}>ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,7 +52,7 @@ function WishListTable({
                                         handleNavigateToDetail(item.product.id)
                                     }
                                 />
-                                <div>
+                                <div className={styles.contentProduct}>
                                     <p
                                         onClick={() =>
                                             handleNavigateToDetail(
@@ -62,18 +62,23 @@ function WishListTable({
                                     >
                                         {item.product.name}
                                     </p>
-                                    <p>
+                                    <p className={styles.skuProduct}>
                                         SKU: <span>{item.product.sku}</span>
+                                    </p>
+                                    <p className={styles.priceProduct}>
+                                        {getPriceRange(
+                                            item.product.productDetails
+                                        )}
                                     </p>
                                 </div>
                             </td>
 
-                            <td>
+                            <td className={styles.price}>
                                 <span>
                                     {getPriceRange(item.product.productDetails)}
                                 </span>
                             </td>
-                            <td>
+                            <td className={styles.status}>
                                 {item.product.status == 1 ? (
                                     <span className={styles.inStock}>
                                         ✔ In stock
@@ -100,6 +105,17 @@ function WishListTable({
                                         content={'SELECT OPTIONS'}
                                     />
                                     <Button
+                                        onClick={() =>
+                                            navigateDetail(item.product.id)
+                                        }
+                                        content={
+                                            <>
+                                                {' '}
+                                                <BsCart3 />{' '}
+                                            </>
+                                        }
+                                    />
+                                    <Button
                                         content={<FaRegTrashCan />}
                                         isPrimary={false}
                                         onClick={() => remove(item.id)}
@@ -107,7 +123,7 @@ function WishListTable({
                                         titleTippy={'Delete'}
                                     />
                                 </div>
-                                <span>
+                                <span className={styles.createdAt}>
                                     Added on:{' '}
                                     {moment(item.product.createdAt).format(
                                         'MMMM Do YYYY'

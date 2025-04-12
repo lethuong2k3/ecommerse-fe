@@ -10,6 +10,7 @@ import { SearchProvider } from '@contexts/SearchProvider';
 import Search from '@components/Search/Search';
 import ProtectedRoute from '@routers/ProtectedRoute';
 import SidebarMenu from '@components/Sidebar/SidebarMenu';
+import LoginRoute from '@routers/LoginRoute';
 
 function App() {
     return (
@@ -23,6 +24,10 @@ function App() {
                             <Search />
                             <Suspense fallback={<div>...Loading</div>}>
                                 <Routes>
+                                    <Route
+                                        path='/login'
+                                        element={<LoginRoute />}
+                                    />
                                     <Route element={<ProtectedRoute />}>
                                         {privateRouters.map((item, index) => {
                                             return (

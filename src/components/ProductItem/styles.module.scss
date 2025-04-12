@@ -3,12 +3,15 @@
 
 .container {
     @include respond(phone) {
-        @include flex_box_custom(flex-start, center, 0px);
-        width: 170px;
-        flex-direction: column;
+        @include flex_box_custom(center, center, 0px);
+        width: 48%;
         flex-wrap: wrap;
-        margin-left: auto;
-        margin-right: auto;
+    }
+
+    @include respond(tablet) {
+        @include flex_box_custom(center, center, 0px);
+        width: 200px;
+        flex-direction: column;
     }
 }
 
@@ -45,6 +48,12 @@
         right: 0px;
         background-color: $white_color;
         transition: opacity 200ms, right 200ms;
+        @include respond(phone) {
+            bottom: 5px;
+            .hideOnMobile {
+                display: none;
+            }
+        }
     }
 
     .locationShowFnc {
@@ -55,6 +64,10 @@
         opacity: 1;
         right: 20px;
         transition: opacity 500ms, right 300ms;
+
+        @include respond(phone) {
+            right: 5px;
+        }
     }
 
     .boxIcon {
@@ -68,9 +81,15 @@
             background-color: $background_color;
             transition: background-color 500ms;
         }
+
+        @include respond(phone) {
+            width: 35px;
+            height: 35px;
+            font-size: 16px;
+        }
     }
 
-    @include respond(phone) {
+    @include respond(mobile-tablet) {
         width: 100%;
     }
 }
@@ -249,4 +268,5 @@
     @include flex_box_custom(center, center, 0px);
 
     flex-direction: column;
+    width: 100%;
 }

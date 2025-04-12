@@ -1,12 +1,32 @@
 @import '@styles/mixins.module.scss';
 
 .container {
-    @include flex_box_custom(flex-start, flex-start, 10px);
-    flex-wrap: wrap;
-
+    @include flex_box_custom(center, flex-start, 10px);
+    width: 100%;
     margin-top: 40px;
-}
+    flex-direction: column;
+    padding: 0 10px;
+    .firstRow {
+        @include flex_box_custom(unset, flex-start, 10px);
+        width: 100%;
+    }
 
-.containerItem {
-    @include flex_box_custom(center, center, 10px);
+    .secondRow {
+        @include flex_box_custom(flex-start, flex-start, 10px);
+        width: 100%;
+    }
+
+    @include respond(phone) {
+        gap: 20px;
+        .firstRow {
+            &:first-child {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        .secondRow {
+            justify-content: center;
+        }
+    }
 }

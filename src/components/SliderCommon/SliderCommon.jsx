@@ -17,15 +17,31 @@ function SamplePrevArrow(props) {
 }
 
 function SliderCommon({ data, isProductItem = false, showItem = 1 }) {
-    const isInfinite = data.length > showItem;
-
     var settings = {
-        infinite: isInfinite,
         speed: 500,
-        slidesToShow: Math.min(showItem, data.length),
+        slidesToShow: isProductItem ? 4 : 1,
         slidesToScroll: 1,
-        nextArrow: data.length > 1 ? <SampleNextArrow /> : null,
-        prevArrow: data.length > 1 ? <SamplePrevArrow /> : null,
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />,
+        infinite: false,
+        responsive: [
+            ...(isProductItem
+                ? [
+                      {
+                          breakpoint: 1025,
+                          settings: {
+                              slidesToShow: 3,
+                          },
+                      },
+                      {
+                          breakpoint: 739,
+                          settings: {
+                              slidesToShow: 2,
+                          },
+                      },
+                  ]
+                : []),
+        ],
     };
 
     return (
@@ -43,7 +59,14 @@ function SliderCommon({ data, isProductItem = false, showItem = 1 }) {
                         isRelatedProducts
                     />
                 ) : (
-                    <img key={index} src={item.url} alt={item.filename} />
+                    <div>
+                        <img
+                            key={index}
+                            style={{ width: '100%' }}
+                            src={item.url}
+                            alt={item.filename}
+                        />
+                    </div>
                 )
             )}
         </Slider>

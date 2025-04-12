@@ -8,7 +8,7 @@
 
     .boxContent {
         @include flex_box_custom(center, center, 0px);
-
+        flex-direction: column;
         flex-wrap: wrap;
         padding: 15px;
     }
@@ -35,5 +35,34 @@
         @include flex_box_custom(center, center, 0px);
 
         width: 100%;
+
+        @include respond(mobile-tablet) {
+            transform: none !important;
+            transition: none !important;
+        }
+
+        @include respond(phone) {
+            padding: 0 10px;
+            img {
+                width: 100%;
+            }
+        }
+
+        @include respond(tablet) {
+            img {
+                width: 550px;
+            }
+        }
+    }
+
+    .responsive {
+        @include respond(mobile-tablet) {
+            display: none;
+        }
+    }
+
+    @include respond(mobile-tablet) {
+        flex-direction: column;
+        margin-top: 20px;
     }
 }

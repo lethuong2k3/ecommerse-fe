@@ -9,12 +9,13 @@ import { SidebarContext } from '@contexts/SideBarProvider';
 import InputCommon from '@components/InputCommon/InputCommon';
 import styles from '../styles.module.scss';
 import Button from '@components/Button/Button';
+import { useNavigate } from 'react-router-dom';
 
 function LoginFilter({ onIncrease }) {
     const [isLoading, setIsLoading] = useState(false);
     const { setUserId } = useContext(StoreContext);
     const { toast } = useContext(ToastContext);
-
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -43,6 +44,7 @@ function LoginFilter({ onIncrease }) {
                     setUserId(userId);
                     toast.success('Sign in successfully!');
                     formik.resetForm();
+                    navigate('/');
                 })
                 .catch(error => {
                     if (error.status === 401) {

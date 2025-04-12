@@ -10,10 +10,16 @@
     background-repeat: no-repeat;
     background-size: cover;
     flex-direction: column;
-
+    flex-wrap: wrap;
     @include respond(phone) {
         width: 100%;
         margin: 0px 15px 15px 15px;
+    }
+
+    @include respond(tablet) {
+        width: auto;
+        height: 320px;
+        padding: 30px;
     }
 }
 
@@ -37,7 +43,7 @@
     margin-bottom: 20px;
     text-transform: capitalize;
     font-weight: 400;
-
+    padding: 0 10px;
     @include respond(mobile-tablet) {
         text-align: center;
     }

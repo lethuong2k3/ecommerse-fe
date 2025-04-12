@@ -6,7 +6,8 @@
 }
 
 .wishlistTable {
-    width: 100%;
+    width: 90%;
+    margin: 0px auto;
     table {
         width: 100%;
         border-collapse: collapse;
@@ -24,6 +25,12 @@
                         text-align: right;
                     }
                 }
+                @include respond(mobile-tablet) {
+                    .columnPrice,
+                    .columnStatus {
+                        display: none;
+                    }
+                }
             }
         }
         tbody {
@@ -35,19 +42,10 @@
                 }
 
                 .productInfo {
-                    padding: 21px 0px;
-                }
-
-                td {
-                    padding: 21px 9px;
-
-                    &:last-child {
-                        padding-right: 0px;
-                    }
-                }
-                .productInfo {
                     @include flex_box_custom(flex-start, center, 0px);
 
+                    width: 100%;
+                    padding: 21px 0px;
                     img {
                         width: 84px;
                         height: 100px;
@@ -62,6 +60,36 @@
                         span {
                             color: $seconddary_color;
                         }
+                    }
+
+                    .priceProduct {
+                        display: none;
+                        color: $seconddary_color;
+                    }
+
+                    @include respond(phone) {
+                        img {
+                            width: 30%;
+                            height: 100%;
+                        }
+                    }
+
+                    @include respond(mobile-tablet) {
+                        .skuProduct {
+                            display: none;
+                        }
+
+                        .priceProduct {
+                            display: block;
+                        }
+                    }
+                }
+
+                td {
+                    padding: 21px 9px;
+
+                    &:last-child {
+                        padding-right: 0px;
                     }
                 }
 
@@ -90,12 +118,40 @@
                             &:nth-child(2) {
                                 width: 163px;
                             }
+
+                            &:nth-child(3) {
+                                display: none;
+                            }
+                        }
+
+                        @include respond(mobile-tablet) {
+                            button:nth-child(1),
+                            button:nth-child(2) {
+                                display: none;
+                            }
+
+                            button:nth-child(3) {
+                                display: block;
+                            }
                         }
                     }
                     span {
                         margin-top: 7px;
                         font-size: 12px;
                         color: $seconddary_color;
+                    }
+
+                    @include respond(mobile-tablet) {
+                        .createdAt {
+                            display: none;
+                        }
+                    }
+                }
+
+                @include respond(mobile-tablet) {
+                    .price,
+                    .status {
+                        display: none;
                     }
                 }
             }
@@ -111,6 +167,16 @@
     button {
         @include flex_box_custom(center, center, 10px);
         width: 215px;
+    }
+
+    @include respond(mobile-tablet) {
+        flex-direction: column;
+        gap: 10px;
+        width: 60%;
+        margin: 0px auto;
+        button {
+            width: 100%;
+        }
     }
 }
 

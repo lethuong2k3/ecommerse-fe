@@ -6,7 +6,7 @@ function EmptyItem({ icon, title, handleNavigateToShop }) {
         <div className={styles.boxEmptyCart}>
             {icon}
             <div className={styles.titleEmpty}>YOUR {title} IS EMPTY</div>
-            <div>
+            <div className={styles.contentEmpty}>
                 We invite you to get acquainted with an assortment of our shop.
                 Surely you can find something for yourself!
             </div>

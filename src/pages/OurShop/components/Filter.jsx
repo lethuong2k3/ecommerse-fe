@@ -1,7 +1,6 @@
 import { TfiLayoutGrid4 } from 'react-icons/tfi';
 import { CiCircleList } from 'react-icons/ci';
 import styles from '../styles.module.scss';
-import cls from 'classnames';
 import { useContext } from 'react';
 import { OurShopContext } from '@contexts/OurShopProvider';
 import SelectBox from '@pages/OurShop/components/SelectBox';
@@ -46,7 +45,12 @@ function Filter() {
                 </div>
             </div>
             <div className={styles.boxLeft}>
-                <div style={{ fontSize: '14px', color: '#555' }}>Show</div>
+                <div
+                    className={styles.labelShow}
+                    style={{ fontSize: '14px', color: '#555' }}
+                >
+                    Show
+                </div>
                 <SelectBox
                     options={showOptions}
                     getValue={getValueSelect}

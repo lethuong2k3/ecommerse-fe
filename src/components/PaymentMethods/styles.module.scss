@@ -1,5 +1,4 @@
 @import '@styles/variables.module.scss';
-
 @import '@styles/mixins.module.scss';
 
 .containerMethods {
@@ -18,7 +17,7 @@
         padding: 0px 10px;
         text-transform: uppercase;
         font-size: 14px;
-
+        text-align: center;
         span {
             color: #2e7d32;
         }
@@ -33,6 +32,13 @@
         width: 40px;
         height: 40px;
         border-radius: 5px;
+    }
+
+    @include respond(phone) {
+        margin-top: 20px;
+        .titleMethods {
+            width: 250px;
+        }
     }
 }
 

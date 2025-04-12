@@ -384,7 +384,7 @@ function ProductItem({
                             {isLoadingCompare ? <LoadMore /> : <TfiReload />}
                         </div>
                         <div
-                            className={styles.boxIcon}
+                            className={cls(styles.boxIcon, styles.hideOnMobile)}
                             onClick={handleShowDetailProduct}
                         >
                             <BsEye />

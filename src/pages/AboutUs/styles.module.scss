@@ -21,6 +21,7 @@
             margin: 0px 0px 10px 0px;
             font-weight: 400;
             color: $primary_color;
+            text-align: center;
             &:before {
                 content: '';
                 border-bottom: 4px double $line_color;
@@ -34,18 +35,37 @@
                 flex: 1;
                 margin-left: 60px;
             }
+
+            @include respond(phone) {
+                &:before {
+                    display: none;
+                }
+
+                &::after {
+                    display: none;
+                }
+            }
+        }
+
+        @include respond(mobile-tablet) {
+            padding: 15px 10px;
         }
     }
 
     .containerContent {
-        @include flex_box_custom(center, center, 0px);
+        @include flex_box_custom(center, flex-start, 0px);
 
         width: 100%;
+
         .boxContent {
             width: calc(100% / 3);
             padding: 15px;
             .boxImg {
                 margin-bottom: 30px;
+
+                img {
+                    width: 100%;
+                }
             }
 
             p {
@@ -55,10 +75,18 @@
                 line-height: 26px;
             }
         }
+
+        @include respond(phone) {
+            flex-direction: column;
+
+            .boxContent {
+                width: 100%;
+            }
+        }
     }
 
     .sliderBrands {
-        margin-top: 40px;
-        margin-bottom: 50px;
+        margin-top: 20px;
+        margin-bottom: 25px;
     }
 }

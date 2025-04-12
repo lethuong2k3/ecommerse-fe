@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import Button from '@components/Button/Button';
 
 function CountDownBanner() {
-    const targerDate = '2025-03-31T00:00:00';
+    const targerDate = '2025-05-28T00:00:00';
     return (
         <div className={styles.container}>
             <div className={styles.containerTimer}>
