@@ -101,80 +101,87 @@ function FormAboutUs({
                             [styles.contactUs]: isAboutUs,
                         })}
                     >
-                        <div className={styles.containerInfo}>
-                            <h2 className={styles.title}>Information</h2>
-                            {dataAboutUs.map((item, index) => {
-                                return (
-                                    <div className={styles.boxInfo} key={index}>
-                                        <i>{item.icon}</i>
-                                        <div className={styles.contentInfo}>
-                                            <h3>{item.title}</h3>
-                                            <p>{item.description}</p>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                            <div className={styles.containerIcons}>
-                                {dataIcon.map((item, index) => {
+                        <div className={styles.wrapperContent}>
+                            <div className={styles.containerInfo}>
+                                <h2 className={styles.title}>Information</h2>
+                                {dataAboutUs.map((item, index) => {
                                     return (
                                         <div
+                                            className={styles.boxInfo}
                                             key={index}
-                                            className={styles.iconInfo}
                                         >
-                                            {item.icon}
+                                            <i>{item.icon}</i>
+                                            <div className={styles.contentInfo}>
+                                                <h3>{item.title}</h3>
+                                                <p>{item.description}</p>
+                                            </div>
                                         </div>
                                     );
                                 })}
+                                <div className={styles.containerIcons}>
+                                    {dataIcon.map((item, index) => {
+                                        return (
+                                            <div
+                                                key={index}
+                                                className={styles.iconInfo}
+                                            >
+                                                {item.icon}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
-                        </div>
 
-                        <div className={styles.containerContact}>
-                            <h2 className={styles.title}>Contact us</h2>
-                            <p className={styles.desContact}>
-                                If you’ve got great products your looking to
-                                work with us then drop us a line.
-                            </p>
-                            <form onSubmit={formik.handleSubmit}>
-                                <div className={styles.containerInput}>
+                            <div className={styles.containerContact}>
+                                <h2 className={styles.title}>Contact us</h2>
+                                <p className={styles.desContact}>
+                                    If you’ve got great products your looking to
+                                    work with us then drop us a line.
+                                </p>
+                                <form onSubmit={formik.handleSubmit}>
+                                    <div className={styles.containerInput}>
+                                        <InputCommon
+                                            id='name'
+                                            type='text'
+                                            formik={formik}
+                                            placeholder='Name'
+                                        />
+                                        <InputCommon
+                                            id='email'
+                                            type='text'
+                                            formik={formik}
+                                            placeholder='Email'
+                                        />
+                                    </div>
                                     <InputCommon
-                                        id='name'
-                                        type='text'
+                                        id='message'
+                                        type='textarea'
                                         formik={formik}
-                                        placeholder='Name'
+                                        placeholder='Message'
+                                        rows={isAboutUs ? '8' : '6'}
                                     />
-                                    <InputCommon
-                                        id='email'
-                                        type='text'
-                                        formik={formik}
-                                        placeholder='Email'
+                                    <div className={styles.saveInfo}>
+                                        <input
+                                            id='saveInfo'
+                                            type='checkbox'
+                                            name='saveInfo'
+                                            checked={saveInfo}
+                                            onChange={() =>
+                                                setSaveInfo(!saveInfo)
+                                            }
+                                        />
+                                        <label htmlFor='saveInfo'>
+                                            Save my name, email and website in
+                                            this browser for the next time.
+                                        </label>
+                                    </div>
+                                    <Button
+                                        content={'Send Now'}
+                                        style={{ width: '100%' }}
+                                        type='submit'
                                     />
-                                </div>
-                                <InputCommon
-                                    id='message'
-                                    type='textarea'
-                                    formik={formik}
-                                    placeholder='Message'
-                                    rows={isAboutUs ? '8' : '6'}
-                                />
-                                <div className={styles.saveInfo}>
-                                    <input
-                                        id='saveInfo'
-                                        type='checkbox'
-                                        name='saveInfo'
-                                        checked={saveInfo}
-                                        onChange={() => setSaveInfo(!saveInfo)}
-                                    />
-                                    <label htmlFor='saveInfo'>
-                                        Save my name, email and website in this
-                                        browser for the next time.
-                                    </label>
-                                </div>
-                                <Button
-                                    content={'Send Now'}
-                                    style={{ width: '100%' }}
-                                    type='submit'
-                                />
-                            </form>
+                                </form>
+                            </div>
                         </div>
                         {!isAboutUs && (
                             <div

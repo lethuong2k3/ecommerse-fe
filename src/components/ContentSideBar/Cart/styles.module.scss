@@ -35,8 +35,8 @@
         }
 
         @include respond(mobile-tablet) {
-            height: 600px;
-            overflow-y: scroll;
+            height: 100%;
+            overflow-y: auto;
 
             &::-webkit-scrollbar {
                 overflow: hidden;

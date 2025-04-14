@@ -54,7 +54,7 @@ function Compare() {
     }
     const handleScroll = direction => {
         if (scrollContainerRef.current) {
-            const scrollAmount = 300;
+            const scrollAmount = 237;
             if (direction === 'left') {
                 scrollContainerRef.current.scrollLeft -= scrollAmount;
             } else {
@@ -131,14 +131,12 @@ function Compare() {
                 <MainLayout style={{ position: 'relative' }}>
                     {compares.length ? (
                         <>
-                            {compares.length > 4 && (
-                                <div
-                                    className={styles.previous}
-                                    onClick={() => handleScroll('left')}
-                                >
-                                    <GrPrevious size={25} />
-                                </div>
-                            )}
+                            <div
+                                className={styles.previous}
+                                onClick={() => handleScroll('left')}
+                            >
+                                <GrPrevious size={25} />
+                            </div>
                             <div
                                 className={styles.productComparison}
                                 ref={scrollContainerRef}
@@ -335,14 +333,12 @@ function Compare() {
                                     </tbody>
                                 </table>
                             </div>
-                            {compares.length > 4 && (
-                                <div
-                                    className={styles.next}
-                                    onClick={() => handleScroll('right')}
-                                >
-                                    <GrNext size={25} />
-                                </div>
-                            )}
+                            <div
+                                className={styles.next}
+                                onClick={() => handleScroll('right')}
+                            >
+                                <GrNext size={25} />
+                            </div>
                             <div className={styles.boxBtn}>
                                 <Button
                                     onClick={() => handleRemoveAllCompare()}

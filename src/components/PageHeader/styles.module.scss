@@ -9,4 +9,8 @@
         font-size: 1.6rem;
         font-weight: 400;
     }
+
+    @include respond(mobile-tablet) {
+        margin-bottom: 15px;
+    }
 }

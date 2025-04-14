@@ -39,7 +39,7 @@ function Cart() {
             />
             {listProductCart.length ? (
                 <div className={styles.containerListItem}>
-                    <div>
+                    <div style={{ width: '100%', height: '100%' }}>
                         <div className={styles.containerListProductCart}>
                             {listProductCart?.map(item => {
                                 return (

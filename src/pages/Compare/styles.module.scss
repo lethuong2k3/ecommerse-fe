@@ -22,6 +22,10 @@
             background-color: $four_color;
             color: $white_color;
         }
+
+        @include respond(mobile-tablet) {
+            left: -10px;
+        }
     }
 
     .next {
@@ -31,6 +35,10 @@
             transform: translate(-7px, -50%);
             background-color: $four_color;
             color: $white_color;
+        }
+
+        @include respond(mobile-tablet) {
+            right: -10px;
         }
     }
 
@@ -42,7 +50,7 @@
         scroll-behavior: smooth;
 
         &::-webkit-scrollbar {
-            overflow-x: hidden;
+            display: none;
         }
         table {
             width: 100%;
@@ -54,11 +62,17 @@
                 text-align: center;
                 padding: 16px 30px;
                 width: 237px;
-
+                min-width: 237px;
                 &:nth-child(1) {
                     position: sticky;
-                    left: 0;
+                    left: -1px;
                     width: 170px;
+                    min-width: 170px;
+                    @include respond(phone) {
+                        font-size: 12px;
+                        padding: 10px 15px;
+                        min-width: 130px;
+                    }
                 }
             }
             th {
@@ -114,15 +128,30 @@
                 }
             }
         }
+
+        @include respond(mobile-tablet) {
+            margin: 0px 20px;
+        }
     }
     .boxBtn {
         @include flex_box_custom(space-between, center, 0px);
 
         margin-top: 20px;
-
+        width: 96%;
+        margin-left: auto;
+        margin-right: auto;
         button {
             @include flex_box_custom(center, center, 10px);
             font-size: 12px;
+        }
+
+        @include respond(phone) {
+            gap: 10px;
+            flex-direction: column;
+
+            button {
+                width: 70% !important;
+            }
         }
     }
 
