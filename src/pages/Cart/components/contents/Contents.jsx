@@ -74,7 +74,7 @@ function Contents() {
         <>
             {listProductCart.length > 0 && userId ? (
                 <div className={styles.containerContents}>
-                    <div style={{ width: '60%' }}>
+                    <div className={styles.containerCart}>
                         <CartTable
                             listProductCart={listProductCart}
                             getData={handleQuantityChange}

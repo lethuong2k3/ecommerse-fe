@@ -24,4 +24,8 @@
         width: 90%;
         text-align: center;
     }
+
+    @include respond(mobile-tablet) {
+        padding: 65px 0px;
+    }
 }

@@ -1,7 +1,8 @@
-import Stepper from '@pages/Cart/components/steps/Stepper';
-import styles from '../../styles.module.scss';
+import Stepper from '@components/Steps/Stepper';
+import styles from './styles.module.scss';
+import cls from 'classnames';
 
-function Steps({ step }) {
+function Steps({ step, className }) {
     const dataSteps = [
         { number: 1, content: 'Shopping cart' },
         { number: 2, content: 'Checkout' },
@@ -12,7 +13,12 @@ function Steps({ step }) {
             <div className={styles.steps}>
                 {dataSteps.map((item, index) => {
                     return (
-                        <div key={index} className={styles.stepItem}>
+                        <div
+                            key={index}
+                            className={cls(styles.stepItem, {
+                                [className]: index + 1 > step,
+                            })}
+                        >
                             <Stepper
                                 key={index}
                                 number={item.number}
@@ -20,7 +26,9 @@ function Steps({ step }) {
                                 isDisabled={index + 1 > step}
                             />
                             {index !== dataSteps.length - 1 && (
-                                <div className={styles.line}></div>
+                                <div
+                                    className={cls(styles.line, className)}
+                                ></div>
                             )}
                         </div>
                     );

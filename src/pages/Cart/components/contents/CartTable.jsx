@@ -45,11 +45,34 @@ const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
                                             .filename
                                     }
                                 />
-                                <div>
-                                    <p>{item.productDetail.product.name}</p>
-                                    <p>
+                                <div className={styles.productDetail}>
+                                    <p className={styles.productName}>
+                                        {item.productDetail.product.name}
+                                    </p>
+                                    <p className={styles.attribute}>
                                         {item.productDetail.color.name},{' '}
                                         {item.productDetail.size.name}
+                                    </p>
+                                    <p className={styles.priceQty}>
+                                        <span>
+                                            <QuantitySelector
+                                                decrement={decrement}
+                                                increment={increment}
+                                                item={item}
+                                            />
+                                        </span>
+                                        X<span>${item.itemPrice}</span>
+                                    </p>
+                                    <p className={styles.subtotal}>
+                                        Subtotal: ${item.totalPrice.toFixed(2)}
+                                    </p>
+                                    <p
+                                        className={styles.remove}
+                                        onClick={() =>
+                                            deleteItem(item.id, item)
+                                        }
+                                    >
+                                        Remove
                                     </p>
                                 </div>
                             </td>

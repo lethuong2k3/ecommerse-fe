@@ -1,4 +1,4 @@
-import styles from '../../styles.module.scss';
+import styles from './styles.module.scss';
 import cls from 'classnames';
 
 function Stepper({ number, content, isDisabled }) {
