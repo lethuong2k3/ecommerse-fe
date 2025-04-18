@@ -2,7 +2,6 @@
 @import '@styles/variables.module.scss';
 
 .container {
-    margin-top: 83px;
     .info {
         color: $four_color;
         margin-bottom: 20px;
@@ -10,6 +9,10 @@
             margin-left: 5px;
             text-decoration: underline;
             font-weight: 400;
+        }
+
+        @include respond(phone) {
+            font-size: 13px;
         }
     }
     .containerCheckOut {
@@ -30,7 +33,16 @@
                 @include flex_box_custom(space-between, center, 20px);
 
                 input {
-                    width: 342px;
+                    width: 100%;
+                }
+            }
+
+            @include respond(mobile-tablet) {
+                width: 100%;
+
+                .inputGroup {
+                    flex-direction: column;
+                    gap: 0px;
                 }
             }
         }
@@ -85,7 +97,6 @@
                 .orderTotal {
                     @include flex_box_custom(space-between, center, 0px);
 
-                    text-transform: uppercase;
                     padding: 15px 0px;
                     font-size: 20px;
                 }
@@ -125,6 +136,33 @@
                     }
                 }
             }
+
+            .products {
+                max-height: 600px;
+                overflow-y: auto;
+
+                @include respond(phone) {
+                    max-height: 450px;
+                }
+            }
         }
+
+        @include respond(mobile-tablet) {
+            flex-direction: column;
+
+            .last {
+                width: 100%;
+            }
+        }
+    }
+
+    @include respond(mobile-tablet) {
+        padding: 15px;
+    }
+}
+
+.resPhoneTablet {
+    @include respond(mobile-tablet) {
+        display: none !important;
     }
 }

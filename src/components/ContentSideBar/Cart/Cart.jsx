@@ -1,13 +1,15 @@
 import HeaderSideBar from '@components/ContentSideBar/components/HeaderSideBar/HeaderSideBar';
 import styles from './styles.module.scss';
-import { BsCart3 } from 'react-icons/bs';
 import ItemProduct from '@components/ContentSideBar/components/ItemProduct/ItemProduct';
 import Button from '@components/Button/Button';
+import { BsCart3 } from 'react-icons/bs';
 import { useContext } from 'react';
 import { SidebarContext } from '@contexts/SideBarProvider';
+import { useNavigate } from 'react-router-dom';
+import { formatPrice } from '@hooks/useFomatPrice';
+
 import LoadMore from '@components/Loading/LoadMore';
 import cls from 'classnames';
-import { useNavigate } from 'react-router-dom';
 
 function Cart() {
     const navigate = useNavigate();
@@ -22,14 +24,14 @@ function Cart() {
         navigate('/shop');
         setIsOpen(false);
     };
-    const subTotal = listProductCart.reduce((acc, item) => {
+    const subTotal = listProductCart?.reduce((acc, item) => {
         return acc + item.totalPrice;
     }, 0);
 
     return (
         <div
             className={cls(styles.container, {
-                [styles.isEmpty]: !listProductCart.length,
+                [styles.isEmpty]: !listProductCart?.length,
             })}
         >
             <HeaderSideBar
@@ -37,7 +39,7 @@ function Cart() {
                 title='CART'
                 handleNavigate={handleNavigateToCart}
             />
-            {listProductCart.length ? (
+            {listProductCart?.length ? (
                 <div className={styles.containerListItem}>
                     <div style={{ width: '100%', height: '100%' }}>
                         <div className={styles.containerListProductCart}>
@@ -70,7 +72,7 @@ function Cart() {
                     <div>
                         <div className={styles.total}>
                             <p>SUBTOTAL: </p>
-                            <p>${parseFloat(subTotal.toFixed(2))}</p>
+                            <p>{formatPrice(subTotal)}</p>
                         </div>
                         <div className={styles.boxBtn}>
                             <Button

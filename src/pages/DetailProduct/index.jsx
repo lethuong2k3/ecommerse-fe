@@ -30,7 +30,7 @@ import { SidebarContext } from '@contexts/SideBarProvider';
 import { ToastContext } from '@contexts/ToastProvider';
 import { BsCart3 } from 'react-icons/bs';
 import LoadMore from '@components/Loading/LoadMore';
-import getPriceRange from '@hooks/useFomatPrice';
+import { getPriceRange, formatPrice } from '@hooks/useFomatPrice';
 
 function DetailProduct() {
     const { handleGetListProductsCart, listProductCart, setIsOpen, setType } =
@@ -48,7 +48,7 @@ function DetailProduct() {
     const [quantity, setQuantity] = useState(1);
     const [isLoadingCart, setIsLoadingCart] = useState(false);
 
-    const productDetailCart = listProductCart.filter(
+    const productDetailCart = listProductCart?.filter(
         lst => lst.productDetail.id === dataDetail?.id
     )[0];
     const userId = Cookies.get('id');
@@ -267,7 +267,7 @@ function DetailProduct() {
                                 <h1>{data.name}</h1>
                                 <p className={styles.price}>
                                     {dataDetail
-                                        ? dataDetail.price
+                                        ? formatPrice(dataDetail.price)
                                         : getPriceRange(data.productDetails)}
                                 </p>
                                 <p className={styles.des}>{data.description}</p>

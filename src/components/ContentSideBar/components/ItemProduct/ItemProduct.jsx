@@ -1,12 +1,13 @@
-import { deleteItem } from '@apis/cartService';
 import styles from './styles.module.scss';
+import Cookies from 'js-cookie';
+import LoadMore from '@components/Loading/LoadMore';
+import { deleteItem } from '@apis/cartService';
 import { TfiClose } from 'react-icons/tfi';
 import { useContext, useState } from 'react';
 import { SidebarContext } from '@contexts/SideBarProvider';
-import Cookies from 'js-cookie';
-import LoadMore from '@components/Loading/LoadMore';
 import { deleteWishList } from '@apis/wishlistService';
 import { deleteCompare } from '@apis/compareService';
+import { formatPrice } from '@hooks/useFomatPrice';
 
 function ItemProduct({
     src,
@@ -78,7 +79,7 @@ function ItemProduct({
                             {color}, {size}
                         </div>
                         <div className={styles.price}>
-                            {quantity} x ${price}
+                            {quantity} x {formatPrice(price)}
                         </div>
                     </>
                 )}

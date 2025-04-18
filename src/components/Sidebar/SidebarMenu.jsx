@@ -11,7 +11,7 @@ import dataMenu from '@components/Sidebar/constans';
 import { getProducts } from '@apis/productsService';
 import useDebounce from '@hooks/useDebounce';
 import LoadMore from '@components/Loading/LoadMore';
-import getPriceRange from '@hooks/useFomatPrice';
+import { getPriceRange } from '@hooks/useFomatPrice';
 import { StoreContext } from '@contexts/StoreProvider';
 
 function SidebarMenu() {
@@ -25,7 +25,7 @@ function SidebarMenu() {
     const inputRef = useRef();
     const debouncedValue = useDebounce(searchValue, 500);
 
-    const subTotal = listProductCart.reduce((acc, item) => {
+    const subTotal = listProductCart?.reduce((acc, item) => {
         return acc + item.totalPrice;
     }, 0);
 
@@ -172,7 +172,7 @@ function SidebarMenu() {
                                     {item.icon && <item.icon />}{' '}
                                     {handleRenderText(item.content)}{' '}
                                     {item.content === 'Cart' &&
-                                        `$${parseFloat(subTotal.toFixed(2))}`}
+                                        `$${parseFloat(subTotal?.toFixed(2))}`}
                                 </a>
                             );
                         })}

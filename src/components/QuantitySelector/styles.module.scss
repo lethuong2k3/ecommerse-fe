@@ -1,3 +1,5 @@
+@import '@styles/mixins.module.scss';
+
 .quantitySelector {
     display: inline-flex;
     align-items: center;
@@ -13,6 +15,10 @@
         cursor: pointer;
         font-size: 18px;
         user-select: none;
+
+        @include respond(phone) {
+            font-size: 15px;
+        }
     }
 
     .quantity {
@@ -20,6 +26,10 @@
         font-size: 14px;
         min-width: 24px;
         text-align: center;
+
+        @include respond(phone) {
+            font-size: 13px;
+        }
     }
 
     .decrement:focus,

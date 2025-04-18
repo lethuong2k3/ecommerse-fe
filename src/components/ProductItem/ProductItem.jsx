@@ -24,7 +24,7 @@ import Size from '@components/ProductItem/Size/Size';
 import Color from '@components/ProductItem/Color/Color';
 import QuantitySelector from '@components/QuantitySelector/QuantitySelector';
 import Button from '@components/Button/Button';
-import getPriceRange from '@hooks/useFomatPrice';
+import { getPriceRange, formatPrice } from '@hooks/useFomatPrice';
 
 import { addProductToCart } from '@apis/cartService';
 import { getProductDetail } from '@apis/productsService';
@@ -66,6 +66,7 @@ function ProductItem({
     const [isLoadingCart, setIsLoadingCart] = useState(false);
     const [isLoadingWList, setIsLoadingWList] = useState(false);
     const [isLoadingCompare, setIsLoadingCompare] = useState(false);
+
     const [quantity, setQuantity] = useState(1);
     const navigate = useNavigate();
 
@@ -84,7 +85,7 @@ function ProductItem({
         return colorSet;
     }, [item]);
 
-    const productDetailCart = listProductCart.filter(
+    const productDetailCart = listProductCart?.filter(
         lst => lst.productDetail.id === productDetail?.id
     )[0];
 
@@ -445,7 +446,7 @@ function ProductItem({
                     style={{ color: isHomePage ? '#333' : '#888' }}
                 >
                     {productDetail ? (
-                        <span>${productDetail.price}</span>
+                        <span>{formatPrice(productDetail.price)}</span>
                     ) : (
                         getPriceRange(item?.productDetails)
                     )}

@@ -8,6 +8,7 @@
     padding: 2.3vw 0;
     flex-direction: column;
     margin-bottom: 2.3vw;
+    margin-top: 83px;
 
     .steps {
         @include flex_box_custom(center, center, 30px);

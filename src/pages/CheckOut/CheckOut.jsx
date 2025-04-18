@@ -2,7 +2,6 @@ import * as Yup from 'yup';
 import 'react-select-search/style.css';
 import './style.css';
 import Header from '@components/Header/Header';
-import Steps from '@pages/Cart/components/steps/Steps';
 import styles from './styles.module.scss';
 import MainLayout from '@components/Layout/Layout';
 import MyFooter from '@components/Footer/Footer';
@@ -18,6 +17,7 @@ import Cookies from 'js-cookie';
 import { deleteItem } from '@apis/cartService';
 import { useNavigate } from 'react-router-dom';
 import { getAllPaymentTypes } from '@apis/paymentTypeService';
+import Steps from '@components/Steps/Steps';
 
 function CheckOut() {
     const { listProductCart, handleGetListProductsCart } =
@@ -27,6 +27,7 @@ function CheckOut() {
     const [listMethods, setListMethods] = useState([]);
     const [payment, setPayment] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
+    const [loadingSubmit, setLoadingSubmit] = useState(false);
     const [isLoadingMethods, setIsLoadingMethods] = useState(false);
     const userId = Cookies.get('id');
     const navigate = useNavigate();
@@ -39,7 +40,9 @@ function CheckOut() {
             country: '',
             streetAddress: '',
             billingAddress: '',
+            state: '',
             billingCity: '',
+            zipcode: '',
             phone: '',
             email: '',
             orderComment: '',
@@ -49,10 +52,47 @@ function CheckOut() {
             lastName: Yup.string().required(),
             country: Yup.string().required(),
             streetAddress: Yup.string().required(),
+            state: Yup.string().required(),
             billingCity: Yup.string().required(),
+            zipcode: Yup.string().required(),
             phone: Yup.number().required(),
             email: Yup.string().email().required(),
         }),
+        onSubmit: async values => {
+            if (loadingSubmit) return;
+            const {
+                firstName,
+                lastName,
+                companyName,
+                country,
+                streetAddress,
+                billingAddress,
+                billingCity,
+                state,
+                zipcode,
+                phone,
+                email,
+                orderComment,
+            } = values;
+            let data = {
+                shipmentReuquest: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    companyName: companyName,
+                    country: country,
+                    address: billingAddress + ' ' + streetAddress,
+                    state: state,
+                    city: billingCity,
+                    zipCode: zipcode,
+                    phone: phone,
+                    email: email,
+                },
+                paymentRequest: {
+                    paymentType: { id: payment },
+                },
+            };
+            setLoadingSubmit(true);
+        },
     });
 
     const handleQuantityChange = (orderItemId, data) => {
@@ -114,8 +154,8 @@ function CheckOut() {
             ) : (
                 <>
                     <Header />
+                    <Steps className={styles.resPhoneTablet} step={2} />
                     <div className={styles.container}>
-                        <Steps step={2} />
                         <MainLayout>
                             <div className={styles.info}>
                                 Have a coupon? <span>Click here to enter</span>
@@ -132,8 +172,8 @@ function CheckOut() {
                                 listMethods={listMethods}
                             />
                         </MainLayout>
-                        <MyFooter />
                     </div>
+                    <MyFooter />
                 </>
             )}
         </>

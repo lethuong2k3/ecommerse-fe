@@ -20,7 +20,7 @@ import { ConfirmDialog } from 'primereact/confirmdialog';
 import { IoWarningOutline } from 'react-icons/io5';
 import FormAboutUs from '@components/FormAboutUs/FormAboutUs';
 import { createContact } from '@apis/contactService';
-import getPriceRange from '@hooks/useFomatPrice';
+import { getPriceRange } from '@hooks/useFomatPrice';
 
 function WishList() {
     const { listWList, setIsOpen, setType, setProduct, handleGetListWishList } =

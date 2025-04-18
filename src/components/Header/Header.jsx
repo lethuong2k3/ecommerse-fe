@@ -123,7 +123,9 @@ function Header() {
                                 onClick={() => handleOpenSideBar('cart')}
                             />
                             <div className={styles.quantity}>
-                                {listProductCart.length}
+                                {listProductCart?.length
+                                    ? listProductCart.length
+                                    : 0}
                             </div>
                         </div>
                     </div>

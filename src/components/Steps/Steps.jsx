@@ -16,7 +16,7 @@ function Steps({ step, className }) {
                         <div
                             key={index}
                             className={cls(styles.stepItem, {
-                                [className]: index + 1 > step,
+                                [className]: item.number !== step,
                             })}
                         >
                             <Stepper

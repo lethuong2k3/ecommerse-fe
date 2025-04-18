@@ -1,10 +1,14 @@
+const formatPrice = price => {
+    return price.toLocaleString('vi-VN') + 'đ';
+};
+
 const getPriceRange = obj => {
-    if (!obj) return;
+    if (!obj || !obj.length) return;
     const prices = obj.map(product => product.price);
     const minPrice = Math.min(...prices);
     const maxPrice = Math.max(...prices);
-    if (minPrice === maxPrice) return `$${maxPrice}`;
-    return `$${minPrice} - $${maxPrice}`;
+    if (minPrice === maxPrice) return formatPrice(maxPrice);
+    return `${formatPrice(minPrice)} - ${formatPrice(maxPrice)}`;
 };
 
-export default getPriceRange;
+export { getPriceRange, formatPrice };

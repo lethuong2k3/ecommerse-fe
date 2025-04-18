@@ -21,7 +21,7 @@ import CheckBox from '@components/CheckBox/CheckBox';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { IoWarningOutline } from 'react-icons/io5';
 import { ToastContext } from '@contexts/ToastProvider';
-import getPriceRange from '@hooks/useFomatPrice';
+import { getPriceRange } from '@hooks/useFomatPrice';
 
 function Compare() {
     const { compareList, handleGetListCompare } = useContext(SidebarContext);

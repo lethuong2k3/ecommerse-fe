@@ -2,8 +2,6 @@
 @import '@styles/mixins.module.scss';
 
 .container {
-    padding-top: 83px;
-
     @include respond(mobile-tablet) {
         .resPhoneTablet {
             display: none !important;
@@ -55,6 +53,9 @@
 
                 tbody {
                     tr {
+                        .qty {
+                            padding: 8px 15px !important;
+                        }
                         td {
                             padding: 15px;
                             vertical-align: top;

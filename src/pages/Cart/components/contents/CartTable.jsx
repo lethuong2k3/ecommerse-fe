@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styles from '../../styles.module.scss';
 import { FaRegTrashCan } from 'react-icons/fa6';
+import { formatPrice } from '@hooks/useFomatPrice';
+
 import LoadingCart from '@pages/Cart/components/Loading';
 import QuantitySelector from '@components/QuantitySelector/QuantitySelector';
 
@@ -61,10 +63,13 @@ const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
                                                 item={item}
                                             />
                                         </span>
-                                        X<span>${item.itemPrice}</span>
+                                        X
+                                        <span>
+                                            {formatPrice(item.itemPrice)}
+                                        </span>
                                     </p>
                                     <p className={styles.subtotal}>
-                                        Subtotal: ${item.totalPrice.toFixed(2)}
+                                        Subtotal: {formatPrice(item.totalPrice)}
                                     </p>
                                     <p
                                         className={styles.remove}
@@ -87,16 +92,16 @@ const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
                                     <FaRegTrashCan />
                                 </div>
                             </td>
-                            <td>${item.itemPrice}</td>
+                            <td>{formatPrice(item.itemPrice)}</td>
                             <td>{item.productDetail.product.sku}</td>
-                            <td>
+                            <td className={styles.qty}>
                                 <QuantitySelector
                                     decrement={decrement}
                                     increment={increment}
                                     item={item}
                                 />
                             </td>
-                            <td>${item.totalPrice.toFixed(2)}</td>
+                            <td>{formatPrice(item.totalPrice)}</td>
                         </tr>
                     ))}
                 </tbody>
