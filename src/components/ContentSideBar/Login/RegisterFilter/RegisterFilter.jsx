@@ -10,12 +10,35 @@ import Button from '@components/Button/Button';
 import { StoreContext } from '@contexts/StoreProvider';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import VerifyCode from '@components/VerifyCode/VerifyCode';
+import { verify } from '@apis/authService';
 
 function RegisterFilter({ onIncrease }) {
     const [isLoading, setIsLoading] = useState(false);
+    const [email, setEmail] = useState('');
+    const [code, setCode] = useState('');
     const { toast } = useContext(ToastContext);
     const { setIsOpen } = useContext(SidebarContext);
-    const { setUserId } = useContext(StoreContext);
+    const { setUserId, isVerify, setIsVerify } = useContext(StoreContext);
+    const handleActiveCode = () => {
+        let body = {
+            email: email,
+            verificationCode: code,
+        };
+        console.log(body);
+        verify(body)
+            .then(res => {
+                setIsVerify(false);
+                setIsOpen(false);
+                toast.success(res.data.data);
+            })
+            .catch(err => {
+                if (err.status === 400) {
+                    toast.error(err.response.data);
+                }
+                console.log(err);
+            });
+    };
     const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
@@ -43,68 +66,85 @@ function RegisterFilter({ onIncrease }) {
             setIsLoading(true);
             await register({ email, name, password })
                 .then(res => {
-                    setIsLoading(false);
-                    const { userId, token, refreshToken } = res.data.data;
-                    Cookies.set('token', token);
-                    Cookies.set('refreshToken', refreshToken);
-                    Cookies.set('id', userId);
-                    setUserId(userId);
-                    toast.success('Register successfully!');
-                    setIsOpen(false);
-                    formik.resetForm();
-                    navigate('/');
+                    if (!res.enabled) {
+                        setEmail(res.data.data.email);
+                        setIsVerify(true);
+                        setIsLoading(false);
+                        return;
+                    }
+                    // const { userId, token, refreshToken } = res.data.data;
+                    // Cookies.set('token', token);
+                    // Cookies.set('refreshToken', refreshToken);
+                    // Cookies.set('id', userId);
+                    // setUserId(userId);
+                    // toast.success('Register successfully!');
+                    // setIsOpen(false);
+                    // formik.resetForm();
+                    // navigate('/');
                 })
                 .catch(err => {
                     setIsLoading(false);
+                    if (err.status === 400) {
+                        formik.errors.email = err.response.data.data;
+                    }
                 });
         },
     });
 
     return (
         <>
-            <form onSubmit={formik.handleSubmit}>
-                <InputCommon
-                    id='email'
-                    label='Email'
-                    type='text'
-                    isRequired
-                    formik={formik}
+            {isVerify ? (
+                <VerifyCode
+                    setCode={setCode}
+                    handleActiveCode={handleActiveCode}
                 />
-                <InputCommon
-                    id='name'
-                    label='Name'
-                    type='text'
-                    isRequired
-                    formik={formik}
-                />
-                <InputCommon
-                    id='password'
-                    label='Password'
-                    type='password'
-                    isRequired
-                    formik={formik}
-                />
-                <InputCommon
-                    id='cfmpassword'
-                    label='Confirm password'
-                    type='password'
-                    isRequired
-                    formik={formik}
-                />
-                <div className={styles.boxBtn}>
+            ) : (
+                <>
+                    <form onSubmit={formik.handleSubmit}>
+                        <InputCommon
+                            id='email'
+                            label='Email'
+                            type='text'
+                            isRequired
+                            formik={formik}
+                        />
+                        <InputCommon
+                            id='name'
+                            label='Tên'
+                            type='text'
+                            isRequired
+                            formik={formik}
+                        />
+                        <InputCommon
+                            id='password'
+                            label='Mật khẩu'
+                            type='password'
+                            isRequired
+                            formik={formik}
+                        />
+                        <InputCommon
+                            id='cfmpassword'
+                            label='Xác nhận mật khẩu'
+                            type='password'
+                            isRequired
+                            formik={formik}
+                        />
+                        <div className={styles.boxBtn}>
+                            <Button
+                                type='submit'
+                                content={isLoading ? 'Loading...' : 'Đăng ký'}
+                            />
+                        </div>
+                    </form>
                     <Button
-                        type='submit'
-                        content={isLoading ? 'Loading...' : 'REGISTER'}
+                        type='button'
+                        content={'Bạn đã có tài khoản?'}
+                        isPrimary={false}
+                        style={{ marginTop: '10px', width: '100%' }}
+                        onClick={onIncrease}
                     />
-                </div>
-            </form>
-            <Button
-                type='button'
-                content={'Already have an account?'}
-                isPrimary={false}
-                style={{ marginTop: '10px', width: '100%' }}
-                onClick={onIncrease}
-            />
+                </>
+            )}
         </>
     );
 }

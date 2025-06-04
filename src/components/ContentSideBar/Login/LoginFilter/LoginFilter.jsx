@@ -47,8 +47,8 @@ function LoginFilter({ onIncrease }) {
                     navigate('/');
                 })
                 .catch(error => {
-                    if (error.status === 401) {
-                        formik.errors.email = 'Invalid email or password';
+                    if (error.status === 400) {
+                        formik.errors.email = error.response.data.data;
                     }
                     setIsLoading(false);
                 });
@@ -67,25 +67,25 @@ function LoginFilter({ onIncrease }) {
                 />
                 <InputCommon
                     id='password'
-                    label='Password'
+                    label='Mật khẩu'
                     type='password'
                     isRequired
                     formik={formik}
                 />
                 <div className={styles.boxRememberMe}>
                     <input type='checkbox' />
-                    <span>Remember me</span>
+                    <span>Ghi nhớ</span>
                 </div>
                 <div className={styles.boxBtn}>
                     <Button
                         type='submit'
-                        content={isLoading ? 'Loading...' : 'LOGIN'}
+                        content={isLoading ? 'Loading...' : 'Đăng nhập'}
                     />
                 </div>
             </form>
             <Button
                 type='button'
-                content={'Don’t have an account?'}
+                content={'Bạn không có tài khoản?'}
                 isPrimary={false}
                 style={{ marginTop: '10px', width: '100%' }}
                 onClick={onIncrease}

@@ -27,11 +27,13 @@
     font-weight: 400;
     margin-bottom: 25px;
     text-align: center;
+    width: 45%;
     @include respond(phone) {
-        width: 100%;
+        width: 90%;
+        text-align: justify;
     }
 
     @include respond(tablet) {
-        width: 100%;
+        width: 70%;
     }
 }

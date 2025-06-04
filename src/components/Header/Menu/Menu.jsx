@@ -1,9 +1,11 @@
-import { useContext, useState, memo, useEffect } from 'react';
 import styles from '../styles.module.scss';
+
+import { useContext, useState } from 'react';
 import { SidebarContext } from '@contexts/SideBarProvider';
 import { StoreContext } from '@contexts/StoreProvider';
 import { useNavigate } from 'react-router-dom';
 import { SearchContext } from '@contexts/SearchProvider';
+import { accountMenu } from '@components/Header/constants';
 
 function Menu({ content, href }) {
     const { setIsOpen, setType } = useContext(SidebarContext);
@@ -13,25 +15,34 @@ function Menu({ content, href }) {
 
     const navigate = useNavigate();
     const handleClickShowLogin = () => {
-        if (content === 'Sign in' && !userInfo) {
+        if (content === 'Đăng nhập' && !userInfo) {
             setIsOpen(true);
             setType('login');
             return;
         }
-        if (content === 'Search') {
+        if (content === 'Tìm kiếm') {
             setShowSearch(true);
             return;
         }
         navigate(href);
     };
     const handleRenderText = content => {
-        return content === 'Sign in' && userInfo
+        return content === 'Đăng nhập' && userInfo
             ? `Hello: ${userInfo?.name}`
             : content;
     };
     const handleHover = () => {
-        if (content === 'Sign in' && userInfo) {
+        if (content === 'Đăng nhập' && userInfo) {
             setIsShowSubMenu(true);
+        }
+    };
+
+    const handleClickMenu = value => {
+        if (value.content === 'Log out') {
+            return handleLogout();
+        }
+        if (value.href) {
+            navigate(value.href);
         }
     };
 
@@ -44,11 +55,23 @@ function Menu({ content, href }) {
             {handleRenderText(content)}
             {isShowSubMenu && (
                 <div
-                    onClick={handleLogout}
                     onMouseLeave={() => setIsShowSubMenu(false)}
                     className={styles.subMenu}
                 >
-                    Log out
+                    {accountMenu.map((item, key) => {
+                        return (
+                            <div
+                                className={styles.itemMenu}
+                                key={key}
+                                onClick={e => {
+                                    e.stopPropagation();
+                                    handleClickMenu(item);
+                                }}
+                            >
+                                {item.content}
+                            </div>
+                        );
+                    })}
                 </div>
             )}
         </div>

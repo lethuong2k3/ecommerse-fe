@@ -26,6 +26,17 @@
         }
     }
 
+    .boxImgMethods {
+        @include flex_box_custom(center, center, 10px);
+    }
+
+    .imgMethods {
+        max-width: 50%;
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+    }
+
     @include respond(phone) {
         .logo {
             width: 80px;

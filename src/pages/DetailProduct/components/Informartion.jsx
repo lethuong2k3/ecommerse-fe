@@ -3,8 +3,8 @@ import styles from '../styles.module.scss';
 function InformationProduct() {
     const dataInfo = [
         { id: 1, title: 'Size', content: 'S, M, L' },
-        { id: 2, title: 'Material', content: 'Fleece' },
-        { id: 3, title: 'Color', content: 'Black, Blue' },
+        { id: 2, title: 'Chất liệu', content: 'Fleece' },
+        { id: 3, title: 'Màu sắc', content: 'Black, Blue' },
     ];
     return (
         <div className={styles.containerInfo}>

@@ -6,6 +6,7 @@ import styles from './styles.module.scss';
 import MainLayout from '@components/Layout/Layout';
 import MyFooter from '@components/Footer/Footer';
 import Contents from '@pages/CheckOut/components/Contents';
+import Steps from '@components/Steps/Steps';
 
 import { useFormik } from 'formik';
 import { useContext, useEffect, useState } from 'react';
@@ -17,7 +18,7 @@ import Cookies from 'js-cookie';
 import { deleteItem } from '@apis/cartService';
 import { useNavigate } from 'react-router-dom';
 import { getAllPaymentTypes } from '@apis/paymentTypeService';
-import Steps from '@components/Steps/Steps';
+import { saveOrder } from '@apis/orderService';
 
 function CheckOut() {
     const { listProductCart, handleGetListProductsCart } =
@@ -74,8 +75,8 @@ function CheckOut() {
                 email,
                 orderComment,
             } = values;
-            let data = {
-                shipmentReuquest: {
+            let body = {
+                shipmentRequest: {
                     firstName: firstName,
                     lastName: lastName,
                     companyName: companyName,
@@ -86,12 +87,19 @@ function CheckOut() {
                     zipCode: zipcode,
                     phone: phone,
                     email: email,
+                    notes: orderComment,
                 },
-                paymentRequest: {
-                    paymentType: { id: payment },
-                },
+                paymentTypeId: payment,
             };
             setLoadingSubmit(true);
+            saveOrder(body)
+                .then(res => {
+                    console.log(res.data);
+                    window.location.href = res.data.payUrl;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         },
     });
 
@@ -129,7 +137,7 @@ function CheckOut() {
     };
 
     useEffect(() => {
-        if (listProductCart.length == 0) {
+        if (listProductCart?.length == 0 || !listProductCart) {
             navigate('/cart');
             return;
         }
@@ -149,7 +157,7 @@ function CheckOut() {
 
     return (
         <>
-            {(listProductCart.length == 0) | isLoadingMethods ? (
+            {(listProductCart?.length == 0) | isLoadingMethods ? (
                 <div>...Loading</div>
             ) : (
                 <>

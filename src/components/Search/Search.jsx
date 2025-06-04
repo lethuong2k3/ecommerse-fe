@@ -128,7 +128,7 @@ function Search() {
                 <form>
                     <div>
                         <div className={styles.title}>
-                            What Are You Looking For?
+                            Bạn đang tìm kiếm cái gì?
                         </div>
                         <div className={styles.formInput}>
                             <select
@@ -137,7 +137,7 @@ function Search() {
                                 onChange={handleChangeSelected}
                             >
                                 <option value={'all'} key={0}>
-                                    All Categories
+                                    Tất cả thể loại
                                 </option>
                                 {categories?.map(item => {
                                     return (
@@ -151,7 +151,7 @@ function Search() {
                                 <input
                                     type='text'
                                     value={searchValue}
-                                    placeholder='Search for products'
+                                    placeholder='Tìm kiếm sản phẩm'
                                     onChange={handleChangeSearch}
                                     spellCheck={false}
                                     ref={inputRef}
@@ -172,13 +172,13 @@ function Search() {
                                     onClick={() => handleBtnSearch()}
                                 >
                                     <IoIosSearch size={16} />
-                                    SEARCH
+                                    Tìm kiếm
                                 </button>
                             </div>
                         </div>
                         <div className={styles.tags}>
                             <span className={styles.tagsTitle}>
-                                Trending searches:{' '}
+                                Top tìm kiếm:{' '}
                             </span>
                             {trendingSearches.map((item, index) => {
                                 return (

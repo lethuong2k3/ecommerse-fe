@@ -1,18 +1,18 @@
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import Logo from '@images/Logo.png';
+import dataMenu from '@components/Sidebar/constans';
+import useDebounce from '@hooks/useDebounce';
+import LoadMore from '@components/Loading/LoadMore';
 
 import { useContext, useEffect, useRef, useState } from 'react';
 import { SidebarContext } from '@contexts/SideBarProvider';
 import { MdClear, MdClose } from 'react-icons/md';
 import { IoIosSearch } from 'react-icons/io';
-import { TfiClose } from 'react-icons/tfi';
-import dataMenu from '@components/Sidebar/constans';
 import { getProducts } from '@apis/productsService';
-import useDebounce from '@hooks/useDebounce';
-import LoadMore from '@components/Loading/LoadMore';
 import { getPriceRange } from '@hooks/useFomatPrice';
 import { StoreContext } from '@contexts/StoreProvider';
+import { formatPrice } from '@hooks/useFomatPrice';
 
 function SidebarMenu() {
     const { leftSideBar, setLeftSideBar, listProductCart } =
@@ -172,7 +172,7 @@ function SidebarMenu() {
                                     {item.icon && <item.icon />}{' '}
                                     {handleRenderText(item.content)}{' '}
                                     {item.content === 'Cart' &&
-                                        `$${parseFloat(subTotal?.toFixed(2))}`}
+                                        formatPrice(subTotal)}
                                 </a>
                             );
                         })}

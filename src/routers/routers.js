@@ -34,11 +34,11 @@ const publicRouters = [
         component: lazy(() => import('@pages/Compare/Compare')),
     },
     {
-        path: '/about-us',
+        path: '/gioi-thieu',
         component: lazy(() => import('@pages/AboutUs/AboutUs')),
     },
     {
-        path: '/contact-us',
+        path: '/lien-he',
         component: lazy(() => import('@pages/Contact/Contact')),
     },
 ];
@@ -47,6 +47,16 @@ const privateRouters = [
     {
         path: '/checkout',
         component: lazy(() => import('@pages/CheckOut/CheckOut')),
+    },
+    {
+        path: '/check-out-tracking',
+        component: lazy(() =>
+            import('@pages/CheckOutTracking/CheckOutTracking')
+        ),
+    },
+    {
+        path: '/order-status',
+        component: lazy(() => import('@pages/OrderStatus')),
     },
 ];
 

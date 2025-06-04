@@ -17,17 +17,17 @@ export const OurShopProvider = ({ children }) => {
 
     const param = useParams();
     const sortOptions = [
-        { label: 'Default sorting', value: 0 },
-        { label: 'Sort by popularity', value: 1 },
-        { label: 'Sort by average rating', value: 2 },
-        { label: 'Sort by latest', value: 3 },
-        { label: 'Sort by price low to hight', value: 4 },
-        { label: 'Sort by price hight to low', value: 5 },
+        { label: 'Mặc định', value: 0 },
+        { label: 'Phổ biến', value: 1 },
+        { label: 'Đánh giá', value: 2 },
+        { label: 'Mới nhất', value: 3 },
+        { label: 'Giá thấp - cao', value: 4 },
+        { label: 'Giá cao - thấp', value: 5 },
     ];
     const showOptions = [
         { label: '8', value: 8 },
         { label: '12', value: 12 },
-        { label: 'All', value: 0 },
+        { label: 'Tất cả', value: 0 },
     ];
 
     const handleLoadMore = () => {

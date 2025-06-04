@@ -6,7 +6,7 @@
         border: 0;
         width: 100%;
         height: 450px;
-
+        margin-top: 10px;
         @include respond(mobile-tablet) {
             width: 100%;
         }

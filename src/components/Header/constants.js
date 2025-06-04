@@ -5,12 +5,17 @@ const dataBoxIcon = [
 ];
 
 const dataMenu = [
-    { content: 'Home', href: '/' },
-    { content: 'Our Shop', href: '/shop' },
-    { content: 'About us', href: '/about-us' },
-    { content: 'Contacts', href: '/contact-us' },
-    { content: 'Search', href: '#' },
-    { content: 'Sign in', href: '#' },
+    { content: 'Trang chủ', href: '/' },
+    { content: 'Shop', href: '/shop' },
+    { content: 'Giới thiệu', href: '/gioi-thieu' },
+    { content: 'Liên hệ', href: '/lien-he' },
+    { content: 'Tìm kiếm', href: '#' },
+    { content: 'Đăng nhập', href: '#' },
 ];
 
-export { dataBoxIcon, dataMenu };
+const accountMenu = [
+    { content: 'Order Tracking', href: '/check-out-tracking' },
+    { content: 'Log out' },
+];
+
+export { dataBoxIcon, dataMenu, accountMenu };

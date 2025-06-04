@@ -35,7 +35,9 @@
         @include flex_box_custom(center, center, 0px);
 
         width: 100%;
-
+        img {
+            width: 400px;
+        }
         @include respond(mobile-tablet) {
             transform: none !important;
             transition: none !important;

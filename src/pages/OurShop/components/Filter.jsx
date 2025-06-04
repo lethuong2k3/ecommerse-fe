@@ -49,7 +49,7 @@ function Filter() {
                     className={styles.labelShow}
                     style={{ fontSize: '14px', color: '#555' }}
                 >
-                    Show
+                    Hiển thị
                 </div>
                 <SelectBox
                     options={showOptions}

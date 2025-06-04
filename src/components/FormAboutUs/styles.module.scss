@@ -48,6 +48,7 @@
             .boxInfo {
                 @include flex_box_custom(flex-start, flex-start, 5px);
                 margin-bottom: 10px;
+
                 .contentInfo {
                     h3 {
                         margin-top: 4px;
@@ -202,16 +203,16 @@
         }
 
         .containerInfo {
-            width: 30%;
+            width: 35%;
             background-color: unset;
             color: $four_color;
             border: 1px solid $line_color;
-            padding: 30px;
+            padding: 40px;
             .boxInfo {
                 i {
                     @include flex_box_custom(center, center, 0px);
 
-                    margin-top: 2px;
+                    margin-top: 5px;
                     font-size: 16px;
                 }
                 .contentInfo {
@@ -242,7 +243,7 @@
             border-color: $line_color;
             height: 100%;
             padding: 55px 100px;
-
+            width: 65%;
             .containerInput {
                 gap: 20px;
                 input {

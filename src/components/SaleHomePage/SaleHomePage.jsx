@@ -16,18 +16,18 @@ function SaleHomePage() {
                 }}
             >
                 <img
-                    src='https://xstore.8theme.com/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image_1.jpeg'
+                    src='https://pos.nvncdn.com/fa2431-2286/album/albumItem/20250417_ZW1Qo5Q4.jpeg'
                     alt=''
                 />
             </div>
             <div className={styles.boxContent}>
-                <h2 className={styles.title}>Sale of the year</h2>
+                <h2 className={styles.title}>Tái Sinh</h2>
                 <p className={styles.des}>
-                    Libero sed faucibus facilisis fermentum. Est nibh sed massa
-                    sodales.
+                    Lấy cảm hứng từ vẻ đẹp bất tận và sự sinh sôi, nảy nở không
+                    ngừng của thiên nhiên
                 </p>
                 <div className={styles.boxBtn}>
-                    <Button isPrimary={false} content={'Read more'} />
+                    <Button isPrimary={false} content={'Chi tiết'} />
                 </div>
             </div>
             <div
@@ -38,7 +38,7 @@ function SaleHomePage() {
                 }}
             >
                 <img
-                    src='https://xstore.8theme.com/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image_2.jpeg'
+                    src='https://pos.nvncdn.com/fa2431-2286/album/albumItem/20250417_7P5BwMbR.jpeg'
                     alt=''
                 />
             </div>

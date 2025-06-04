@@ -30,7 +30,7 @@ function Contents() {
         updateItem(orderItemId, data)
             .then(resp => {
                 if (resp.data.errors) {
-                    toast.error(resp.data.errors['400']);
+                    toast.error(resp.data.errors['401']);
                     setIsLoading(false);
                     return;
                 }
@@ -72,7 +72,7 @@ function Contents() {
     };
     return (
         <>
-            {listProductCart.length > 0 && userId ? (
+            {listProductCart?.length > 0 && userId ? (
                 <div className={styles.containerContents}>
                     <div className={styles.containerCart}>
                         <CartTable

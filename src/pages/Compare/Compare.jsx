@@ -83,9 +83,9 @@ function Compare() {
         }
     };
 
-    const handleRemoveCompare = (idCompare, product) => {
+    const handleRemoveCompare = idCompare => {
         setIsLoading(true);
-        deleteCompare({ id: idCompare, product: product })
+        deleteCompare(idCompare)
             .then(res => {
                 handleGetListCompare(userId);
                 setIsLoading(false);
@@ -154,8 +154,7 @@ function Compare() {
                                                             }
                                                             onClick={() =>
                                                                 handleRemoveCompare(
-                                                                    compare.id,
-                                                                    compare.product
+                                                                    compare.id
                                                                 )
                                                             }
                                                         >

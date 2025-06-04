@@ -46,9 +46,11 @@ axiosUser.interceptors.response.use(
                 Cookies.remove('token');
                 Cookies.remove('refreshToken');
                 Cookies.remove('id');
+                window.location.reload();
                 return Promise.reject(err);
             }
         }
+        return Promise.reject(err);
     }
 );
 export default axiosUser;

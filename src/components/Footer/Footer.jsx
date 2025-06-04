@@ -1,9 +1,12 @@
 import { dataMenu } from '@components/Footer/constants';
 import styles from './styles.module.scss';
 import Logo from '@images/Logo.png';
-import TypePayment from '@images/type-payment.png';
+import { useContext } from 'react';
+import { PaymentMethodsContext } from '@contexts/PaymentMethodsProvider';
+import LoadMore from '@components/Loading/LoadMore';
 
 function MyFooter() {
+    const { listMethod, isLoading } = useContext(PaymentMethodsContext);
     return (
         <div className={styles.container}>
             <div>
@@ -21,8 +24,22 @@ function MyFooter() {
                 ))}
             </div>
             <div>
-                <p style={{ textAlign: 'center' }}>Guaranteed safe checkout</p>
-                <img className={styles.payments} src={TypePayment} alt='' />
+                <p style={{ textAlign: 'center' }}>
+                    Thanh toán an toàn và bảo mật
+                </p>
+                <div className={styles.boxImgMethods}>
+                    {isLoading && <LoadMore />}
+                    {listMethod.map((item, key) => {
+                        return (
+                            <img
+                                key={key}
+                                src={item.imageUrl}
+                                alt=''
+                                className={styles.imgMethods}
+                            />
+                        );
+                    })}
+                </div>
             </div>
             <div
                 className={styles.copyRight}

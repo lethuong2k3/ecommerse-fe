@@ -15,9 +15,9 @@ import _ from 'lodash';
 import QuantitySelector from '@components/QuantitySelector/QuantitySelector';
 import Cookies from 'js-cookie';
 
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import { TfiReload } from 'react-icons/tfi';
-import { BsHeart } from 'react-icons/bs';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import {
     getRelatedProducts,
     getProduct,
@@ -31,160 +31,302 @@ import { ToastContext } from '@contexts/ToastProvider';
 import { BsCart3 } from 'react-icons/bs';
 import LoadMore from '@components/Loading/LoadMore';
 import { getPriceRange, formatPrice } from '@hooks/useFomatPrice';
+import {
+    createCompare,
+    deleteCompare,
+    getCompareByProduct,
+} from '@apis/compareService';
+import {
+    deleteWishList,
+    createWishList,
+    getWListByProductAndUser,
+} from '@apis/wishlistService';
 
 function DetailProduct() {
-    const { handleGetListProductsCart, listProductCart, setIsOpen, setType } =
-        useContext(SidebarContext);
+    const {
+        handleGetListProductsCart,
+        listProductCart,
+        setIsOpen,
+        setType,
+        compareList,
+        handleGetListCompare,
+        handleGetListWishList,
+    } = useContext(SidebarContext);
     const { toast } = useContext(ToastContext);
 
-    const [menuSelected, setMenuSelected] = useState(1);
-    const [relatedProduct, setRelatedProduct] = useState([]);
-    const [sizeSelected, setSizeSelected] = useState('');
-    const [colorSelected, setColorSelected] = useState('');
-    const [data, setData] = useState([]);
-    const [dataDetail, setDataDetail] = useState(null);
-    const [isLoadingDetail, setIsLoadingDetail] = useState(false);
-    const [isLoadingProducts, setIsLoadingProducts] = useState(false);
-    const [quantity, setQuantity] = useState(1);
-    const [isLoadingCart, setIsLoadingCart] = useState(false);
+    const initialState = {
+        menuSelected: 1,
+        relatedProduct: [],
+        sizeSelected: '',
+        colorSelected: '',
+        data: {},
+        dataDetail: null,
+        isLoadingDetail: false,
+        isLoadingProducts: false,
+        quantity: 1,
+        isLoadingCart: false,
+        isLoadingCompare: false,
+        isLoadingWList: false,
+        isWishList: {},
+        isCompare: {},
+    };
+
+    function reducer(state, action) {
+        return { ...state, [action.type]: action.payload };
+    }
+
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     const productDetailCart = listProductCart?.filter(
-        lst => lst.productDetail.id === dataDetail?.id
+        lst => lst.productDetail.id === state.dataDetail?.id
     )[0];
     const userId = Cookies.get('id');
     const sizes = useMemo(() => {
-        const sizeSet = _.uniq(_.map(data?.productDetails, 'size.name'));
+        const sizeSet = _.uniq(_.map(state.data?.productDetails, 'size.name'));
         return sizeSet;
-    }, [data]);
+    }, [state.data]);
     const colors = useMemo(() => {
         const colorSet = _.uniqBy(
-            data?.productDetails?.map(({ color }) => ({
+            state.data?.productDetails?.map(({ color }) => ({
                 hex: color.hex,
                 name: color.name,
             })),
             'hex'
         );
         return colorSet;
-    }, [data]);
+    }, [state.data]);
     const param = useParams();
+
     const handleSelectedColor = color => {
-        setColorSelected(color);
+        dispatch({ type: 'colorSelected', payload: color });
     };
     const handleSelectedSize = size => {
-        setSizeSelected(size);
+        dispatch({ type: 'sizeSelected', payload: size });
     };
     const handleClear = () => {
-        setSizeSelected('');
-        setColorSelected('');
-        setQuantity(1);
-        setDataDetail(null);
+        dispatch({ type: 'sizeSelected', payload: '' });
+        dispatch({ type: 'colorSelected', payload: '' });
+        dispatch({ type: 'quantity', payload: 1 });
+        dispatch({ type: 'dataDetail', payload: null });
     };
 
     const handleAddToCart = () => {
         if (!userId) {
             setIsOpen(true);
             setType('login');
-            toast.warning('Please login to add product to cart');
+            toast.warning('Vui lòng đăng nhập');
             return;
         }
-        if (!sizeSelected) {
-            toast.warning('Please choose size!');
+        if (!state.sizeSelected) {
+            toast.warning('Vui lòng chọn size');
             return;
         }
-        if (!colorSelected) {
-            toast.warning('Please choose color!');
+        if (!state.colorSelected) {
+            toast.warning('Vui lòng chọn màu sắc');
             return;
         }
 
         const query = {
             orderItems: [
                 {
-                    productDetail: dataDetail,
-                    quantity: quantity,
+                    productDetail: state.dataDetail,
+                    quantity: state.quantity,
                 },
             ],
         };
-        setIsLoadingCart(true);
+        dispatch({ type: 'isLoadingCart', payload: true });
         addProductToCart(query)
             .then(res => {
                 if (res.data.errors) {
+                    console.log(res.data.errors);
                     toast.error(res.data.errors['400']);
                     handleGetListProductsCart(userId);
-                    setIsLoadingCart(false);
+                    dispatch({ type: 'isLoadingCart', payload: false });
                     return;
                 }
                 setIsOpen(true);
                 setType('cart');
-                toast.success('Add product to cart successfully!');
-                setIsLoadingCart(false);
+                toast.success('Thêm vào giỏ thành công');
+                dispatch({ type: 'isLoadingCart', payload: false });
                 handleGetListProductsCart(userId);
             })
             .catch(err => {
                 console.log(err);
-                setIsLoadingCart(false);
+                dispatch({ type: 'isLoadingCart', payload: false });
             });
+    };
+
+    const handleAddToCompare = () => {
+        if (!userId) {
+            setIsOpen(true);
+            setType('login');
+            toast.warning('Vui lòng đăng nhập');
+            return;
+        }
+        dispatch({ type: 'isLoadingCompare', payload: true });
+        console.log(state.isCompare);
+        if (state.isCompare.status === 1) {
+            deleteCompare(state.isCompare.id)
+                .then(res => {
+                    handleGetListCompare(userId);
+                    apiIsCompare();
+                    dispatch({ type: 'isLoadingCompare', payload: false });
+                })
+                .catch(err => {
+                    dispatch({ type: 'isLoadingCompare', payload: false });
+                    console.log(err);
+                });
+        } else {
+            createCompare({ product: state.data })
+                .then(res => {
+                    setIsOpen(true);
+                    setType('compare');
+                    toast.success('Thêm sản phẩm vào mục so sánh');
+                    dispatch({ type: 'isLoadingCompare', payload: false });
+                    handleGetListCompare(userId);
+                    apiIsCompare();
+                })
+                .catch(err => {
+                    dispatch({ type: 'isLoadingCompare', payload: false });
+                    console.log(err);
+                });
+        }
+    };
+
+    const handleAddToWishList = async () => {
+        if (!userId) {
+            setIsOpen(true);
+            setType('login');
+            toast.warning('Vui lòng đăng nhập');
+            return;
+        }
+        dispatch({ type: 'isLoadingWList', payload: true });
+        if (state.isWishList.status === 1) {
+            deleteWishList(state.isWishList.id)
+                .then(res => {
+                    handleGetListWishList(userId);
+                    apiIsWishList();
+                    dispatch({ type: 'isLoadingWList', payload: false });
+                })
+                .catch(err => {
+                    console.log(err);
+                    dispatch({ type: 'isLoadingWList', payload: false });
+                });
+        } else {
+            const query = {
+                product: { id: state.data.id },
+            };
+
+            createWishList(query)
+                .then(res => {
+                    setIsOpen(true);
+                    setType('wishlist');
+                    toast.success('Thêm sản phẩm vào mục yêu thích');
+                    dispatch({ type: 'isLoadingWList', payload: false });
+                    handleGetListWishList(userId);
+                    apiIsWishList();
+                })
+                .catch(err => {
+                    dispatch({ type: 'isLoadingWList', payload: false });
+                    console.log(err);
+                });
+        }
     };
 
     useEffect(() => {
         if (param.id) {
-            setIsLoadingDetail(true);
+            dispatch({ type: 'isLoadingDetail', payload: true });
             getProduct(param.id)
                 .then(res => {
-                    setData(res.data.data);
-                    setIsLoadingDetail(false);
+                    dispatch({ type: 'data', payload: res.data.data });
+                    dispatch({ type: 'isLoadingDetail', payload: false });
                 })
                 .catch(err => {
                     console.log(err);
-                    setIsLoadingDetail(false);
+                    dispatch({ type: 'isLoadingDetail', payload: false });
                 });
         }
     }, [param]);
     useEffect(() => {
-        const query = {
-            category: data?.category,
-            limit: 10,
-            productId: data?.id,
-        };
-        setIsLoadingProducts(true);
-        getRelatedProducts(query)
+        if (Object.keys(state.data).length !== 0) {
+            const query = {
+                category: state.data?.category,
+                limit: 10,
+                productId: state.data?.id,
+            };
+            dispatch({ type: 'isLoadingProducts', payload: true });
+            getRelatedProducts(query)
+                .then(res => {
+                    dispatch({
+                        type: 'relatedProduct',
+                        payload: res.data.data,
+                    });
+                    dispatch({ type: 'isLoadingProducts', payload: false });
+                })
+                .catch(err => {
+                    dispatch({ type: 'isLoadingProducts', payload: false });
+                    console.log(err);
+                });
+            if (userId) {
+                apiIsWishList();
+                apiIsCompare();
+            }
+        }
+    }, [state.data]);
+
+    const apiIsWishList = () => {
+        dispatch({ type: 'isLoadingWList', payload: true });
+        getWListByProductAndUser({ product: state.data })
             .then(res => {
-                setRelatedProduct(res.data.data);
-                setIsLoadingProducts(false);
+                dispatch({ type: 'isWishList', payload: res.data });
+                dispatch({ type: 'isLoadingWList', payload: false });
             })
             .catch(err => {
-                setIsLoadingProducts(false);
-
                 console.log(err);
+                dispatch({ type: 'isLoadingWList', payload: false });
             });
-    }, [data]);
+    };
+
+    const apiIsCompare = () => {
+        dispatch({ type: 'isLoadingCompare', payload: true });
+        getCompareByProduct({ product: state.data })
+            .then(res => {
+                dispatch({ type: 'isCompare', payload: res.data });
+                dispatch({ type: 'isLoadingCompare', payload: false });
+            })
+            .catch(err => {
+                console.log(err);
+                dispatch({ type: 'isLoadingCompare', payload: false });
+            });
+    };
 
     useEffect(() => {
-        if (colorSelected && sizeSelected) {
-            let productDetail = data?.productDetails?.filter(
+        if (state.colorSelected && state.sizeSelected) {
+            let productDetail = state.data?.productDetails?.filter(
                 pd =>
-                    pd.size.name === sizeSelected &&
-                    pd.color.hex === colorSelected.hex
+                    pd.size.name === state.sizeSelected &&
+                    pd.color.hex === state.colorSelected.hex
             )[0];
             getProductDetail(productDetail.id)
                 .then(resp => {
-                    setDataDetail(resp.data.data);
+                    dispatch({ type: 'dataDetail', payload: resp.data.data });
                     if (userId) handleGetListProductsCart(userId);
                 })
                 .catch(err => {
                     console.log(err);
                 });
         }
-    }, [sizeSelected, colorSelected]);
+    }, [state.sizeSelected, state.colorSelected]);
 
     const dataAccordionMenu = [
         {
             id: 1,
-            titleMenu: 'ADDITIONAL INFORMATION',
+            titleMenu: 'Thông tin chi tiết',
             content: <InformationProduct />,
         },
         {
             id: 2,
-            titleMenu: 'REVIEW (0)',
+            titleMenu: 'Đánh giá (0)',
             content: (
                 <div>
                     {' '}
@@ -194,59 +336,63 @@ function DetailProduct() {
         },
     ];
     const handleSetMenuSelected = id => {
-        if (menuSelected === id) {
-            setMenuSelected(0);
+        if (state.menuSelected === id) {
+            dispatch({ type: 'menuSelected', payload: 0 });
             return;
         }
-        setMenuSelected(id);
+        dispatch({ type: 'menuSelected', payload: id });
     };
     const handleDecrement = () => {
-        if (quantity <= 1) {
+        if (state.quantity <= 1) {
             return;
         }
-        setQuantity(quantity - 1);
+        dispatch({ type: 'quantity', payload: quantity - 1 });
     };
 
     const handleIncrement = () => {
-        if (!sizeSelected) {
-            toast.warning('Please choose size!');
+        if (!state.sizeSelected) {
+            toast.warning('Vui lòng chọn size');
             return;
         }
-        if (!colorSelected) {
-            toast.warning('Please choose color!');
+        if (!state.colorSelected) {
+            toast.warning('Vui lòng chọn màu sắc');
             return;
         }
         if (
-            quantity < dataDetail?.amount &&
+            state.quantity < state.dataDetail?.amount &&
             (!productDetailCart ||
-                quantity < +dataDetail?.amount - +productDetailCart?.quantity)
+                state.quantity <
+                    +state.dataDetail?.amount - +productDetailCart?.quantity)
         ) {
-            setQuantity(quantity + 1);
+            dispatch({ type: 'quantity', payload: quantity + 1 });
         }
     };
     return (
         <div>
             <Header />
             <MainLayout />
-            {!isLoadingDetail ? (
+            {!state.isLoadingDetail ? (
                 <div className={styles.container}>
                     <MainLayout>
                         <div className={styles.navigateSection}>
                             <div className={styles.breadcrumb}>
-                                Home &gt;{' '}
-                                <span style={{ color: '#000' }}>Men</span>
+                                Trang chủ &gt;{' '}
+                                <span style={{ color: '#000' }}>
+                                    {state.data.category &&
+                                        state.data.category.name}
+                                </span>
                             </div>
                             <div
                                 className={styles.previousPage}
                                 style={{ cursor: 'pointer' }}
                             >
                                 {' '}
-                                &lt; Return to previous page
+                                &lt; Quay lại trang trước đó
                             </div>
                         </div>
                         <div className={styles.contentSection}>
                             <div className={styles.imageBox}>
-                                {data.images?.map(image => {
+                                {state.data.images?.map(image => {
                                     return (
                                         <ReactImageMagnifier
                                             key={image.id}
@@ -259,33 +405,37 @@ function DetailProduct() {
                                 })}
                             </div>
                             <div className={styles.sliderCommon}>
-                                {data.images && (
-                                    <SliderCommon data={data.images} />
+                                {state.data.images && (
+                                    <SliderCommon data={state.data.images} />
                                 )}
                             </div>
                             <div className={styles.infoBox}>
-                                <h1>{data.name}</h1>
+                                <h1>{state.data.name}</h1>
                                 <p className={styles.price}>
-                                    {dataDetail
-                                        ? formatPrice(dataDetail.price)
-                                        : getPriceRange(data.productDetails)}
+                                    {state.dataDetail
+                                        ? formatPrice(state.dataDetail.price)
+                                        : getPriceRange(
+                                              state.data.productDetails
+                                          )}
                                 </p>
-                                <p className={styles.des}>{data.description}</p>
-                                <p>Size {sizeSelected}</p>
+                                <p className={styles.des}>
+                                    {state.data.description}
+                                </p>
+                                <p>Size {state.sizeSelected}</p>
                                 <Size
                                     isViewProduct={true}
                                     handleChooseSize={handleSelectedSize}
                                     sizes={sizes}
-                                    sizeChoose={sizeSelected}
+                                    sizeChoose={state.sizeSelected}
                                 />
-                                <p>Color {colorSelected.name}</p>
+                                <p>Màu sắc {state.colorSelected.name}</p>
                                 <Color
                                     colors={colors}
-                                    colorChoose={colorSelected}
+                                    colorChoose={state.colorSelected}
                                     style={{ justifyContent: 'flex-start' }}
                                     handleChooseColor={handleSelectedColor}
                                 />
-                                {sizeSelected || colorSelected ? (
+                                {state.sizeSelected || state.colorSelected ? (
                                     <div
                                         className={styles.btnClear}
                                         onClick={() => handleClear()}
@@ -298,11 +448,11 @@ function DetailProduct() {
                                 <div className={styles.functionInfo}>
                                     <div>
                                         <QuantitySelector
-                                            item={data}
-                                            quantity={quantity}
+                                            item={state.data}
+                                            quantity={state.quantity}
                                             increment={handleIncrement}
                                             decrement={handleDecrement}
-                                            productDetail={dataDetail}
+                                            productDetail={state.dataDetail}
                                             productDetailCart={
                                                 productDetailCart
                                             }
@@ -312,28 +462,29 @@ function DetailProduct() {
                                         <Button
                                             content={
                                                 <>
-                                                    {isLoadingCart && (
+                                                    {state.isLoadingCart && (
                                                         <LoadMore />
                                                     )}
                                                     <BsCart3 />{' '}
-                                                    <div>ADD TO CART</div>
+                                                    <div>Thêm vào giỏ</div>
                                                 </>
                                             }
                                             disabled={
-                                                !sizeSelected ||
-                                                !colorSelected ||
-                                                +dataDetail?.amount -
+                                                !state.sizeSelected ||
+                                                !state.colorSelected ||
+                                                +state.dataDetail?.amount -
                                                     +productDetailCart?.quantity ===
                                                     0 ||
-                                                isLoadingCart
+                                                state.isLoadingCart
                                             }
                                             onClick={() => handleAddToCart()}
                                         />
                                     </div>
                                 </div>
-                                {dataDetail && (
+                                {state.dataDetail && (
                                     <div className={styles.labelQty}>
-                                        Current quantity: {dataDetail.amount}
+                                        Số lượng tồn kho:{' '}
+                                        {state.dataDetail.amount}
                                     </div>
                                 )}
                                 <div className={styles.boxOr}>
@@ -345,24 +496,34 @@ function DetailProduct() {
                                     <Button
                                         content={
                                             <>
-                                                <BsCart3 /> <div>BUY NOW</div>
+                                                <BsCart3 /> <div>Mua ngay</div>
                                             </>
                                         }
                                         disabled={
-                                            !sizeSelected ||
-                                            !colorSelected ||
-                                            +dataDetail?.amount -
+                                            !state.sizeSelected ||
+                                            !state.colorSelected ||
+                                            +state.dataDetail?.amount -
                                                 +productDetailCart?.quantity ===
                                                 0
                                         }
                                     />
                                 </div>
                                 <div className={styles.addFunction}>
-                                    <div>
-                                        <BsHeart />
+                                    <div onClick={() => handleAddToWishList()}>
+                                        {state.isLoadingWList ? (
+                                            <LoadMore />
+                                        ) : state.isWishList.status === 1 ? (
+                                            <BsHeartFill />
+                                        ) : (
+                                            <BsHeart />
+                                        )}
                                     </div>
-                                    <div>
-                                        <TfiReload />
+                                    <div onClick={() => handleAddToCompare()}>
+                                        {state.isLoadingCompare ? (
+                                            <LoadMore />
+                                        ) : (
+                                            <TfiReload />
+                                        )}
                                     </div>
                                 </div>
                                 <div>
@@ -370,14 +531,18 @@ function DetailProduct() {
                                 </div>
                                 <div className={styles.info}>
                                     <div>
-                                        Brand: <span>{data.brand?.name}</span>
+                                        Thương hiệu:{' '}
+                                        <span>{state.data.brand?.name}</span>
                                     </div>
                                     <div>
-                                        SKU: <span>{data.sku}</span>
+                                        SKU: <span>{state.data.sku}</span>
                                     </div>
                                     <div>
-                                        Category:
-                                        <span> {data.category?.name}</span>
+                                        Thể loại:
+                                        <span>
+                                            {' '}
+                                            {state.data.category?.name}
+                                        </span>
                                     </div>
                                 </div>
                                 {dataAccordionMenu.map((item, index) => {
@@ -390,7 +555,7 @@ function DetailProduct() {
                                                 handleSetMenuSelected(item.id)
                                             }
                                             isSelected={
-                                                menuSelected === item.id
+                                                state.menuSelected === item.id
                                             }
                                         />
                                     );
@@ -401,10 +566,10 @@ function DetailProduct() {
                             <h2 className={styles.lableRelatedProduct}>
                                 Related Products
                             </h2>
-                            {!isLoadingProducts ? (
-                                relatedProduct.length > 0 ? (
+                            {!state.isLoadingProducts ? (
+                                state.relatedProduct.length > 0 ? (
                                     <SliderCommon
-                                        data={relatedProduct}
+                                        data={state.relatedProduct}
                                         isProductItem
                                         showItem={4}
                                     />

@@ -107,17 +107,13 @@ function ProductItem({
         if (!userId) {
             setIsOpen(true);
             setType('login');
-            toast.warning('Please login to add product to WISHLIST');
+            toast.warning('Vui lòng đăng nhập');
             return;
         }
         const compare = compareList.find(c => c.product.id === item.id);
         setIsLoadingCompare(true);
         if (compare) {
-            let dataCompare = {
-                id: compare.id,
-                product: item,
-            };
-            deleteCompare(dataCompare)
+            deleteCompare(compare.id)
                 .then(res => {
                     handleGetListCompare(userId);
                     setIsLoadingCompare(false);
@@ -131,11 +127,7 @@ function ProductItem({
                 .then(res => {
                     setIsOpen(true);
                     setType('compare');
-                    toast.success(
-                        'Add ' +
-                            res.data.data.product.name +
-                            ' to WishList successfully!'
-                    );
+                    toast.success('Thêm sản phẩm vào mục so sánh');
                     setIsLoadingCompare(false);
                     handleGetListCompare(userId);
                 })
@@ -150,7 +142,7 @@ function ProductItem({
         if (!userId) {
             setIsOpen(true);
             setType('login');
-            toast.warning('Please login to add product to WishList');
+            toast.warning('Vui lòng đăng nhập');
             return;
         }
         const wishlistItem = listWList.find(w => w.product.id === item.id);
@@ -174,7 +166,7 @@ function ProductItem({
                 .then(res => {
                     setIsOpen(true);
                     setType('wishlist');
-                    toast.success('Add product to WishList successfully!');
+                    toast.success('Thêm sản phẩm vào mục yêu thích');
                     setIsLoadingWList(false);
                     handleGetListWishList(userId);
                 })
@@ -193,16 +185,16 @@ function ProductItem({
         if (!userId) {
             setIsOpen(true);
             setType('login');
-            toast.warning('Please login to add product to cart');
+            toast.warning('Vui lòng đăng nhập');
             return;
         }
         if (!sizeChoose) {
             setShowSizeChoose(true);
-            toast.warning('Please choose size!');
+            toast.warning('Vui lòng chọn size');
             return;
         }
         if (!colorChoose) {
-            toast.warning('Please choose color!');
+            toast.warning('Vui lòng chọn màu sắc');
             return;
         }
 
@@ -218,14 +210,14 @@ function ProductItem({
         addProductToCart(query)
             .then(res => {
                 if (res.data.errors) {
-                    toast.error(res.data.errors['400']);
+                    toast.error(res.data.errors['401']);
                     handleGetListProductsCart(userId);
                     setIsLoadingCart(false);
                     return;
                 }
                 setIsOpen(true);
                 setType('cart');
-                toast.success('Add product to cart successfully!');
+                toast.success('Thêm sản phẩm vào giỏ hàng thành công');
                 setIsLoadingCart(false);
                 handleGetListProductsCart(userId);
             })
@@ -258,11 +250,11 @@ function ProductItem({
 
     const handleIncrement = () => {
         if (!sizeChoose) {
-            toast.warning('Please choose size!');
+            toast.warning('Vui lòng chọn size');
             return;
         }
         if (!colorChoose) {
-            toast.warning('Please choose color!');
+            toast.warning('Vui lòng chọn màu sắc');
             return;
         }
         if (
@@ -467,7 +459,7 @@ function ProductItem({
                         />
 
                         <div className={styles.labelColor}>
-                            Color {colorChoose.name}
+                            Màu sắc {colorChoose.name}
                         </div>
                         <Color
                             colors={colors}
@@ -501,7 +493,7 @@ function ProductItem({
                             <Button
                                 content={
                                     <>
-                                        <BsCart3 /> ADD TO CART
+                                        <BsCart3 /> Thêm vào giỏ
                                     </>
                                 }
                                 disabled={
@@ -515,7 +507,7 @@ function ProductItem({
 
                         {productDetail && (
                             <div className={styles.labelQty}>
-                                Current quantity: {productDetail.amount}
+                                Số lượng trong kho: {productDetail.amount}
                             </div>
                         )}
 
@@ -525,29 +517,38 @@ function ProductItem({
                             <div className={styles.line} />
                         </div>
 
-                        <Button content={'BUY NOW'} style={{ width: '100%' }} />
+                        <Button
+                            content={'Mua ngay'}
+                            style={{ width: '100%' }}
+                        />
 
-                        <div className={styles.boxAddOther}>
+                        <div
+                            className={styles.boxAddOther}
+                            onClick={() => handleAddToCompare()}
+                        >
                             <TfiReload size={20} />
-                            <div>Add to compare</div>
+                            <div>Thêm vào mục so sánh</div>
                         </div>
 
-                        <div className={styles.boxAddOther}>
+                        <div
+                            className={styles.boxAddOther}
+                            onClick={() => handleAddToWishList()}
+                        >
                             <BsHeart size={20} />
-                            <div>Add to wishlist</div>
+                            <div>Thêm vào mục yêu thích</div>
                         </div>
 
                         <div className={styles.boxFooter}>
                             SKU: <span>{item.sku}</span>
                         </div>
                         <div className={styles.boxFooter}>
-                            Category: <span>{item.category.name}</span>
+                            Thể loại: <span>{item.category.name}</span>
                         </div>
                         <div className={styles.boxFooter}>
-                            Estimated delivery: <span>5 - 7 days</span>
+                            Dự kiến giao hàng: <span>5 - 7 ngày</span>
                         </div>
                         <div className={styles.boxFooter}>
-                            Share:{' '}
+                            Chia sẻ:{' '}
                             <span className={styles.iconFooter}>
                                 <i>
                                     <FaXTwitter />

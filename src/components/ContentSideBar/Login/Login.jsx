@@ -1,5 +1,4 @@
 import styles from './styles.module.scss';
-import Button from '@components/Button/Button';
 import HeaderSideBar from '@components/ContentSideBar/components/HeaderSideBar/HeaderSideBar';
 import { useCallback, useState } from 'react';
 import RegisterFilter from '@components/ContentSideBar/Login/RegisterFilter/RegisterFilter';
@@ -13,16 +12,14 @@ function Login() {
 
     return (
         <div className={styles.container}>
-            <HeaderSideBar title={isRegister ? 'SIGN UP' : 'SIGN IN'} />
+            <HeaderSideBar title={isRegister ? 'ĐĂNG KÝ' : 'ĐĂNG NHẬP'} />
             {isRegister ? (
                 <RegisterFilter onIncrease={handleIncreaseToggle} />
             ) : (
                 <LoginFilter onIncrease={handleIncreaseToggle} />
             )}
 
-            {!isRegister && (
-                <div className={styles.lostPw}>Lost your password?</div>
-            )}
+            {!isRegister && <div className={styles.lostPw}>Quên mật khẩu?</div>}
         </div>
     );
 }

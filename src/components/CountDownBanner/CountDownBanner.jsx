@@ -9,8 +9,8 @@ function CountDownBanner() {
             <div className={styles.containerTimer}>
                 <CountDownTimer targetDate={targerDate} />
             </div>
-            <p className={styles.title}>The Classics Make A Comeback</p>
-            <Button content={'Buy now'} />
+            <p className={styles.title}>Sản Phẩm Đặc Biệt</p>
+            <Button content={'Mua ngay'} />
         </div>
     );
 }

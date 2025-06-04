@@ -11,9 +11,7 @@ function Banner() {
                     <div className={styles.countDownBox}>
                         <CountDownTimer targetDate={targetDate} />
                     </div>
-                    <div className={styles.title}>
-                        The Classics Make A Comback
-                    </div>
+                    <div className={styles.title}>Sản Phẩm Đặc Biệt</div>
                     <div className={styles.boxBtn}>
                         <Button content='Buy now' />
                     </div>

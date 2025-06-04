@@ -17,6 +17,10 @@ const logOut = async () => {
     return await axiosUser.post('/user/logout');
 };
 
+const verify = async body => {
+    return await axiosUser.post('/verify', body);
+};
+
 const refreshTokenApi = async refreshToken => {
     try {
         const resp = await axios.post(
@@ -34,4 +38,4 @@ const refreshTokenApi = async refreshToken => {
     }
 };
 
-export { register, signIn, getInfo, logOut, refreshTokenApi };
+export { register, signIn, getInfo, logOut, refreshTokenApi, verify };

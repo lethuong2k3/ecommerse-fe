@@ -16,4 +16,14 @@ const getWishList = async () => {
     return await axiosUser.get('/user/wishlist');
 };
 
-export { createWishList, getWishList, deleteWishList, removeAllWishList };
+const getWListByProductAndUser = async body => {
+    return await axiosUser.post('/user/wishlist-product-user', body);
+};
+
+export {
+    createWishList,
+    getWishList,
+    deleteWishList,
+    removeAllWishList,
+    getWListByProductAndUser,
+};

@@ -16,7 +16,7 @@ function Breadcrumbs({ title }) {
                     className={styles.breadcrumb}
                     onClick={() => handleBackHome()}
                 >
-                    Home
+                    Trang chủ
                 </div>{' '}
                 &gt; <span className={styles.specialText}>{title}</span>{' '}
             </div>
@@ -25,7 +25,7 @@ function Breadcrumbs({ title }) {
                     className={styles.btnBack}
                     onClick={() => handleBackPreviosPage()}
                 >
-                    &lt; Return to previos page
+                    &lt; Quay lại trang trước đó
                 </div>
             </div>
         </div>

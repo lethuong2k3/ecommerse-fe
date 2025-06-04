@@ -8,10 +8,10 @@ const CountDownTimer = ({ targetDate }) => {
         let timeLeft = {};
         if (difference > 0) {
             timeLeft = {
-                Days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                Hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                Minutes: Math.floor((difference / 1000 / 60) % 60),
-                Seconds: Math.floor((difference / 1000) % 60),
+                Ngày: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                Tiếng: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                Phút: Math.floor((difference / 1000 / 60) % 60),
+                Giây: Math.floor((difference / 1000) % 60),
             };
         }
         return timeLeft;

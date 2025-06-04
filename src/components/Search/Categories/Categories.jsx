@@ -8,7 +8,7 @@ function Categories({ categories, handleNavigateToShop }) {
     );
     return (
         <div className={styles.containerContent}>
-            <h2 className={styles.titleContent}>Popular Categories</h2>
+            <h2 className={styles.titleContent}>Thể Loại Phổ Biến</h2>
             <div className={styles.sliderContent}>
                 <div className={styles.productCategory}>
                     <img

@@ -1,0 +1,179 @@
+@import '@styles/mixins.module.scss';
+@import '@styles/variables.module.scss';
+
+.container {
+    margin-top: 83px;
+
+    .checkoutTable {
+        width: 100%;
+        margin-top: 30px;
+        .containerSearch {
+            @include flex_box_custom(flex-start, center, 30px);
+            margin-bottom: 20px;
+            .searchInput {
+                @include flex_box_custom(unset, center, 5px);
+
+                position: relative;
+                width: 40%;
+                border: 1px solid $line_color;
+                height: 35px;
+                margin-top: 8px;
+                input {
+                    width: 90%;
+                    font-size: 14px;
+                    line-height: 2rem;
+                    border-width: 0;
+                    outline: none;
+                    padding: 0px 15px;
+                    color: $primary_color;
+                }
+
+                .boxClear {
+                    @include flex_box_custom(center, center, 5px);
+                    position: absolute;
+                    right: 40px;
+                }
+
+                .boxBtn {
+                    @include flex_box_custom(center, center, 0px);
+                    width: 10%;
+                    height: 100%;
+                }
+            }
+
+            .containerDate {
+                @include flex_box_custom(flex-start, center, 10px);
+            }
+        }
+
+        .boxBtn {
+            @include flex_box_custom(flex-start, center, 10px);
+            height: 100%;
+            button {
+                @include flex_box_custom(center, center, 5px);
+
+                width: 80px;
+                font-size: 12px;
+
+                &:nth-child(2) {
+                    width: 163px;
+                }
+
+                &:nth-child(3) {
+                    display: none;
+                }
+            }
+
+            @include respond(mobile-tablet) {
+                button:nth-child(1),
+                button:nth-child(2) {
+                    display: none;
+                }
+
+                button:nth-child(3) {
+                    display: block;
+                }
+            }
+        }
+        span {
+            margin-top: 7px;
+            font-size: 12px;
+            color: $seconddary_color;
+        }
+
+        @include respond(mobile-tablet) {
+            .createdAt {
+                display: none;
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            thead {
+                tr {
+                    th {
+                        text-align: left;
+                        font-size: 14px;
+                        padding: 10px;
+                        color: #666;
+                        border-bottom: 1px solid #e1e1e1;
+                        font-weight: 400;
+
+                        &:last-child {
+                            text-align: right;
+                        }
+                    }
+                    @include respond(mobile-tablet) {
+                        .columnPrice,
+                        .columnStatus {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    border-bottom: 1px solid #eee;
+
+                    .checkBox {
+                        padding: 21px 10px;
+                    }
+
+                    .orderInfo {
+                        padding: 21px 9px;
+                        .orderId {
+                            color: #377dff;
+                            cursor: pointer;
+                        }
+                        p {
+                            margin: 0;
+                            font-size: 15px;
+
+                            span {
+                                color: $seconddary_color;
+                            }
+                        }
+
+                        .priceProduct {
+                            display: none;
+                            color: $seconddary_color;
+                        }
+
+                        @include respond(mobile-tablet) {
+                            .skuProduct {
+                                display: none;
+                            }
+
+                            .priceProduct {
+                                display: block;
+                            }
+                        }
+                    }
+
+                    td {
+                        padding: 21px 9px;
+
+                        &:last-child {
+                            padding-right: 0px;
+                        }
+                    }
+
+                    select {
+                        padding: 5px;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                    }
+
+                    @include respond(mobile-tablet) {
+                        .price,
+                        .status {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

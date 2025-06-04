@@ -65,7 +65,7 @@
 }
 
 .containerBox {
-    @include flex_box_custom(center, center, 20px);
+    @include flex_box_custom(center, center, 30px);
 
     @include respond(mobile-tablet) {
         display: none;
@@ -77,7 +77,7 @@
 }
 
 .containerMenu {
-    @include flex_box_custom(center, center, 40px);
+    @include flex_box_custom(center, center, 20px);
 
     @include respond(mobile-tablet) {
         display: none;
@@ -106,10 +106,17 @@
     .subMenu {
         position: absolute;
         background-color: #fff;
-        width: 100%;
-        padding: 10px;
+        width: 200px;
         top: 40px;
         z-index: 1;
+
+        .itemMenu {
+            padding: 10px;
+        }
+
+        .itemMenu:hover {
+            background-color: $line_color;
+        }
     }
 }
 

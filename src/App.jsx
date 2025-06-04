@@ -11,25 +11,41 @@ import Search from '@components/Search/Search';
 import ProtectedRoute from '@routers/ProtectedRoute';
 import SidebarMenu from '@components/Sidebar/SidebarMenu';
 import LoginRoute from '@routers/LoginRoute';
+import { PaymentMethodsProvider } from '@contexts/PaymentMethodsProvider';
 
 function App() {
     return (
         <ToastProvider>
-            <SearchProvider>
-                <SidebarProvider>
-                    <StoreProvider>
-                        <BrowserRouter>
-                            <Sidebar />
-                            <SidebarMenu />
-                            <Search />
-                            <Suspense fallback={<div>...Loading</div>}>
-                                <Routes>
-                                    <Route
-                                        path='/login'
-                                        element={<LoginRoute />}
-                                    />
-                                    <Route element={<ProtectedRoute />}>
-                                        {privateRouters.map((item, index) => {
+            <PaymentMethodsProvider>
+                <SearchProvider>
+                    <SidebarProvider>
+                        <StoreProvider>
+                            <BrowserRouter>
+                                <Sidebar />
+                                <SidebarMenu />
+                                <Search />
+                                <Suspense fallback={<div>...Loading</div>}>
+                                    <Routes>
+                                        <Route
+                                            path='/login'
+                                            element={<LoginRoute />}
+                                        />
+                                        <Route element={<ProtectedRoute />}>
+                                            {privateRouters.map(
+                                                (item, index) => {
+                                                    return (
+                                                        <Route
+                                                            path={item.path}
+                                                            element={
+                                                                <item.component />
+                                                            }
+                                                            key={index}
+                                                        />
+                                                    );
+                                                }
+                                            )}
+                                        </Route>
+                                        {publicRouters.map((item, index) => {
                                             return (
                                                 <Route
                                                     path={item.path}
@@ -38,22 +54,13 @@ function App() {
                                                 />
                                             );
                                         })}
-                                    </Route>
-                                    {publicRouters.map((item, index) => {
-                                        return (
-                                            <Route
-                                                path={item.path}
-                                                element={<item.component />}
-                                                key={index}
-                                            />
-                                        );
-                                    })}
-                                </Routes>
-                            </Suspense>
-                        </BrowserRouter>
-                    </StoreProvider>
-                </SidebarProvider>
-            </SearchProvider>
+                                    </Routes>
+                                </Suspense>
+                            </BrowserRouter>
+                        </StoreProvider>
+                    </SidebarProvider>
+                </SearchProvider>
+            </PaymentMethodsProvider>
         </ToastProvider>
     );
 }

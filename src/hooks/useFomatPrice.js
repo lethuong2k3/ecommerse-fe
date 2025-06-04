@@ -1,5 +1,5 @@
 const formatPrice = price => {
-    return price.toLocaleString('vi-VN') + 'đ';
+    return price ? price?.toLocaleString('vi-VN') + 'đ' : `0đ`;
 };
 
 const getPriceRange = obj => {

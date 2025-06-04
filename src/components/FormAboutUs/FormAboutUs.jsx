@@ -16,18 +16,19 @@ import { FaXTwitter } from 'react-icons/fa6';
 const dataAboutUs = [
     {
         icon: <IoHomeOutline />,
-        title: 'Address',
-        description: '7895 Piermont Dr NE Albuquerque, NM 198866',
+        title: 'Địa chỉ',
+        description:
+            'Số 2A Đường Bình Chiểu, P. Bình Chiểu, Toà nhà STOWN, TP. Thủ Đức',
     },
     {
         icon: <BiPhoneCall />,
-        title: 'Phones',
-        description: '+391 (0)35 2568 4593 hello@domain.com',
+        title: 'Điện thoại',
+        description: '0346.366.482',
     },
     {
-        icon: <WiTime9 style={{ marginTop: '5px' }} />,
-        title: "We're Open",
-        description: 'Every day 11am to 7pm',
+        icon: <WiTime9 />,
+        title: 'Giờ mở cửa',
+        description: '6h - 20h',
     },
 ];
 
@@ -103,7 +104,7 @@ function FormAboutUs({
                     >
                         <div className={styles.wrapperContent}>
                             <div className={styles.containerInfo}>
-                                <h2 className={styles.title}>Information</h2>
+                                <h2 className={styles.title}>Thông tin</h2>
                                 {dataAboutUs.map((item, index) => {
                                     return (
                                         <div
@@ -133,10 +134,12 @@ function FormAboutUs({
                             </div>
 
                             <div className={styles.containerContact}>
-                                <h2 className={styles.title}>Contact us</h2>
+                                <h2 className={styles.title}>
+                                    Liên hệ với chúng tôi
+                                </h2>
                                 <p className={styles.desContact}>
-                                    If you’ve got great products your looking to
-                                    work with us then drop us a line.
+                                    Nếu bạn có vấn đề gì cần trợ giúp thì gửi
+                                    thông tin về cho chúng tôi.
                                 </p>
                                 <form onSubmit={formik.handleSubmit}>
                                     <div className={styles.containerInput}>
@@ -144,7 +147,7 @@ function FormAboutUs({
                                             id='name'
                                             type='text'
                                             formik={formik}
-                                            placeholder='Name'
+                                            placeholder='Tên'
                                         />
                                         <InputCommon
                                             id='email'
@@ -157,7 +160,7 @@ function FormAboutUs({
                                         id='message'
                                         type='textarea'
                                         formik={formik}
-                                        placeholder='Message'
+                                        placeholder='Tin nhắn'
                                         rows={isAboutUs ? '8' : '6'}
                                     />
                                     <div className={styles.saveInfo}>
@@ -171,8 +174,7 @@ function FormAboutUs({
                                             }
                                         />
                                         <label htmlFor='saveInfo'>
-                                            Save my name, email and website in
-                                            this browser for the next time.
+                                            Ghi nhớ tên và email.
                                         </label>
                                     </div>
                                     <Button

@@ -21,6 +21,7 @@ export const StoreProvider = ({ children }) => {
 
     const [userInfo, setUserInfo] = useState(null);
     const [userId, setUserId] = useState(Cookies.get('id'));
+    const [isVerify, setIsVerify] = useState(false);
     const handleLogout = async () => {
         await logOut().then(() => {
             Cookies.remove('token');
@@ -51,7 +52,9 @@ export const StoreProvider = ({ children }) => {
     }, [userId]);
 
     return (
-        <StoreContext.Provider value={{ userInfo, handleLogout, setUserId }}>
+        <StoreContext.Provider
+            value={{ userInfo, handleLogout, setUserId, isVerify, setIsVerify }}
+        >
             {children}
         </StoreContext.Provider>
     );

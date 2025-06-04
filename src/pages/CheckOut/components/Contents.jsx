@@ -30,7 +30,7 @@ function Contents({
         }
         getData(orderItemId, { quantity: +quantity - 1 });
     };
-    const subTotal = listProductCart.reduce((acc, item) => {
+    const subTotal = listProductCart?.reduce((acc, item) => {
         return acc + item.totalPrice;
     }, 0);
     const isErr = formik.touched.country && formik.errors.country;
@@ -165,7 +165,7 @@ function Contents({
                     ) : (
                         <>
                             <div className={styles.products}>
-                                {listProductCart.map((item, index) => {
+                                {listProductCart?.map((item, index) => {
                                     return (
                                         <div
                                             className={styles.shopTable}

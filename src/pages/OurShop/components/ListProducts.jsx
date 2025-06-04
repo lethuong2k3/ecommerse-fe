@@ -37,7 +37,7 @@ function ListProducts() {
                                         width: '100%',
                                     }}
                                 >
-                                    No products found
+                                    Không tìm thấy sản phẩm nào
                                 </span>
                             )}
                             {products.map(item => (
@@ -62,7 +62,7 @@ function ListProducts() {
                                         isLoadMore ? (
                                             <LoadMore />
                                         ) : (
-                                            'LOAD MORE PRODUCT'
+                                            'Hiển thị thêm'
                                         )
                                     }
                                 />
