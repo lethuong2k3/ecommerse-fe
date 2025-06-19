@@ -39,7 +39,7 @@ function Categories({ categories, handleNavigateToShop }) {
             <div className={styles.btnViewAll}>
                 <Button
                     onClick={() => handleNavigateToShop('all')}
-                    content={'VIEW ALL CATEGORIES'}
+                    content={'Xem nhiều thể loại'}
                 />
             </div>
         </div>

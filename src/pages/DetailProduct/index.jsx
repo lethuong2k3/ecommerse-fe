@@ -41,6 +41,9 @@ import {
     createWishList,
     getWListByProductAndUser,
 } from '@apis/wishlistService';
+import { getReviews, getReview } from '@apis/reviewService';
+import userImg from '@images/user.jpg';
+import { StoreContext } from '@contexts/StoreProvider';
 
 function DetailProduct() {
     const {
@@ -48,11 +51,11 @@ function DetailProduct() {
         listProductCart,
         setIsOpen,
         setType,
-        compareList,
         handleGetListCompare,
         handleGetListWishList,
     } = useContext(SidebarContext);
     const { toast } = useContext(ToastContext);
+    const { userId } = useContext(StoreContext);
 
     const initialState = {
         menuSelected: 1,
@@ -69,6 +72,9 @@ function DetailProduct() {
         isLoadingWList: false,
         isWishList: {},
         isCompare: {},
+        reviews: [],
+        isLoadingReviews: false,
+        isReview: {},
     };
 
     function reducer(state, action) {
@@ -80,7 +86,7 @@ function DetailProduct() {
     const productDetailCart = listProductCart?.filter(
         lst => lst.productDetail.id === state.dataDetail?.id
     )[0];
-    const userId = Cookies.get('id');
+
     const sizes = useMemo(() => {
         const sizeSet = _.uniq(_.map(state.data?.productDetails, 'size.name'));
         return sizeSet;
@@ -164,7 +170,6 @@ function DetailProduct() {
             return;
         }
         dispatch({ type: 'isLoadingCompare', payload: true });
-        console.log(state.isCompare);
         if (state.isCompare.status === 1) {
             deleteCompare(state.isCompare.id)
                 .then(res => {
@@ -254,7 +259,9 @@ function DetailProduct() {
                 limit: 10,
                 productId: state.data?.id,
             };
-            dispatch({ type: 'isLoadingProducts', payload: true });
+            apiGetReviews();
+            dispatch({ type: 'dataDetail', payload: null });
+            dispatch({ type: 'isReview', payload: '' });
             getRelatedProducts(query)
                 .then(res => {
                     dispatch({
@@ -270,9 +277,28 @@ function DetailProduct() {
             if (userId) {
                 apiIsWishList();
                 apiIsCompare();
+                apiGetReview();
             }
         }
-    }, [state.data]);
+    }, [state.data, userId]);
+
+    useEffect(() => {
+        if (state.colorSelected && state.sizeSelected) {
+            let productDetail = state.data?.productDetails?.filter(
+                pd =>
+                    pd.size.name === state.sizeSelected &&
+                    pd.color.hex === state.colorSelected.hex
+            )[0];
+            getProductDetail(productDetail.id)
+                .then(resp => {
+                    dispatch({ type: 'dataDetail', payload: resp.data.data });
+                    if (userId) handleGetListProductsCart(userId);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    }, [state.sizeSelected, state.colorSelected]);
 
     const apiIsWishList = () => {
         dispatch({ type: 'isLoadingWList', payload: true });
@@ -300,23 +326,30 @@ function DetailProduct() {
             });
     };
 
-    useEffect(() => {
-        if (state.colorSelected && state.sizeSelected) {
-            let productDetail = state.data?.productDetails?.filter(
-                pd =>
-                    pd.size.name === state.sizeSelected &&
-                    pd.color.hex === state.colorSelected.hex
-            )[0];
-            getProductDetail(productDetail.id)
-                .then(resp => {
-                    dispatch({ type: 'dataDetail', payload: resp.data.data });
-                    if (userId) handleGetListProductsCart(userId);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-    }, [state.sizeSelected, state.colorSelected]);
+    const apiGetReviews = () => {
+        dispatch({ type: 'isLoadingReviews', payload: true });
+        getReviews(state.data.id)
+            .then(res => {
+                dispatch({ type: 'reviews', payload: res.data });
+                dispatch({ type: 'isLoadingReviews', payload: false });
+            })
+            .catch(err => {
+                console.log(err);
+                dispatch({ type: 'isLoadingReviews', payload: false });
+            });
+    };
+
+    const apiGetReview = () => {
+        dispatch({ type: 'isLoadingReviews', payload: true });
+        getReview(state.data.id)
+            .then(res => {
+                dispatch({ type: 'isReview', payload: res.data });
+                dispatch({ type: 'isLoadingReviews', payload: false });
+            })
+            .catch(err => {
+                dispatch({ type: 'isLoadingReviews', payload: false });
+            });
+    };
 
     const dataAccordionMenu = [
         {
@@ -326,11 +359,22 @@ function DetailProduct() {
         },
         {
             id: 2,
-            titleMenu: 'Đánh giá (0)',
+            titleMenu: `Đánh giá (${state.reviews.length})`,
             content: (
                 <div>
-                    {' '}
-                    <ReviewProduct />{' '}
+                    <ReviewProduct
+                        toast={toast}
+                        userId={userId}
+                        setIsOpen={setIsOpen}
+                        setType={setType}
+                        data={state.data}
+                        apiGetReviews={apiGetReviews}
+                        apiGetReview={apiGetReview}
+                        reviews={state.reviews}
+                        userImg={userImg}
+                        isLoadingReviews={state.isLoadingReviews}
+                        isReview={state.isReview}
+                    />
                 </div>
             ),
         },
@@ -564,7 +608,7 @@ function DetailProduct() {
                         </div>
                         <div className={styles.containerRelatedProduct}>
                             <h2 className={styles.lableRelatedProduct}>
-                                Related Products
+                                Sản phẩm tương tự
                             </h2>
                             {!state.isLoadingProducts ? (
                                 state.relatedProduct.length > 0 ? (
@@ -575,7 +619,7 @@ function DetailProduct() {
                                     />
                                 ) : (
                                     <div className={styles.noRelatedProducts}>
-                                        No Related Products
+                                        Không có sản phẩm tương tự nào.
                                     </div>
                                 )
                             ) : (

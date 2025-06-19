@@ -1,3 +1,5 @@
+@import '@styles/mixins.module.scss';
+
 .container {
     max-width: 400px;
     margin: 20px auto;
@@ -19,6 +21,16 @@
     }
 
     .btn {
-        margin-top: 20px;
+        margin-top: 15px;
+    }
+
+    .btnResend {
+        @include flex_box_custom(flex-end, center, 0px);
+
+        margin: 10px 20px 0px 10px;
+
+        button {
+            width: 40%;
+        }
     }
 }

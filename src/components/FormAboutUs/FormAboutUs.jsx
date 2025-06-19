@@ -178,7 +178,7 @@ function FormAboutUs({
                                         </label>
                                     </div>
                                     <Button
-                                        content={'Send Now'}
+                                        content={'Gửi'}
                                         style={{ width: '100%' }}
                                         type='submit'
                                     />

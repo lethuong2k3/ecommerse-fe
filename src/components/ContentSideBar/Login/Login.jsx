@@ -1,11 +1,13 @@
 import styles from './styles.module.scss';
 import HeaderSideBar from '@components/ContentSideBar/components/HeaderSideBar/HeaderSideBar';
-import { useCallback, useState } from 'react';
 import RegisterFilter from '@components/ContentSideBar/Login/RegisterFilter/RegisterFilter';
 import LoginFilter from '@components/ContentSideBar/Login/LoginFilter/LoginFilter';
+import { useCallback, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function Login() {
     const [isRegister, setIsRegister] = useState(false);
+    const location = useLocation();
     const handleIncreaseToggle = useCallback(() => {
         setIsRegister(!isRegister);
     }, [isRegister]);
@@ -16,7 +18,10 @@ function Login() {
             {isRegister ? (
                 <RegisterFilter onIncrease={handleIncreaseToggle} />
             ) : (
-                <LoginFilter onIncrease={handleIncreaseToggle} />
+                <LoginFilter
+                    onIncrease={handleIncreaseToggle}
+                    location={location}
+                />
             )}
 
             {!isRegister && <div className={styles.lostPw}>Quên mật khẩu?</div>}

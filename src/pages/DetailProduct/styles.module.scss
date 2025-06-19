@@ -189,15 +189,39 @@
 }
 
 .containerReview {
-    .reviews {
-        border-bottom: 1px solid #e1e1e1;
-        padding-bottom: 15px;
-    }
+    .reviewList {
+        list-style: none;
+        padding: 0;
 
-    .noReview {
-        font-size: 14px;
-        color: $thr_color;
-        margin-bottom: 20px;
+        li {
+            margin-bottom: 15px;
+            .boxContent {
+                @include flex_box_custom(flex-start, unset, 5px);
+                img {
+                    width: 40px;
+                    height: 40px;
+                }
+                .stars {
+                    color: #fdd835;
+                    font-size: 18px;
+                    margin-bottom: 5px;
+                }
+                p {
+                    margin: 0;
+                    font-size: 14px;
+                    color: #333;
+                }
+                .updateReview {
+                    font-size: 13px;
+                    height: 20px;
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
     }
 
     .replyForm {
@@ -254,11 +278,16 @@
 
     .boxItemStar {
         display: flex;
-        gap: 25px;
+        gap: 0px;
 
-        div {
+        svg {
             color: #e1e1e1;
             cursor: pointer;
+            transition: color 0.2s;
+
+            &.active {
+                color: #fdd835;
+            }
 
             &:hover {
                 color: #fdd835;

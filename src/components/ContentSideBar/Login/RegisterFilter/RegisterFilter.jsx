@@ -8,28 +8,27 @@ import InputCommon from '@components/InputCommon/InputCommon';
 import styles from '../styles.module.scss';
 import Button from '@components/Button/Button';
 import { StoreContext } from '@contexts/StoreProvider';
-import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
 import VerifyCode from '@components/VerifyCode/VerifyCode';
 import { verify } from '@apis/authService';
+import LoadMore from '@components/Loading/LoadMore';
 
 function RegisterFilter({ onIncrease }) {
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
     const { toast } = useContext(ToastContext);
-    const { setIsOpen } = useContext(SidebarContext);
-    const { setUserId, isVerify, setIsVerify } = useContext(StoreContext);
+    const { setType } = useContext(SidebarContext);
+    const { isVerify, setIsVerify } = useContext(StoreContext);
     const handleActiveCode = () => {
         let body = {
             email: email,
             verificationCode: code,
         };
-        console.log(body);
         verify(body)
             .then(res => {
+                onIncrease();
                 setIsVerify(false);
-                setIsOpen(false);
+                setType('login');
                 toast.success(res.data.data);
             })
             .catch(err => {
@@ -39,7 +38,6 @@ function RegisterFilter({ onIncrease }) {
                 console.log(err);
             });
     };
-    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -67,20 +65,12 @@ function RegisterFilter({ onIncrease }) {
             await register({ email, name, password })
                 .then(res => {
                     if (!res.enabled) {
+                        console.log(res);
                         setEmail(res.data.data.email);
                         setIsVerify(true);
                         setIsLoading(false);
                         return;
                     }
-                    // const { userId, token, refreshToken } = res.data.data;
-                    // Cookies.set('token', token);
-                    // Cookies.set('refreshToken', refreshToken);
-                    // Cookies.set('id', userId);
-                    // setUserId(userId);
-                    // toast.success('Register successfully!');
-                    // setIsOpen(false);
-                    // formik.resetForm();
-                    // navigate('/');
                 })
                 .catch(err => {
                     setIsLoading(false);
@@ -97,6 +87,7 @@ function RegisterFilter({ onIncrease }) {
                 <VerifyCode
                     setCode={setCode}
                     handleActiveCode={handleActiveCode}
+                    email={email}
                 />
             ) : (
                 <>
@@ -132,7 +123,9 @@ function RegisterFilter({ onIncrease }) {
                         <div className={styles.boxBtn}>
                             <Button
                                 type='submit'
-                                content={isLoading ? 'Loading...' : 'Đăng ký'}
+                                content={
+                                    <>{isLoading ? <LoadMore /> : 'Đăng ký'}</>
+                                }
                             />
                         </div>
                     </form>

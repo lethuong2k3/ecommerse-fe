@@ -53,7 +53,14 @@ export const StoreProvider = ({ children }) => {
 
     return (
         <StoreContext.Provider
-            value={{ userInfo, handleLogout, setUserId, isVerify, setIsVerify }}
+            value={{
+                userInfo,
+                handleLogout,
+                setUserId,
+                isVerify,
+                setIsVerify,
+                userId,
+            }}
         >
             {children}
         </StoreContext.Provider>

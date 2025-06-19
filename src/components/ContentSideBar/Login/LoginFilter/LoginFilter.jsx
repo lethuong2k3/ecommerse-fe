@@ -5,13 +5,12 @@ import { StoreContext } from '@contexts/StoreProvider';
 import Cookies from 'js-cookie';
 import { useContext, useState } from 'react';
 import { ToastContext } from '@contexts/ToastProvider';
-import { SidebarContext } from '@contexts/SideBarProvider';
 import InputCommon from '@components/InputCommon/InputCommon';
 import styles from '../styles.module.scss';
 import Button from '@components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 
-function LoginFilter({ onIncrease }) {
+function LoginFilter({ onIncrease, location }) {
     const [isLoading, setIsLoading] = useState(false);
     const { setUserId } = useContext(StoreContext);
     const { toast } = useContext(ToastContext);
@@ -44,7 +43,9 @@ function LoginFilter({ onIncrease }) {
                     setUserId(userId);
                     toast.success('Sign in successfully!');
                     formik.resetForm();
-                    navigate('/');
+                    if (location.pathname === '/login') {
+                        navigate('/');
+                    }
                 })
                 .catch(error => {
                     if (error.status === 400) {

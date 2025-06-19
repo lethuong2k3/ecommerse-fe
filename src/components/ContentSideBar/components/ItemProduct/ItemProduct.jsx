@@ -54,7 +54,7 @@ function ItemProduct({
                     });
                 break;
             case 'compare':
-                deleteCompare({ id: item.id, product: item.product })
+                deleteCompare(item.id)
                     .then(res => {
                         setIsDelete(false);
                         handleGetListCompare(userId);

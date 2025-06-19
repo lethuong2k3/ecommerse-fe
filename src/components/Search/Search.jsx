@@ -206,7 +206,7 @@ function Search() {
                             />
                         ))}
                     {debouncedValue && !products.length && !isLoading && (
-                        <span>No results were found!</span>
+                        <span>Không tìm thấy kết quả nào!</span>
                     )}
                     {!searchValue && (
                         <Categories
