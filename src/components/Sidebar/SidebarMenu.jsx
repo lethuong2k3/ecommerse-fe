@@ -13,6 +13,7 @@ import { getProducts } from '@apis/productsService';
 import { getPriceRange } from '@hooks/useFomatPrice';
 import { StoreContext } from '@contexts/StoreProvider';
 import { formatPrice } from '@hooks/useFomatPrice';
+import { FaRegUser } from 'react-icons/fa';
 
 function SidebarMenu() {
     const { leftSideBar, setLeftSideBar, listProductCart } =
@@ -71,10 +72,23 @@ function SidebarMenu() {
         inputRef.current.focus();
     };
 
-    const handleRenderText = content => {
-        return content === 'Account' && userInfo
-            ? `Hello: ${userInfo?.name}`
-            : content;
+    const handleRenderText = item => {
+        let text;
+
+        if (item.content === 'Đăng nhập' && userInfo) {
+            text = userInfo.name;
+        } else if (item.private && !userInfo) {
+            return;
+        } else {
+            text = item.content;
+        }
+
+        return (
+            <>
+                {item.icon && <item.icon style={{ marginRight: 6 }} />}
+                {text}
+            </>
+        );
     };
 
     return (
@@ -169,8 +183,7 @@ function SidebarMenu() {
                         {dataMenu.map((item, index) => {
                             return (
                                 <a key={index} href={item.href}>
-                                    {item.icon && <item.icon />}{' '}
-                                    {handleRenderText(item.content)}{' '}
+                                    {handleRenderText(item)}
                                     {item.content === 'Cart' &&
                                         formatPrice(subTotal)}
                                 </a>

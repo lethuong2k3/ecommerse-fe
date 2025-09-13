@@ -9,6 +9,7 @@ function Size({
     handleChooseSize,
     sizes,
     sizeChoose,
+    disabledSizes = [],
 }) {
     return (
         <>
@@ -20,20 +21,32 @@ function Size({
                             : styles.boxSizeViewProduct
                     )}
                 >
-                    {sizes?.map((size, index) => (
-                        <div
-                            className={cls(styles.sizes, {
-                                [styles.isActiveSize]: sizeChoose === size,
-                            })}
-                            style={{
-                                padding: isViewProduct ? '9px 12px' : '4px 8px',
-                            }}
-                            key={index}
-                            onClick={() => handleChooseSize(size)}
-                        >
-                            {size}
-                        </div>
-                    ))}
+                    {sizes?.map((size, index) => {
+                        const isDisabled = disabledSizes.includes(size);
+                        return (
+                            <div
+                                className={cls(styles.sizes, {
+                                    [styles.isActiveSize]: sizeChoose === size,
+                                    [styles.disabled]: isDisabled,
+                                })}
+                                style={{
+                                    padding: isViewProduct
+                                        ? '9px 12px'
+                                        : '4px 8px',
+                                    cursor: isDisabled
+                                        ? 'not-allowed'
+                                        : 'pointer',
+                                    opacity: isDisabled ? 0.5 : 1,
+                                }}
+                                key={index}
+                                onClick={() =>
+                                    !isDisabled && handleChooseSize(size)
+                                }
+                            >
+                                {size}
+                            </div>
+                        );
+                    })}
                 </div>
             ) : (
                 <div className={styles.boxAddSize}>

@@ -103,6 +103,10 @@
     color: $primary_color;
     position: relative;
 
+    .boxUser {
+        @include flex_box_custom(center, center, 5px);
+    }
+
     .subMenu {
         position: absolute;
         background-color: #fff;

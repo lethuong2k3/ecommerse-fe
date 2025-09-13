@@ -27,7 +27,7 @@ function App() {
                                 <Suspense fallback={<div>...Loading</div>}>
                                     <Routes>
                                         <Route
-                                            path='/login'
+                                            path='/dang-nhap'
                                             element={<LoginRoute />}
                                         />
                                         <Route element={<ProtectedRoute />}>

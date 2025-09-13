@@ -4,9 +4,9 @@ import cls from 'classnames';
 
 function Steps({ step, className }) {
     const dataSteps = [
-        { number: 1, content: 'Shopping cart' },
-        { number: 2, content: 'Checkout' },
-        { number: 3, content: 'Order status' },
+        { number: 1, content: 'Giỏ hàng' },
+        { number: 2, content: 'Thanh toán' },
+        { number: 3, content: 'Kết quả' },
     ];
     return (
         <div className={styles.containerSteps}>

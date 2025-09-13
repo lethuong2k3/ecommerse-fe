@@ -13,7 +13,6 @@ export const StoreProvider = ({ children }) => {
         handleGetListProductsCart,
         handleGetListWishList,
         handleGetListCompare,
-        setIsOpen,
         setListWList,
         setListProductCart,
         setCompareList,
@@ -40,7 +39,6 @@ export const StoreProvider = ({ children }) => {
             getInfo(userId)
                 .then(res => {
                     setUserInfo(res.data.data);
-                    setIsOpen(false);
                     handleGetListProductsCart(userId);
                     handleGetListWishList(userId);
                     handleGetListCompare(userId);

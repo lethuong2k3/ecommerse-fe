@@ -82,6 +82,7 @@ function DetailProduct() {
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
+    const param = useParams();
 
     const productDetailCart = listProductCart?.filter(
         lst => lst.productDetail.id === state.dataDetail?.id
@@ -91,6 +92,7 @@ function DetailProduct() {
         const sizeSet = _.uniq(_.map(state.data?.productDetails, 'size.name'));
         return sizeSet;
     }, [state.data]);
+
     const colors = useMemo(() => {
         const colorSet = _.uniqBy(
             state.data?.productDetails?.map(({ color }) => ({
@@ -101,7 +103,28 @@ function DetailProduct() {
         );
         return colorSet;
     }, [state.data]);
-    const param = useParams();
+
+    const validSizesByColor = useMemo(() => {
+        if (!state.colorSelected) return sizes;
+        return _.uniq(
+            state.data?.productDetails
+                ?.filter(pd => pd.color.hex === state.colorSelected.hex)
+                .map(pd => pd.size.name)
+        );
+    }, [state.colorSelected, state.data]);
+
+    const validColorsBySize = useMemo(() => {
+        if (!state.sizeSelected) return colors;
+        return _.uniqBy(
+            state.data?.productDetails
+                ?.filter(pd => pd.size.name === state.sizeSelected)
+                .map(pd => ({
+                    hex: pd.color.hex,
+                    name: pd.color.name,
+                })),
+            'hex'
+        );
+    }, [state.sizeSelected, state.data]);
 
     const handleSelectedColor = color => {
         dispatch({ type: 'colorSelected', payload: color });
@@ -390,7 +413,7 @@ function DetailProduct() {
         if (state.quantity <= 1) {
             return;
         }
-        dispatch({ type: 'quantity', payload: quantity - 1 });
+        dispatch({ type: 'quantity', payload: state.quantity - 1 });
     };
 
     const handleIncrement = () => {
@@ -408,7 +431,7 @@ function DetailProduct() {
                 state.quantity <
                     +state.dataDetail?.amount - +productDetailCart?.quantity)
         ) {
-            dispatch({ type: 'quantity', payload: quantity + 1 });
+            dispatch({ type: 'quantity', payload: state.quantity + 1 });
         }
     };
     return (
@@ -471,6 +494,16 @@ function DetailProduct() {
                                     handleChooseSize={handleSelectedSize}
                                     sizes={sizes}
                                     sizeChoose={state.sizeSelected}
+                                    disabledSizes={
+                                        state.colorSelected
+                                            ? sizes.filter(
+                                                  size =>
+                                                      !validSizesByColor.includes(
+                                                          size
+                                                      )
+                                              )
+                                            : []
+                                    }
                                 />
                                 <p>Màu sắc {state.colorSelected.name}</p>
                                 <Color
@@ -478,13 +511,25 @@ function DetailProduct() {
                                     colorChoose={state.colorSelected}
                                     style={{ justifyContent: 'flex-start' }}
                                     handleChooseColor={handleSelectedColor}
+                                    disabledColors={
+                                        state.sizeSelected
+                                            ? colors.filter(
+                                                  color =>
+                                                      !validColorsBySize.find(
+                                                          c =>
+                                                              c.hex ===
+                                                              color.hex
+                                                      )
+                                              )
+                                            : []
+                                    }
                                 />
                                 {state.sizeSelected || state.colorSelected ? (
                                     <div
                                         className={styles.btnClear}
                                         onClick={() => handleClear()}
                                     >
-                                        Clear
+                                        chọn lại
                                     </div>
                                 ) : (
                                     ''

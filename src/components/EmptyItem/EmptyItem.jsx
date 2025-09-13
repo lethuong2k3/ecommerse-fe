@@ -5,14 +5,16 @@ function EmptyItem({ icon, title, handleNavigateToShop }) {
     return (
         <div className={styles.boxEmptyCart}>
             {icon}
-            <div className={styles.titleEmpty}>YOUR {title} IS EMPTY</div>
+            <div className={styles.titleEmpty}>
+                {title} CHƯA CÓ SẢN PHẨM NÀO.
+            </div>
             <div className={styles.contentEmpty}>
-                We invite you to get acquainted with an assortment of our shop.
-                Surely you can find something for yourself!
+                Chúng tôi mời bạn làm quen với một số mặt hàng trong cửa hàng
+                của chúng tôi. Chắc chắn bạn có thể tìm thấy thứ gì đó cho mình!
             </div>
             <div className={styles.boxBtnEmpty}>
                 <Button
-                    content={'RETURN TO SHOP'}
+                    content={'QUAY VỀ SHOP'}
                     onClick={handleNavigateToShop}
                 />
             </div>

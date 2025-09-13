@@ -16,7 +16,7 @@ const CartSummary = () => {
         navigate('/shop');
     };
     const handleNavigateToCheckout = () => {
-        navigate('/checkout');
+        navigate('/thanh-toan');
     };
     const total = listProductCart.reduce((acc, item) => {
         return acc + item.totalPrice;
@@ -24,22 +24,22 @@ const CartSummary = () => {
     return (
         <div className={styles.containerRight}>
             <div className={styles.containerSummary}>
-                <div className={styles.title}>CART TOTALS</div>
+                <div className={styles.title}>TÓM TẮT ĐƠN HÀNG</div>
                 <div className={cls(styles.boxTotal, styles.subTotal)}>
-                    <div>Subtotal</div>
+                    <div>Tạm tính</div>
                     <div className={styles.price}>{formatPrice(total)}</div>
                 </div>
                 <div className={cls(styles.boxTotal, styles.totals)}>
-                    <div>Total</div>
+                    <div>Tổng tiền</div>
                     <div>{formatPrice(total)}</div>
                 </div>
                 <div className={styles.boxBtn}>
                     <Button
-                        content={'PROCEED TO CHECKOUT'}
+                        content={'TIẾN HÀNH ĐẶT HÀNG'}
                         onClick={handleNavigateToCheckout}
                     />
                     <Button
-                        content={'CONTINUE SHOPPING'}
+                        content={'MUA THÊM SẢN PHẨM'}
                         onClick={handleBackToShop}
                         isPrimary={false}
                     />

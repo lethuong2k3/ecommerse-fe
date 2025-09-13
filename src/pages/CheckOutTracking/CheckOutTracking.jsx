@@ -3,75 +3,64 @@ import Header from '@components/Header/Header';
 import styles from './styles.module.scss';
 import MainLayout from '@components/Layout/Layout';
 import CheckOutTable from '@pages/CheckOutTracking/components/CheckOutTable';
-import Button from '@components/Button/Button';
-import moment from 'moment';
-import ReactPaginate from 'react-paginate';
 import '@pages/CheckOutTracking/style.css';
-import { useEffect, useState } from 'react';
+import LoadMore from '@components/Loading/LoadMore';
+import useOrderStatus from '@hooks/useOrderStatus';
+import useDebounce from '@hooks/useDebounce';
+
+import { useEffect, useState, useRef } from 'react';
 import { orderTrackings } from '@apis/orderService';
-import { getPriceRange } from '@hooks/useFomatPrice';
-import { BsEye } from 'react-icons/bs';
+import { formatPrice } from '@hooks/useFomatPrice';
 import { useNavigate } from 'react-router-dom';
+import { MdClear } from 'react-icons/md';
+import { IoIosSearch } from 'react-icons/io';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import MyFooter from '@components/Footer/Footer';
 
 function CheckOutTracking() {
     const [checkOutTrackings, setCheckOutTrackings] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
     const [pageSize, setPageSize] = useState(7);
-    const navigate = useNavigate();
-    const columns = [
-        { field: 'id', headerName: 'Order', flex: 1 },
-        {
-            field: 'orderDate',
-            headerName: 'Date',
-            flex: 2,
+    const [searchValue, setSearchValue] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const debouncedValue = useDebounce(searchValue, 1000);
 
-            valueGetter: params => {
-                return moment(params.value).format('LLL');
-            },
-        },
-        { field: 'orderStatus', headerName: 'Payment Status', flex: 1 },
-        {
-            field: 'payment',
-            headerName: 'Payment Method',
-            valueGetter: params => params?.paymentType?.value || 'N/A',
-            flex: 1,
-        },
-        {
-            field: 'action',
-            headerName: 'Action',
-            sortable: false,
-            filterable: false,
-            disableColumnMenu: true,
-            renderCell: params => (
-                <div className={styles.boxBtn}>
-                    <Button
-                        content={
-                            <>
-                                {' '}
-                                <BsEye /> View{' '}
-                            </>
-                        }
-                        isPrimary={false}
-                    />
-                </div>
-            ),
-            flex: 0.7,
-        },
-    ];
-    const handlePageClick = event => {
-        setCurrentPage(event.selected);
-    };
+    const navigate = useNavigate();
+
     const handleNavigateToDetail = id => {
         const path = `/product/${id}`;
         navigate(path);
     };
-    const fetchData = (page = 0) => {
+
+    const inputRef = useRef();
+    const handleChangeSearch = e => {
+        const searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
+        }
+    };
+    const handleClearInput = () => {
+        setSearchValue('');
+        setCheckOutTrackings([]);
+        inputRef.current.focus();
+    };
+
+    const handleNavCheckoutDT = orderCode => {
+        const path = `/danh-sach-don-hang/${orderCode}`;
+        navigate(path);
+    };
+
+    const fetchData = () => {
         const request = {
             size: pageSize,
-            page: page,
+            page: currentPage,
             type: 'desc',
-            sortBy: 'id',
+            sortBy: 'orderCode',
+            keyword: debouncedValue,
         };
 
         orderTrackings(request)
@@ -86,34 +75,111 @@ function CheckOutTracking() {
             });
     };
     useEffect(() => {
-        fetchData(currentPage);
-    }, [currentPage]);
+        fetchData();
+    }, [currentPage, debouncedValue]);
 
     return (
         <>
             <Header />
             <MainLayout>
                 <div className={styles.container}>
-                    <Breadcrumbs title={'Check out tracking'} />
+                    <Breadcrumbs title={'Danh sách đơn hàng'} />
+                    <div className={styles.containerSearch}>
+                        <div className={styles.searchInput}>
+                            <input
+                                type='text'
+                                placeholder='Tìm kiếm đơn hàng.'
+                                value={searchValue}
+                                onChange={handleChangeSearch}
+                                ref={inputRef}
+                                spellCheck={false}
+                            />
+                            <span className={styles.boxClear}>
+                                {isLoading && <LoadMore size={12} />}
+                                {!!searchValue && (
+                                    <MdClear
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => handleClearInput()}
+                                    />
+                                )}
+                            </span>
+                            <div className={styles.boxBtn}>
+                                <IoIosSearch size={20} />
+                            </div>
+                        </div>
+                        <div className={styles.containerDate}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer
+                                    components={['DatePicker', 'DatePicker']}
+                                    sx={{
+                                        minWidth: '90%',
+                                        margin: '0 auto',
+                                    }}
+                                >
+                                    <DatePicker
+                                        label='Ngày bắt đầu'
+                                        sx={{
+                                            width: '100%',
+                                        }}
+                                    />
+                                    <DatePicker
+                                        label='Ngày kết thúc'
+                                        sx={{
+                                            width: '100%',
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </div>
+                    </div>
+                    <div className={styles.containerStatus}></div>
                     <CheckOutTable
                         checkOutTrackings={checkOutTrackings}
                         handleNavigateToDetail={handleNavigateToDetail}
-                        getPriceRange={getPriceRange}
-                        columns={columns}
+                        formatPrice={formatPrice}
+                        useOrderStatus={useOrderStatus}
+                        handleNavCheckoutDT={handleNavCheckoutDT}
                     />
-                    <ReactPaginate
-                        breakLabel='...'
-                        nextLabel='Next >'
-                        onPageChange={handlePageClick}
-                        forcePage={currentPage}
-                        pageRangeDisplayed={5}
-                        pageCount={pageCount}
-                        previousLabel='< Prev'
-                        renderOnZeroPageCount={null}
-                        className='react-paginate'
-                    />
+                    {checkOutTrackings.length > 0 && (
+                        <div className={styles.pagination}>
+                            <button
+                                onClick={() =>
+                                    setCurrentPage(prev =>
+                                        Math.max(prev - 1, 0)
+                                    )
+                                }
+                                disabled={currentPage === 0}
+                            >
+                                ⬅ Trước
+                            </button>
+
+                            {Array.from({ length: pageCount }, (_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => setCurrentPage(i)}
+                                    className={
+                                        currentPage === i ? styles.active : ''
+                                    }
+                                >
+                                    {i + 1}
+                                </button>
+                            ))}
+
+                            <button
+                                onClick={() =>
+                                    setCurrentPage(prev =>
+                                        Math.min(prev + 1, pageCount - 1)
+                                    )
+                                }
+                                disabled={currentPage === pageCount - 1}
+                            >
+                                Sau ➡
+                            </button>
+                        </div>
+                    )}
                 </div>
             </MainLayout>
+            <MyFooter />
         </>
     );
 }

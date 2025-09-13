@@ -82,17 +82,17 @@ function Contents() {
                             isLoading={isLoading}
                         />
                         <div className={styles.boxFooter}>
-                            <div className={styles.boxCoupon}>
-                                <input type='text' placeholder='Coupon Code' />
+                            {/* <div className={styles.boxCoupon}>
+                                <input type='text' placeholder='Mã giảm giá' />
                                 <Button content={'OK'} isPrimary={false} />
-                            </div>
+                            </div> */}
                             <div className={styles.boxBtnDelete}>
                                 <ConfirmDialog
                                     group='declarative'
                                     visible={visible}
                                     onHide={() => setVisible(false)}
-                                    message='Are you sure you want to proceed?'
-                                    header='Confirmation'
+                                    message='Bạn có chắc muốn xóa giỏ hàng?'
+                                    header='Xác nhận'
                                     style={{ width: '50vw' }}
                                     breakpoints={{
                                         '1100px': '75vw',
@@ -104,8 +104,8 @@ function Contents() {
                                 <Button
                                     content={
                                         <div>
-                                            <FaRegTrashCan size={14} /> CLEAR
-                                            SHOPPING CART
+                                            <FaRegTrashCan size={14} /> Xóa tất
+                                            cả
                                         </div>
                                     }
                                     isPrimary={false}
@@ -119,7 +119,7 @@ function Contents() {
             ) : (
                 <EmptyItem
                     icon={<BsCart3 size={40} />}
-                    title={'SHOPPING CART'}
+                    title={'GIỎ HÀNG'}
                     handleNavigateToShop={handleNavigateToShop}
                 />
             )}

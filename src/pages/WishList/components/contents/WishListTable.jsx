@@ -28,10 +28,10 @@ function WishListTable({
                                 updateValue={handleSelectAll}
                             />
                         </th>
-                        <th className={styles.columnProduct}>PRODUCT</th>
-                        <th className={styles.columnPrice}>PRICE</th>
-                        <th className={styles.columnStatus}>STOCK STATUS</th>
-                        <th className={styles.columnAction}>ACTION</th>
+                        <th className={styles.columnProduct}>SẢN PHẨM</th>
+                        <th className={styles.columnPrice}>GIÁ</th>
+                        <th className={styles.columnStatus}>TRẠNG THÁI</th>
+                        <th className={styles.columnAction}></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,13 +96,13 @@ function WishListTable({
                                         isPrimary={false}
                                         onClick={() => showDetail(item.product)}
                                         isTippy
-                                        titleTippy={'Quick view'}
+                                        titleTippy={'Xem'}
                                     />
                                     <Button
                                         onClick={() =>
                                             navigateDetail(item.product.id)
                                         }
-                                        content={'SELECT OPTIONS'}
+                                        content={'XEM CHI TIẾT'}
                                     />
                                     <Button
                                         onClick={() =>
@@ -120,13 +120,13 @@ function WishListTable({
                                         isPrimary={false}
                                         onClick={() => remove(item.id)}
                                         isTippy
-                                        titleTippy={'Delete'}
+                                        titleTippy={'Xóa'}
                                     />
                                 </div>
                                 <span className={styles.createdAt}>
-                                    Added on:{' '}
-                                    {moment(item.product.createdAt).format(
-                                        'MMMM Do YYYY'
+                                    Ngày thêm:{' '}
+                                    {moment(item.createdAt).format(
+                                        'DD-MM-YYYY'
                                     )}
                                 </span>
                             </td>

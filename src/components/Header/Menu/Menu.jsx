@@ -6,6 +6,7 @@ import { StoreContext } from '@contexts/StoreProvider';
 import { useNavigate } from 'react-router-dom';
 import { SearchContext } from '@contexts/SearchProvider';
 import { accountMenu } from '@components/Header/constants';
+import { FaRegUser } from 'react-icons/fa';
 
 function Menu({ content, href }) {
     const { setIsOpen, setType } = useContext(SidebarContext);
@@ -27,9 +28,13 @@ function Menu({ content, href }) {
         navigate(href);
     };
     const handleRenderText = content => {
-        return content === 'Đăng nhập' && userInfo
-            ? `Hello: ${userInfo?.name}`
-            : content;
+        return content === 'Đăng nhập' && userInfo ? (
+            <div className={styles.boxUser}>
+                <FaRegUser /> {userInfo?.name}
+            </div>
+        ) : (
+            content
+        );
     };
     const handleHover = () => {
         if (content === 'Đăng nhập' && userInfo) {
@@ -38,7 +43,7 @@ function Menu({ content, href }) {
     };
 
     const handleClickMenu = value => {
-        if (value.content === 'Log out') {
+        if (value.content === 'Đăng xuất') {
             return handleLogout();
         }
         if (value.href) {

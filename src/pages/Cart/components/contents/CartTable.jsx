@@ -26,12 +26,12 @@ const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
             <table>
                 <thead>
                     <tr>
-                        <th>PRODUCT</th>
+                        <th>SẢN PHẨM</th>
                         <th />
-                        <th>PRICE</th>
+                        <th>GIÁ</th>
                         <th>SKU</th>
-                        <th>QUANTITY</th>
-                        <th>SUBTOTAL</th>
+                        <th>SỐ LƯỢNG</th>
+                        <th>TẠM TÍNH</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,7 +69,7 @@ const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
                                         </span>
                                     </p>
                                     <p className={styles.subtotal}>
-                                        Subtotal: {formatPrice(item.totalPrice)}
+                                        Tạm tính: {formatPrice(item.totalPrice)}
                                     </p>
                                     <p
                                         className={styles.remove}
@@ -77,7 +77,7 @@ const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
                                             deleteItem(item.id, item)
                                         }
                                     >
-                                        Remove
+                                        Xóa
                                     </p>
                                 </div>
                             </td>

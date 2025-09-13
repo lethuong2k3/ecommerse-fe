@@ -13,11 +13,19 @@ function Contents({
     setPayment,
     listProductCart,
     formik,
-    dataCountry,
+    province,
+    district,
+    ward,
     getData,
     deleteItem,
     isLoadingCart,
     listMethods,
+    handleProvinceChange,
+    handleDistrictChange,
+    handleWardChange,
+    subTotal,
+    fee,
+    errSelect,
 }) {
     const increment = (orderItemId, quantity, item) => {
         if (quantity < item.productDetail.amount) {
@@ -30,10 +38,7 @@ function Contents({
         }
         getData(orderItemId, { quantity: +quantity - 1 });
     };
-    const subTotal = listProductCart?.reduce((acc, item) => {
-        return acc + item.totalPrice;
-    }, 0);
-    const isErr = formik.touched.country && formik.errors.country;
+
     return (
         <div className={styles.containerCheckOut}>
             <form
@@ -41,125 +46,138 @@ function Contents({
                 style={{ display: 'contents' }}
             >
                 <div className={styles.first}>
-                    <h3 className={styles.titleStep}>BILLING DETAILS</h3>
+                    <h3 className={styles.titleStep}>CHI TIẾT ĐƠN HÀNG</h3>
                     <div className={styles.inputGroup}>
                         <InputCommon
                             id='firstName'
-                            label={'First Name'}
+                            label={'Họ'}
                             type={'text'}
                             isRequired
                             formik={formik}
                             borderErr
-                            placeholder='First Name'
+                            placeholder='Họ'
                         />
                         <InputCommon
                             id='lastName'
-                            label={'Last Name'}
+                            label={'Tên'}
                             type={'text'}
                             isRequired
                             formik={formik}
                             borderErr
-                            placeholder='Last Name'
-                        />
-                    </div>
-                    <InputCommon
-                        id='companyName'
-                        label={'Company Name (optional)'}
-                        type={'text'}
-                        formik={formik}
-                        borderErr
-                        placeholder='Company Name'
-                    />
-                    <label>Country / Region *</label>
-                    <div
-                        style={{
-                            border: isErr ? '1px solid #c62828' : '',
-                            margin: '5px 0px 15px 0px',
-                        }}
-                    >
-                        <SelectSearch
-                            options={dataCountry}
-                            name='country'
-                            placeholder='Select Country'
-                            search
-                            value={formik.values.country}
-                            onChange={value =>
-                                formik.setFieldValue('country', value)
-                            }
-                            onBlur={() =>
-                                formik.setFieldTouched('country', true)
-                            }
+                            placeholder='Tên'
                         />
                     </div>
                     <InputCommon
                         id='streetAddress'
-                        label={'Street address'}
+                        label={'Địa chỉ'}
                         type={'text'}
                         formik={formik}
                         borderErr
-                        placeholder='House number and street name'
+                        placeholder='Địa chỉ'
                         isRequired
                     />
-                    <InputCommon
-                        id='billingAddress'
-                        type={'text'}
-                        formik={formik}
-                        borderErr
-                        placeholder='Apartment, suite, unit, etc. (optional)'
-                    />
-                    <InputCommon
-                        id='state'
-                        label={'State'}
-                        type={'text'}
-                        formik={formik}
-                        borderErr
-                        isRequired
-                    />
-                    <InputCommon
-                        id='billingCity'
-                        label={'Town / City'}
-                        type={'text'}
-                        formik={formik}
-                        borderErr
-                        isRequired
-                    />
-                    <InputCommon
-                        id='zipcode'
-                        label={'Zip code'}
-                        type={'text'}
-                        formik={formik}
-                        borderErr
-                        isRequired
-                    />
+                    <label>Tỉnh / TP</label>
+                    <div
+                        style={{
+                            border: errSelect('provinceID')
+                                ? '1px solid #c62828'
+                                : '',
+                            margin: '5px 0px 15px 0px',
+                        }}
+                    >
+                        <SelectSearch
+                            options={province?.map(p => ({
+                                name: p.ProvinceName,
+                                value: Number(p.ProvinceID),
+                            }))}
+                            name='provinceID'
+                            placeholder='Tỉnh / TP'
+                            search
+                            value={formik.values.provinceID}
+                            onChange={value => handleProvinceChange(value)}
+                            onBlur={() =>
+                                formik.setFieldTouched('provinceID', true)
+                            }
+                        />
+                    </div>
+
+                    <label>Quận / Huyện</label>
+                    <div
+                        style={{
+                            border: errSelect('districtID')
+                                ? '1px solid #c62828'
+                                : '',
+                            margin: '5px 0px 15px 0px',
+                        }}
+                    >
+                        <SelectSearch
+                            options={district?.map(d => ({
+                                name: d.DistrictName,
+                                value: Number(d.DistrictID),
+                            }))}
+                            name='districtID'
+                            placeholder='Quận / Huyện'
+                            search
+                            value={formik.values.districtID}
+                            onChange={value => handleDistrictChange(value)}
+                            onBlur={() =>
+                                formik.setFieldTouched('districtID', true)
+                            }
+                        />
+                    </div>
+                    <label>Phường / Xã</label>
+                    <div
+                        style={{
+                            border: errSelect('wardID')
+                                ? '1px solid #c62828'
+                                : '',
+                            margin: '5px 0px 15px 0px',
+                        }}
+                    >
+                        <SelectSearch
+                            options={ward?.map(w => ({
+                                name: w.WardName,
+                                value: Number(w.WardCode),
+                            }))}
+                            name='wardID'
+                            placeholder='Phường / Xã'
+                            search
+                            value={formik.values.wardID}
+                            onChange={value => handleWardChange(value)}
+                            onBlur={() =>
+                                formik.setFieldTouched('wardID', true)
+                            }
+                        />
+                    </div>
                     <InputCommon
                         id='phone'
-                        label={'Phone'}
+                        label={'Số điện thoại'}
                         type={'number'}
                         formik={formik}
                         borderErr
                         isRequired
-                        placeholder='Phone'
+                        placeholder='Số điện thoại'
                     />
                     <InputCommon
                         id='email'
-                        label={'Email Address'}
+                        label={'Email'}
                         type={'text'}
                         formik={formik}
                         borderErr
                         isRequired
-                        placeholder='Email Address'
+                        placeholder='Email'
                     />
-                    <h3 className={styles.titleStep}>Additional Information</h3>
+                    <h3 className={styles.titleStep}>Thông tin bổ sung</h3>
                     <InputCommon
                         id='orderComment'
-                        label={'Order Notes (optional)'}
+                        label={'Lời nhắn'}
                         type={'textarea'}
                         formik={formik}
-                        placeholder='Notes about your order, e.g. special notes for delivery.'
+                        placeholder='Ghi chú thêm (Ví dụ: Giao hàng giờ hành chính)'
                     />
                 </div>
                 <div className={styles.last}>
-                    <h3 className={styles.titleStep}>Your order</h3>
+                    <h3 className={styles.titleStep}>Thanh toán</h3>
                     {isLoadingCart == true ? (
                         <Loading />
                     ) : (
@@ -222,7 +240,7 @@ function Contents({
                                                 <div
                                                     className={styles.variation}
                                                 >
-                                                    Color:
+                                                    Màu sắc:
                                                     <span>
                                                         {
                                                             item.productDetail
@@ -238,7 +256,7 @@ function Contents({
                                                         deleteItem(item.id)
                                                     }
                                                 >
-                                                    Remove
+                                                    xóa
                                                 </div>
                                             </div>
                                         </div>
@@ -248,11 +266,15 @@ function Contents({
 
                             <div className={styles.footShopTable}>
                                 <div className={styles.cartSubtotal}>
-                                    Subtotal:{' '}
+                                    Tổng tiền hàng:
                                     <span>{formatPrice(subTotal)}</span>
                                 </div>
+                                <div className={styles.cartSubtotal}>
+                                    Phí ship: <span>{formatPrice(fee)}</span>
+                                </div>
                                 <div className={styles.orderTotal}>
-                                    Total: <span>{formatPrice(subTotal)}</span>
+                                    Cần thanh toán:
+                                    <span>{formatPrice(subTotal + fee)}</span>
                                 </div>
                             </div>
                             <div className={styles.paymentMethods}>
@@ -277,7 +299,11 @@ function Contents({
                                                     styles.boxPaymentMethod
                                                 }
                                             >
-                                                <label htmlFor='method_cheque'>
+                                                <label
+                                                    htmlFor={
+                                                        `method_` + item.value
+                                                    }
+                                                >
                                                     <img
                                                         src={item.imageUrl}
                                                         alt={item.value}

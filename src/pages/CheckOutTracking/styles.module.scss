@@ -3,48 +3,65 @@
 
 .container {
     margin-top: 83px;
+    height: 700px;
+    .containerSearch {
+        @include flex_box_custom(flex-start, center, 30px);
+        margin: 20px 0px 10px 0px;
+        flex-wrap: wrap;
 
+        @include respond(mobile-tablet) {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 15px;
+        }
+        .searchInput {
+            @include flex_box_custom(unset, center, 5px);
+
+            position: relative;
+            width: 40%;
+            border: 1px solid $line_color;
+            height: 57.25px;
+            margin-top: 8px;
+            @include respond(mobile-tablet) {
+                margin: 0 auto;
+                width: 90%;
+            }
+            input {
+                width: 90%;
+                font-size: 15px;
+                line-height: 2rem;
+                border-width: 0;
+                outline: none;
+                padding: 0px 15px;
+                color: $primary_color;
+            }
+
+            .boxClear {
+                @include flex_box_custom(center, center, 5px);
+                position: absolute;
+                right: 40px;
+            }
+
+            .boxBtn {
+                @include flex_box_custom(center, center, 0px);
+                width: 10%;
+                height: 100%;
+            }
+        }
+
+        .containerDate {
+            @include flex_box_custom(flex-start, center, 10px);
+
+            @include respond(mobile-tablet) {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    }
     .checkoutTable {
         width: 100%;
         margin-top: 30px;
-        .containerSearch {
-            @include flex_box_custom(flex-start, center, 30px);
-            margin-bottom: 20px;
-            .searchInput {
-                @include flex_box_custom(unset, center, 5px);
-
-                position: relative;
-                width: 40%;
-                border: 1px solid $line_color;
-                height: 35px;
-                margin-top: 8px;
-                input {
-                    width: 90%;
-                    font-size: 14px;
-                    line-height: 2rem;
-                    border-width: 0;
-                    outline: none;
-                    padding: 0px 15px;
-                    color: $primary_color;
-                }
-
-                .boxClear {
-                    @include flex_box_custom(center, center, 5px);
-                    position: absolute;
-                    right: 40px;
-                }
-
-                .boxBtn {
-                    @include flex_box_custom(center, center, 0px);
-                    width: 10%;
-                    height: 100%;
-                }
-            }
-
-            .containerDate {
-                @include flex_box_custom(flex-start, center, 10px);
-            }
-        }
+        border-collapse: collapse;
 
         .boxBtn {
             @include flex_box_custom(flex-start, center, 10px);
@@ -173,6 +190,165 @@
                         }
                     }
                 }
+            }
+
+            @include respond(mobile-tablet) {
+                thead {
+                    display: none;
+                }
+
+                tbody {
+                    tr {
+                        display: flex;
+                        flex-direction: column;
+                        background: #fff;
+                        margin-bottom: 15px;
+                        padding: 10px;
+                        border: 1px solid #eee;
+                        border-radius: 8px;
+
+                        td {
+                            display: flex;
+                            justify-content: space-between;
+                            padding: 8px 0;
+                            font-size: 14px;
+
+                            &:before {
+                                content: attr(data-label); // hiển thị nhãn cột
+                                font-weight: bold;
+                                color: #666;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .pagination {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        margin-top: 20px;
+        button {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+
+            &:hover {
+                background: #f0f0f0;
+            }
+
+            &.active {
+                background: #222;
+                color: white;
+                font-weight: bold;
+            }
+
+            &:disabled {
+                background: #eee;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    @include respond(mobile-tablet) {
+        height: 100%;
+    }
+}
+
+.orderProgress {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: auto;
+
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            span {
+                color: #4f46e5;
+            }
+        }
+
+        .order-info {
+            text-align: right;
+            font-size: 14px;
+            color: #555;
+        }
+    }
+
+    .progressBar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px 0;
+        position: relative;
+
+        .step {
+            display: flex;
+            align-items: center;
+            position: relative;
+            flex: 1;
+
+            .circle {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                background: #e0e0e0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                font-size: 14px;
+                z-index: 2;
+            }
+
+            &.active .circle {
+                background: #7c3aed;
+            }
+
+            .line {
+                flex: 1;
+                height: 4px;
+                background: #e0e0e0;
+                position: absolute;
+                left: 50%;
+                right: -50%;
+                z-index: 1;
+            }
+
+            .line.active {
+                background: #7c3aed;
+            }
+        }
+    }
+
+    .progressLabels {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        margin-top: 10px;
+
+        .label {
+            flex: 1;
+
+            .icon {
+                font-size: 22px;
+                margin-bottom: 5px;
+            }
+
+            p {
+                font-size: 14px;
+                font-weight: 500;
             }
         }
     }

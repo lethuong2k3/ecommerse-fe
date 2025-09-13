@@ -28,7 +28,7 @@ const resend = async email => {
 const refreshTokenApi = async refreshToken => {
     try {
         const resp = await axios.post(
-            'http://localhost:8080/refresh-token',
+            `${import.meta.env.VITE_URL_BE}/refresh-token`,
             {},
             {
                 headers: {

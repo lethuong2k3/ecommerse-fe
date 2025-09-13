@@ -58,8 +58,6 @@ function ProductItem({
         handleGetListWishList,
         setProduct,
         listProductCart,
-        listWList,
-        compareList,
         handleGetListCompare,
     } = useContext(SidebarContext);
     const { toast } = useContext(ToastContext);
@@ -98,6 +96,28 @@ function ProductItem({
         );
         return colorSet;
     }, [item]);
+
+    const validSizesByColor = useMemo(() => {
+        if (!state.colorChoose) return sizes;
+        return _.uniq(
+            item?.productDetails
+                ?.filter(pd => pd.color.hex === state.colorChoose.hex)
+                .map(pd => pd.size.name)
+        );
+    }, [state.colorChoose, item]);
+
+    const validColorsBySize = useMemo(() => {
+        if (!state.sizeChoose) return colors;
+        return _.uniqBy(
+            item?.productDetails
+                ?.filter(pd => pd.size.name === state.sizeChoose)
+                .map(pd => ({
+                    hex: pd.color.hex,
+                    name: pd.color.name,
+                })),
+            'hex'
+        );
+    }, [state.sizeChoose, item]);
 
     const productDetailCart = listProductCart?.filter(
         lst => lst.productDetail.id === state.productDetail?.id
@@ -284,7 +304,7 @@ function ProductItem({
                 state.quantity <
                     +state.productDetail?.amount - +productDetailCart?.quantity)
         ) {
-            dispatch({ type: 'quantity', payload: quantity + 1 });
+            dispatch({ type: 'quantity', payload: state.quantity + 1 });
         }
     };
 
@@ -292,7 +312,7 @@ function ProductItem({
         if (isViewProduct) {
             setIsOpen(false);
         }
-        const path = `/product/${item.id}`;
+        const path = `/san-pham-chi-tiet/${item.id}`;
         navigate(path);
     };
 
@@ -407,6 +427,13 @@ function ProductItem({
                         handleChooseSize={handleChooseSize}
                         sizes={sizes}
                         sizeChoose={state.sizeChoose}
+                        disabledSizes={
+                            state.colorChoose
+                                ? sizes.filter(
+                                      size => !validSizesByColor.includes(size)
+                                  )
+                                : []
+                        }
                     />
                 )}
 
@@ -465,6 +492,16 @@ function ProductItem({
                         colors={colors}
                         colorChoose={state.colorChoose}
                         handleChooseColor={handleChooseColor}
+                        disabledColors={
+                            state.sizeChoose
+                                ? colors.filter(
+                                      color =>
+                                          !validColorsBySize.find(
+                                              c => c.hex === color.hex
+                                          )
+                                  )
+                                : []
+                        }
                     />
                 )}
 
@@ -474,7 +511,7 @@ function ProductItem({
                         className={styles.btnClear}
                         onClick={() => handleClear()}
                     >
-                        clear
+                        chọn lại
                     </div>
                 ) : (
                     ''
@@ -524,6 +561,14 @@ function ProductItem({
                             handleChooseSize={handleChooseSize}
                             sizes={sizes}
                             sizeChoose={state.sizeChoose}
+                            disabledSizes={
+                                state.colorChoose
+                                    ? sizes.filter(
+                                          size =>
+                                              !validSizesByColor.includes(size)
+                                      )
+                                    : []
+                            }
                         />
 
                         <div className={styles.labelColor}>
@@ -534,6 +579,16 @@ function ProductItem({
                             colorChoose={state.colorChoose}
                             handleChooseColor={handleChooseColor}
                             isViewProduct={isViewProduct}
+                            disabledColors={
+                                state.sizeChoose
+                                    ? colors.filter(
+                                          color =>
+                                              !validColorsBySize.find(
+                                                  c => c.hex === color.hex
+                                              )
+                                      )
+                                    : []
+                            }
                         />
 
                         {(!isHomePage && isViewProduct && state.sizeChoose) ||
@@ -545,7 +600,7 @@ function ProductItem({
                                 onClick={() => handleClear()}
                                 style={{ textAlign: 'left' }}
                             >
-                                clear
+                                chọn lại
                             </div>
                         ) : (
                             ''
@@ -577,7 +632,9 @@ function ProductItem({
 
                         {state.productDetail && (
                             <div className={styles.labelQty}>
-                                Số lượng trong kho: {state.productDetail.amount}
+                                Số lượng trong kho:{' '}
+                                {state.productDetail.amount -
+                                    state.productDetail.stockReserved}
                             </div>
                         )}
 
@@ -590,6 +647,7 @@ function ProductItem({
                         <Button
                             content={'Mua ngay'}
                             style={{ width: '100%' }}
+                            onClick={() => handleBuyNow()}
                         />
 
                         <div

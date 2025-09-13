@@ -98,7 +98,7 @@ function Compare() {
 
     const handleRemoveAllCompare = () => {
         if (!selected.length) {
-            toast.warning('Please, choose any product by clicking checkbox');
+            toast.warning('Vui lòng đánh dấu vào ô chọn sản phẩm');
             return;
         }
         setVisible(true);
@@ -125,7 +125,7 @@ function Compare() {
                 <PageHeader
                     icon={<TfiReload />}
                     size={17}
-                    title={'COMPARE'}
+                    title={'SO SÁNH'}
                     style={{ marginTop: '83px' }}
                 />
                 <MainLayout style={{ position: 'relative' }}>
@@ -144,7 +144,7 @@ function Compare() {
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td>Action</td>
+                                            <td></td>
                                             {compares.map(compare => (
                                                 <th key={compare.product.id}>
                                                     {compare.product.id && (
@@ -159,14 +159,14 @@ function Compare() {
                                                             }
                                                         >
                                                             <FaRegTrashCan />{' '}
-                                                            Delete
+                                                            Xóa
                                                         </button>
                                                     )}
                                                 </th>
                                             ))}
                                         </tr>
                                         <tr>
-                                            <td>Image</td>
+                                            <td>Hình ảnh</td>
                                             {compares.map(compare => (
                                                 <td key={compare.product.id}>
                                                     {compare.product.images && (
@@ -190,7 +190,7 @@ function Compare() {
                                             ))}
                                         </tr>
                                         <tr>
-                                            <td>Title</td>
+                                            <td>Sản Phẩm</td>
                                             {compares.map(compare => (
                                                 <td key={compare.product.id}>
                                                     {compare.product.name}
@@ -198,7 +198,7 @@ function Compare() {
                                             ))}
                                         </tr>
                                         <tr>
-                                            <td>Price</td>
+                                            <td>Giá</td>
                                             {compares.map(compare => (
                                                 <td key={compare.product.id}>
                                                     {compare.product
@@ -211,13 +211,13 @@ function Compare() {
                                             ))}
                                         </tr>
                                         <tr>
-                                            <td>Button</td>
+                                            <td>Chi tiết</td>
                                             {compares.map(compare => (
                                                 <td key={compare.product.id}>
                                                     {compare.product.id && (
                                                         <Button
                                                             content={
-                                                                'Select Options'
+                                                                'Xem chi tiết'
                                                             }
                                                         />
                                                     )}
@@ -225,7 +225,7 @@ function Compare() {
                                             ))}
                                         </tr>
                                         <tr>
-                                            <td>Stock Status</td>
+                                            <td>Trạng Thái</td>
                                             {compares.map(compare => (
                                                 <td
                                                     key={compare.product.id}
@@ -241,8 +241,8 @@ function Compare() {
                                                             }
                                                         >
                                                             <span>
-                                                                <FaCheck /> In
-                                                                stock
+                                                                <FaCheck /> Còn
+                                                                hàng
                                                             </span>
                                                         </div>
                                                     ) : (
@@ -256,9 +256,8 @@ function Compare() {
                                                             }
                                                         >
                                                             <span>
-                                                                {' '}
-                                                                <IoMdClose />{' '}
-                                                                Out of stock
+                                                                <IoMdClose />
+                                                                Hết hàng
                                                             </span>
                                                         </div>
                                                     ) : (
@@ -268,7 +267,7 @@ function Compare() {
                                             ))}
                                         </tr>
                                         <tr>
-                                            <td>Brand</td>
+                                            <td>Thương Hiệu</td>
                                             {compares.map(compare => (
                                                 <td key={compare.product.id}>
                                                     {compare.product.brand && (
@@ -310,7 +309,7 @@ function Compare() {
                                                             handleSelectAll
                                                         }
                                                     />
-                                                    Select all
+                                                    Chọn Tất Cả
                                                 </div>
                                             </td>
                                             {compares.map(compare => (
@@ -344,14 +343,14 @@ function Compare() {
                                     content={
                                         <>
                                             {' '}
-                                            <FaRegTrashCan /> CLEAR COMPARE
+                                            <FaRegTrashCan /> Xóa tất cả
                                         </>
                                     }
                                     isPrimary={false}
                                 ></Button>
                                 <Button
                                     onClick={() => handleNavigateToShop()}
-                                    content={'COMPARE MORE PRODUCTS'}
+                                    content={'So sánh thêm sản phảm'}
                                     style={{ width: '213px' }}
                                 ></Button>
                             </div>
@@ -364,8 +363,8 @@ function Compare() {
                                 group='declarative'
                                 visible={visible}
                                 onHide={() => setVisible(false)}
-                                message='Are you sure you want to proceed?'
-                                header='Confirmation'
+                                message='Bạn có chắc muốn xóa sản phẩm so sánh không?'
+                                header='Xác nhận'
                                 style={{ width: '50vw' }}
                                 breakpoints={{
                                     '1100px': '75vw',

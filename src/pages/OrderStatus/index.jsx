@@ -7,12 +7,13 @@ import { IoCloseCircle } from 'react-icons/io5';
 import { useEffect, useState } from 'react';
 import Status from '@pages/OrderStatus/Status/Status';
 import MyFooter from '@components/Footer/Footer';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { momoIpn } from '@apis/momoService';
 
 function OrderStatus() {
     const [status, setStatus] = useState({});
     const location = useLocation();
+    const navigate = useNavigate();
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
         const orderId = searchParams.get('orderId');
@@ -29,21 +30,25 @@ function OrderStatus() {
                 }
             });
     }, [location.search]);
+    const handleNavigateToShop = () => {
+        navigate('/shop');
+    };
+    const handleNavigateToOrderTracking = () => {
+        navigate('/danh-sach-don-hang');
+    };
     const handleOrderStatus = value => {
         const statusMap = {
             200: {
-                title: 'Done',
+                title: 'thành công',
                 icon: <FaCheckCircle size={64} color='#16A34A' />,
-                description:
-                    'Thank you for completing your secure online payment.',
-                text: 'Have a great day!',
+                description: 'Cảm ơn bạn đã mua sản phẩm của chúng tôi.',
+                text: 'Chúc bạn có một ngày vui vẻ!',
             },
             400: {
-                title: 'Failed',
+                title: 'thất bại',
                 icon: <IoCloseCircle size={64} color='#DC2626' />,
-                description:
-                    'Unfortunately, your payment could not be processed.',
-                text: 'Please try again or use a different payment method.',
+                description: 'Rất tiếc, thanh toán của bạn không thành công.',
+                text: 'Vui lòng thử lại hoặc sử dụng phương thức thanh toán khác.',
             },
         };
 
@@ -56,7 +61,13 @@ function OrderStatus() {
             <Steps className={styles.resPhoneTablet} step={3} />
             <MainLayout>
                 <div className={styles.container}>
-                    <Status status={status} />
+                    <Status
+                        status={status}
+                        handleNavigateToShop={handleNavigateToShop}
+                        handleNavigateToOrderTracking={
+                            handleNavigateToOrderTracking
+                        }
+                    />
                 </div>
             </MainLayout>
             <MyFooter />

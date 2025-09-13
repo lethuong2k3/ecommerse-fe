@@ -6,6 +6,7 @@ function Color({
     colorChoose,
     handleChooseColor,
     isViewProduct = false,
+    disabledColors = [],
     ...params
 }) {
     return (
@@ -15,16 +16,28 @@ function Color({
             }
             {...params}
         >
-            {colors?.map((color, index) => (
-                <div
-                    key={index}
-                    className={cls(styles.colors, {
-                        [styles.isActiveColor]: colorChoose === color,
-                    })}
-                    style={{ backgroundColor: color.hex }}
-                    onClick={() => handleChooseColor(color)}
-                ></div>
-            ))}
+            {colors?.map((color, index) => {
+                const isDisabled = disabledColors.some(
+                    dc => dc.hex === color.hex
+                );
+
+                return (
+                    <div
+                        key={index}
+                        className={cls(styles.colors, {
+                            [styles.isActiveColor]:
+                                colorChoose?.hex === color.hex,
+                            [styles.disabled]: isDisabled,
+                        })}
+                        style={{
+                            backgroundColor: color.hex,
+                            cursor: isDisabled ? 'not-allowed' : 'pointer',
+                            opacity: isDisabled ? 0.5 : 1,
+                        }}
+                        onClick={() => !isDisabled && handleChooseColor(color)}
+                    />
+                );
+            })}
         </div>
     );
 }

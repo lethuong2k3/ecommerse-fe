@@ -111,7 +111,7 @@ function WishList() {
         <>
             <Header />
             <div className={styles.container}>
-                <PageHeader icon={<BsHeart size={17} />} title={'WISHLIST'} />
+                <PageHeader icon={<BsHeart size={17} />} title={'YÊU THÍCH'} />
                 {listWList.length ? (
                     <>
                         <MainLayout>
@@ -130,7 +130,7 @@ function WishList() {
                                 <Button
                                     content={
                                         <>
-                                            <FaRegTrashCan /> CLEAR WISHLIST
+                                            <FaRegTrashCan /> Xóa tất cả
                                         </>
                                     }
                                     onClick={() => handleRemoveAll()}
@@ -138,7 +138,7 @@ function WishList() {
                                 <Button
                                     content={
                                         <>
-                                            <CiMail /> Ask for an estimate
+                                            <CiMail /> Liên hệ
                                         </>
                                     }
                                     onClick={() => setIsOpenAboutUs(true)}
@@ -150,8 +150,8 @@ function WishList() {
                             group='declarative'
                             visible={visible}
                             onHide={() => setVisible(false)}
-                            message='Are you sure you want to proceed?'
-                            header='Confirmation'
+                            message='Bạn có chắc muốn xóa không?'
+                            header='Xác nhận'
                             style={{ width: '50vw' }}
                             breakpoints={{ '1100px': '75vw', '960px': '100vw' }}
                             icon={<IoWarningOutline size={30} />}

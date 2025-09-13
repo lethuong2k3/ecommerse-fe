@@ -9,11 +9,14 @@ import InputCommon from '@components/InputCommon/InputCommon';
 import styles from '../styles.module.scss';
 import Button from '@components/Button/Button';
 import { useNavigate } from 'react-router-dom';
+import LoadMore from '@components/Loading/LoadMore';
+import { SidebarContext } from '@contexts/SideBarProvider';
 
 function LoginFilter({ onIncrease, location }) {
     const [isLoading, setIsLoading] = useState(false);
     const { setUserId } = useContext(StoreContext);
     const { toast } = useContext(ToastContext);
+    const { setIsOpen } = useContext(SidebarContext);
     const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
@@ -22,11 +25,11 @@ function LoginFilter({ onIncrease, location }) {
         },
         validationSchema: Yup.object({
             email: Yup.string()
-                .email('Invalid email')
-                .required('Email is required'),
+                .email('Email không hợp lệ')
+                .required('Vui lòng nhập email'),
             password: Yup.string()
-                .min(6, 'Password must be at least 6 characters')
-                .required('Password is required'),
+                .min(6, 'Mật khẩu phải có ít nhất 6 ký tự')
+                .required('Vui lòng nhập mật khẩu'),
         }),
         onSubmit: async values => {
             if (isLoading) return;
@@ -35,15 +38,16 @@ function LoginFilter({ onIncrease, location }) {
 
             await signIn({ email, password })
                 .then(res => {
+                    setIsOpen(false);
                     setIsLoading(false);
                     const { userId, token, refreshToken } = res.data.data;
                     Cookies.set('token', token);
                     Cookies.set('refreshToken', refreshToken);
                     Cookies.set('id', userId);
                     setUserId(userId);
-                    toast.success('Sign in successfully!');
                     formik.resetForm();
-                    if (location.pathname === '/login') {
+                    toast.success('Đăng nhập thành công');
+                    if (location.pathname === '/dang-nhap') {
                         navigate('/');
                     }
                 })
@@ -80,7 +84,7 @@ function LoginFilter({ onIncrease, location }) {
                 <div className={styles.boxBtn}>
                     <Button
                         type='submit'
-                        content={isLoading ? 'Loading...' : 'Đăng nhập'}
+                        content={<>{isLoading ? <LoadMore /> : 'Đăng nhập'}</>}
                     />
                 </div>
             </form>

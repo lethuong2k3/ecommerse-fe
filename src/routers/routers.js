@@ -18,19 +18,19 @@ const publicRouters = [
         component: lazy(() => import('@pages/OurShop/OurShop')),
     },
     {
-        path: '/cart',
+        path: '/gio-hang',
         component: lazy(() => import('@pages/Cart/Cart')),
     },
     {
-        path: '/product/:id',
+        path: '/san-pham-chi-tiet/:id',
         component: lazy(() => import('@pages/DetailProduct')),
     },
     {
-        path: '/wishlist',
+        path: '/yeu-thich',
         component: lazy(() => import('@pages/WishList/WishList')),
     },
     {
-        path: '/compare',
+        path: '/so-sanh',
         component: lazy(() => import('@pages/Compare/Compare')),
     },
     {
@@ -45,18 +45,24 @@ const publicRouters = [
 
 const privateRouters = [
     {
-        path: '/checkout',
+        path: '/thanh-toan',
         component: lazy(() => import('@pages/CheckOut/CheckOut')),
     },
     {
-        path: '/check-out-tracking',
+        path: '/thanh-toan/ket-qua',
+        component: lazy(() => import('@pages/OrderStatus')),
+    },
+    {
+        path: '/danh-sach-don-hang',
         component: lazy(() =>
             import('@pages/CheckOutTracking/CheckOutTracking')
         ),
     },
     {
-        path: '/order-status',
-        component: lazy(() => import('@pages/OrderStatus')),
+        path: '/danh-sach-don-hang/:orderCode',
+        component: lazy(() =>
+            import('@pages/CheckOutTracking/CheckOutDetails')
+        ),
     },
 ];
 

@@ -14,7 +14,7 @@ import cls from 'classnames';
 function Cart() {
     const navigate = useNavigate();
     const handleNavigateToCart = () => {
-        navigate('/cart');
+        navigate('/gio-hang');
         setIsOpen(false);
     };
     const { listProductCart, isLoading, setIsOpen } =
@@ -36,7 +36,7 @@ function Cart() {
         >
             <HeaderSideBar
                 icon={<BsCart3 size='24px' />}
-                title='CART'
+                title='Giỏ hàng'
                 handleNavigate={handleNavigateToCart}
             />
             {listProductCart?.length ? (
@@ -71,24 +71,27 @@ function Cart() {
                     </div>
                     <div>
                         <div className={styles.total}>
-                            <p>SUBTOTAL: </p>
+                            <p>Tổng tiền: </p>
                             <p>{formatPrice(subTotal)}</p>
                         </div>
                         <div className={styles.boxBtn}>
                             <Button
-                                content={'VIEW CART'}
+                                content={'Xem giỏ hàng'}
                                 onClick={handleNavigateToCart}
                             />
-                            <Button content={'CHECKOUT'} isPrimary={false} />
+                            <Button
+                                content={'Thông tin giao hàng'}
+                                isPrimary={false}
+                            />
                         </div>
                     </div>
                 </div>
             ) : (
                 <div className={styles.boxEmpty}>
-                    <div>No products in the cart.</div>
+                    <div>Không có sản phẩm nào trong giỏ hàng.</div>
                     <div className={styles.boxBtnEmpty}>
                         <Button
-                            content={'RETURN TO SHOP'}
+                            content={'Đi đến shop'}
                             onClick={handleNavigateToShop}
                         />
                     </div>

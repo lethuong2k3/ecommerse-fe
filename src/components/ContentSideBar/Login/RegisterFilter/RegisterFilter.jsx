@@ -47,16 +47,18 @@ function RegisterFilter({ onIncrease }) {
         },
         validationSchema: Yup.object({
             email: Yup.string()
-                .email('Invalid email')
-                .required('Email is required'),
-            name: Yup.string().required('Name is required'),
+                .email('Email không đúng định dạng.')
+                .required('Vui lòng nhập email.'),
+            name: Yup.string().required('Vui lòng nhập tên.'),
             password: Yup.string()
-                .min(6, 'Password must be at least 6 characters')
-                .required('Password is required'),
-            cfmpassword: Yup.string().oneOf(
-                [Yup.ref('password'), null],
-                'Password must match'
-            ),
+                .min(6, 'Mật khẩu phải có ít nhất 6 ký tự')
+                .required('Vui lòng nhập mật khẩu.'),
+            cfmpassword: Yup.string()
+                .oneOf(
+                    [Yup.ref('password'), null],
+                    'Mật khẩu không trùng khớp.'
+                )
+                .required('Vui lòng xác nhận mật khẩu.'),
         }),
         onSubmit: async values => {
             if (isLoading) return;

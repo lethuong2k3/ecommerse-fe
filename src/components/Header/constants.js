@@ -14,8 +14,8 @@ const dataMenu = [
 ];
 
 const accountMenu = [
-    { content: 'Order Tracking', href: '/check-out-tracking' },
-    { content: 'Log out' },
+    { content: 'Danh sách đơn hàng', href: '/danh-sach-don-hang' },
+    { content: 'Đăng xuất' },
 ];
 
 export { dataBoxIcon, dataMenu, accountMenu };

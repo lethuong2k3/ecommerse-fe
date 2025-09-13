@@ -12,7 +12,7 @@ function LoginPage() {
             <Header />
             <PageHeader
                 icon={<CiUser size={25} />}
-                title={'MY ACCOUNT'}
+                title={'TÀI KHOẢN'}
                 style={{ marginTop: '83px' }}
             />
             <MainLayout>

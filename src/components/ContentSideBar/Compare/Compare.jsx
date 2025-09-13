@@ -12,7 +12,7 @@ function Compare() {
     const { compareList, isLoading, setIsOpen } = useContext(SidebarContext);
     const navigate = useNavigate();
     const handleNavigateToCompare = () => {
-        const path = '/compare';
+        const path = '/so-sanh';
         setIsOpen(false);
         navigate(path);
     };
@@ -21,7 +21,7 @@ function Compare() {
             <div className={styles.header}>
                 <HeaderSideBar
                     icon={<TfiReload size='24px' />}
-                    title='COMPARE'
+                    title='SO SÁNH'
                     handleNavigate={handleNavigateToCompare}
                 />
             </div>
@@ -49,13 +49,13 @@ function Compare() {
 
                         <div className={styles.boxBtn}>
                             <Button
-                                content={'VIEW COMPARE'}
+                                content={'XEM CHI TIẾT'}
                                 onClick={() => handleNavigateToCompare()}
                             />
                         </div>
                     </>
                 ) : (
-                    <div>No products in the compare.</div>
+                    <div>Không có sản phẩm nào trong mục so sánh.</div>
                 )}
             </div>
         </>

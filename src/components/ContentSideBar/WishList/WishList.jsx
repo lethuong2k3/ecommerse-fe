@@ -13,14 +13,14 @@ function WishList() {
     const navigate = useNavigate();
     const handleNavToWishList = () => {
         setIsOpen(false);
-        navigate('/wishlist');
+        navigate('/yeu-thich');
     };
     return (
         <>
             <div className={styles.header}>
                 <HeaderSideBar
                     icon={<BsHeart size='24px' />}
-                    title='WISHLIST'
+                    title='YÊU THÍCH'
                     handleNavigate={handleNavToWishList}
                 />
             </div>
@@ -51,11 +51,11 @@ function WishList() {
                             className={styles.boxBtn}
                             onClick={() => handleNavToWishList()}
                         >
-                            <Button content={'VIEW WISHLIST'} />
+                            <Button content={'XEM CHI TIẾT'} />
                         </div>
                     </>
                 ) : (
-                    <div>No products in the wishlist.</div>
+                    <div>Không có sản phẩm nào trong mục yêu thích.</div>
                 )}
             </div>
         </>
