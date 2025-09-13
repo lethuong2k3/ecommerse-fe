@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import Status from '@pages/OrderStatus/Status/Status';
 import MyFooter from '@components/Footer/Footer';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { momoIpn } from '@apis/momoService';
 
 function OrderStatus() {
     const [status, setStatus] = useState({});
