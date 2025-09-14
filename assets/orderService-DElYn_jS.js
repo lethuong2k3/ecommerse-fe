@@ -1,1 +1,0 @@
-import{v as s}from"./index-Bu6A_TgO.js";const e=async r=>await s.post("/user/save-order",r),t=async r=>await s.post("/user/order-tracking",r),o=async r=>await s.get(`/user/order-details/${r}`);export{o as a,t as o,e as s};
