@@ -1,0 +1,1 @@
+import{j as n}from"./index-CeUbvDYG.js";function s({name:e,value:o=!1,updateValue:c=()=>{}}){const t=()=>{c(!o,e)};return n.jsx("input",{type:"checkbox",id:`${e}-checkbox`,name:e,checked:o,onChange:t})}export{s as C};
