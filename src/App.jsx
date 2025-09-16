@@ -7,7 +7,7 @@ import { ToastProvider } from '@/contexts/toast-provider';
 import { StoreProvider } from '@/contexts/store-provider';
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
 import { SearchProvider } from '@/contexts/search-provider';
-import Search from '@/components/Search/search';
+import Search from '@/components/search/search';
 import ProtectedRoute from '@/routers/protected-route';
 import SidebarMenu from '@/components/side-bar/side-bar-menu';
 import LoginRoute from '@/routers/login-route';

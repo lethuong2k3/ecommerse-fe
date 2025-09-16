@@ -4,14 +4,14 @@ import { getCategories } from '@/apis/category-service';
 import { MdClear } from 'react-icons/md';
 import { IoIosSearch } from 'react-icons/io';
 import { TfiClose } from 'react-icons/tfi';
-import LoadMore from '@/components/Loading/load-more';
+import LoadMore from '@/components/loading/load-more';
 import { SearchContext } from '@/contexts/search-provider';
 import cls from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { getProducts } from '@/apis/product-service';
 import useDebounce from '@/hooks/debounce';
-import Categories from '@/components/Search/Categories/categories';
-import Products from '@/components/Search/Products/products';
+import Categories from '@/components/search/categories/categories';
+import Products from '@/components/search/products/products';
 
 function Search() {
     const [categories, setCategories] = useState([]);

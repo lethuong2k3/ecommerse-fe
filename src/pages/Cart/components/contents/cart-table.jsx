@@ -3,8 +3,8 @@ import styles from '../../styles.module.scss';
 import { FaRegTrashCan } from 'react-icons/fa6';
 import { formatPrice } from '@/hooks/fomat-price';
 
-import LoadingCart from '@/pages/Cart/components/loading';
-import QuantitySelector from '@/components/QuantitySelector/quantity-selector';
+import LoadingCart from '@/pages/cart/components/loading';
+import QuantitySelector from '@/components/quantity-selector/quantity-selector';
 
 const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
     const increment = (orderItemId, quantity, item) => {

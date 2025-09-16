@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Logo from '@images/Logo.png';
 import dataMenu from '@/components/side-bar/constans';
 import useDebounce from '@/hooks/debounce';
-import LoadMore from '@/components/Loading/load-more';
+import LoadMore from '@/components/loading/load-more';
 
 import { useContext, useEffect, useRef, useState } from 'react';
 import { SidebarContext } from '@/contexts/sidebar-provider';

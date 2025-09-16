@@ -1,8 +1,8 @@
-import Login from '@/components/ContentSideBar/Login/login';
-import MyFooter from '@/components/Footer/footer';
-import Header from '@/components/Header/header';
-import MainLayout from '@/components/Layout/layout';
-import PageHeader from '@/components/PageHeader/page-header';
+import Login from '@/components/content-side-bar/login/login';
+import MyFooter from '@/components/footer/footer';
+import Header from '@/components/header/header';
+import MainLayout from '@/components/layout/layout';
+import PageHeader from '@/components/page-header/page-header';
 import { CiUser } from 'react-icons/ci';
 import styles from './styles.module.scss';
 

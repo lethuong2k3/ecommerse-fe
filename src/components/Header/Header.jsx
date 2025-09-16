@@ -1,6 +1,6 @@
-import BoxIcon from './BoxIcon/box-icon';
+import BoxIcon from './box-icon/box-icon';
 import { dataBoxIcon, dataMenu } from './constants';
-import Menu from './Menu/menu';
+import Menu from './menu/menu';
 import styles from './styles.module.scss';
 import Logo from '@images/Logo.png';
 

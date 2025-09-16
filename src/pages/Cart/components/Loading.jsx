@@ -1,4 +1,4 @@
-import LoadMore from '@/components/Loading/load-more';
+import LoadMore from '@/components/loading/load-more';
 import styles from '../styles.module.scss';
 
 function LoadingCart() {

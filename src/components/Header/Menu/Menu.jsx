@@ -5,7 +5,7 @@ import { SidebarContext } from '@/contexts/sidebar-provider';
 import { StoreContext } from '@/contexts/store-provider';
 import { useNavigate } from 'react-router-dom';
 import { SearchContext } from '@/contexts/search-provider';
-import { accountMenu } from '@components/Header/constants';
+import { accountMenu } from '@/components/header/constants';
 import { FaRegUser } from 'react-icons/fa';
 
 function Menu({ content, href }) {

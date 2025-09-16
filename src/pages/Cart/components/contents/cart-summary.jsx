@@ -1,13 +1,13 @@
-import Button from '@/components/Button/button';
+import Button from '@/components/button/button';
 import styles from '../../styles.module.scss';
 import cls from 'classnames';
-import LoadingCart from '@/pages/Cart/components/loading';
+import LoadingCart from '@/pages/cart/components/loading';
 import { useContext } from 'react';
 import { SidebarContext } from '@/contexts/sidebar-provider';
 import { useNavigate } from 'react-router-dom';
 import { formatPrice } from '@/hooks/fomat-price';
 
-import PaymentMethods from '@/components/PaymentMethods/payment-methods';
+import PaymentMethods from '@/components/payment-methods/payment-methods';
 
 const CartSummary = () => {
     const { listProductCart, isLoading } = useContext(SidebarContext);

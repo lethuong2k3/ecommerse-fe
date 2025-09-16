@@ -1,10 +1,10 @@
-import Header from '@/components/Header/header';
+import Header from '@/components/header/header';
 import styles from './styles.module.scss';
-import PageHeader from '@/components/PageHeader/page-header';
-import MainLayout from '@/components/Layout/layout';
-import Button from '@/components/Button/button';
-import MyFooter from '@/components/Footer/footer';
-import EmptyItem from '@/components/EmptyItem/empty-item';
+import PageHeader from '@/components/page-header/page-header';
+import MainLayout from '@/components/layout/layout';
+import Button from '@/components/button/button';
+import MyFooter from '@/components/footer/footer';
+import EmptyItem from '@/components/empty-item/empty-item';
 
 import { useContext, useEffect, useRef, useState } from 'react';
 import { TfiReload } from 'react-icons/tfi';
@@ -15,9 +15,9 @@ import { useNavigate } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa6';
 import { IoMdClose } from 'react-icons/io';
 import { deleteCompare, deleteAllCompare } from '@/apis/compare-service';
-import LoadMore from '@/components/Loading/load-more';
+import LoadMore from '@/components/loading/load-more';
 import Cookies from 'js-cookie';
-import CheckBox from '@/components/CheckBox/check-box';
+import CheckBox from '@/components/check-box/check-box';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { IoWarningOutline } from 'react-icons/io5';
 import { ToastContext } from '@/contexts/toast-provider';
