@@ -6,7 +6,7 @@ import useDebounce from '@hooks/useDebounce';
 import LoadMore from '@components/Loading/LoadMore';
 
 import { useContext, useEffect, useRef, useState } from 'react';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { MdClear, MdClose } from 'react-icons/md';
 import { IoIosSearch } from 'react-icons/io';
 import { getProducts } from '@apis/productsService';

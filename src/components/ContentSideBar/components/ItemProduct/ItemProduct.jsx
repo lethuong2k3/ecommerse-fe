@@ -4,7 +4,7 @@ import LoadMore from '@components/Loading/LoadMore';
 import { deleteItem } from '@apis/cartService';
 import { TfiClose } from 'react-icons/tfi';
 import { useContext, useState } from 'react';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { deleteWishList } from '@apis/wishlistService';
 import { deleteCompare } from '@apis/compareService';
 import { formatPrice } from '@hooks/useFomatPrice';

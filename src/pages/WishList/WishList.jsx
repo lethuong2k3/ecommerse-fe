@@ -9,7 +9,7 @@ import Button from '@components/Button/Button';
 import EmptyItem from '@components/EmptyItem/EmptyItem';
 
 import { useContext, useState } from 'react';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { useNavigate } from 'react-router-dom';
 import { deleteWishList, removeAllWishList } from '@apis/wishlistService';
 import { BsHeart } from 'react-icons/bs';

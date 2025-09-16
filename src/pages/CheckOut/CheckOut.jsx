@@ -12,7 +12,7 @@ import useScript from 'react-script-hook';
 import { useFormik } from 'formik';
 import { useContext, useEffect, useState } from 'react';
 import { updateItem } from '@apis/cartService';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { ToastContext } from '@contexts/ToastProvider';
 import Cookies from 'js-cookie';
 import { deleteItem } from '@apis/cartService';

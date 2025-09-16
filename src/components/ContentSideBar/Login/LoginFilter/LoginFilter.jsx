@@ -10,7 +10,7 @@ import styles from '../styles.module.scss';
 import Button from '@components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import LoadMore from '@components/Loading/LoadMore';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 
 function LoginFilter({ onIncrease, location }) {
     const [isLoading, setIsLoading] = useState(false);

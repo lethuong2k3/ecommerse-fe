@@ -7,7 +7,7 @@ import Logo from '@images/Logo.png';
 import useScrollHandling from '@hooks/useScrollHandling';
 import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { TfiReload } from 'react-icons/tfi';
 import { BsHeart } from 'react-icons/bs';
 import { BsCart3 } from 'react-icons/bs';

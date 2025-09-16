@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import styles from './styles.module.scss';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import classNames from 'classnames';
 
 import Login from '@components/ContentSideBar/Login/Login';

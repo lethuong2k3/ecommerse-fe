@@ -26,7 +26,7 @@ import {
 import { addProductToCart } from '@apis/cartService';
 
 import { useParams } from 'react-router-dom';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { ToastContext } from '@contexts/ToastProvider';
 import { BsCart3 } from 'react-icons/bs';
 import LoadMore from '@components/Loading/LoadMore';

@@ -4,7 +4,7 @@ import RegisterFilter from '@components/ContentSideBar/Login/RegisterFilter/Regi
 import LoginFilter from '@components/ContentSideBar/Login/LoginFilter/LoginFilter';
 import { useCallback, useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 
 function Login() {
     const { setIsOpen } = useContext(SidebarContext);

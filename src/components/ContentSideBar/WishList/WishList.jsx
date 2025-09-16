@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 import ItemProduct from '@components/ContentSideBar/components/ItemProduct/ItemProduct';
 import Button from '@components/Button/Button';
 import { useContext } from 'react';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import LoadMore from '@components/Loading/LoadMore';
 import { useNavigate } from 'react-router-dom';
 

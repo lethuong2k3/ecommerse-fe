@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import ProductItem from '@components/ProductItem/ProductItem';
 import styles from './styles.module.scss';
 

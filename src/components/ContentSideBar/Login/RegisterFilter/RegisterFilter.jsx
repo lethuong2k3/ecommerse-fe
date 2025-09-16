@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useContext, useState } from 'react';
 import { ToastContext } from '@contexts/ToastProvider';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { register } from '@apis/authService';
 import InputCommon from '@components/InputCommon/InputCommon';
 import styles from '../styles.module.scss';

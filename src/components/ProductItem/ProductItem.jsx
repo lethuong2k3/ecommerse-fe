@@ -15,7 +15,7 @@ import { useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import cls from 'classnames';
 import { OurShopContext } from '@contexts/OurShopProvider';
 import Cookies from 'js-cookie';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { ToastContext } from '@contexts/ToastProvider';
 
 import LoadMore from '@components/Loading/LoadMore';

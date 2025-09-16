@@ -3,7 +3,7 @@ import styles from '../../styles.module.scss';
 import cls from 'classnames';
 import LoadingCart from '@pages/Cart/components/Loading';
 import { useContext } from 'react';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { useNavigate } from 'react-router-dom';
 import { formatPrice } from '@hooks/useFomatPrice';
 

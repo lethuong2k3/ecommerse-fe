@@ -4,7 +4,7 @@ import ItemProduct from '@components/ContentSideBar/components/ItemProduct/ItemP
 import Button from '@components/Button/Button';
 import { BsCart3 } from 'react-icons/bs';
 import { useContext } from 'react';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { useNavigate } from 'react-router-dom';
 import { formatPrice } from '@hooks/useFomatPrice';
 

@@ -10,7 +10,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { TfiReload } from 'react-icons/tfi';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import { FaRegTrashCan } from 'react-icons/fa6';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { useNavigate } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa6';
 import { IoMdClose } from 'react-icons/io';

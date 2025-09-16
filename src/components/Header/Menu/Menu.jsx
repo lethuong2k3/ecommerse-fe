@@ -1,7 +1,7 @@
 import styles from '../styles.module.scss';
 
 import { useContext, useState } from 'react';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { StoreContext } from '@contexts/StoreProvider';
 import { useNavigate } from 'react-router-dom';
 import { SearchContext } from '@contexts/SearchProvider';

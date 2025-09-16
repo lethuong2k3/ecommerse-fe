@@ -4,7 +4,7 @@ import CartSummary from '@pages/Cart/components/contents/CartSummary';
 import Button from '@components/Button/Button';
 import { FaRegTrashCan } from 'react-icons/fa6';
 import { useContext, useState } from 'react';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 import { updateItem, deleteItem, deleteCart } from '@apis/cartService';
 import { BsCart3 } from 'react-icons/bs';
 import Cookies from 'js-cookie';

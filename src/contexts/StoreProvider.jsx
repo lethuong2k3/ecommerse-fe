@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { getInfo } from '@apis/authService';
 import { ToastContext } from '@contexts/ToastProvider';
 import { logOut } from '@apis/authService';
-import { SidebarContext } from '@contexts/SideBarProvider';
+import { SidebarContext } from '@/contexts/sidebar-provider';
 
 export const StoreContext = createContext();
 
