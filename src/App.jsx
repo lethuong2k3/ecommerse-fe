@@ -2,16 +2,16 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { privateRouters, publicRouters } from '@routers/routers';
 import { Suspense } from 'react';
 import { SidebarProvider } from '@/contexts/sidebar-provider.jsx';
-import Sidebar from '@/components/side-bar/side-bar';
-import { ToastProvider } from '@/contexts/toast-provider';
-import { StoreProvider } from '@/contexts/store-provider';
+import Sidebar from '@/components/side-bar/side-bar.jsx';
+import { ToastProvider } from '@/contexts/toast-provider.jsx';
+import { StoreProvider } from '@/contexts/store-provider.jsx';
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
-import { SearchProvider } from '@/contexts/search-provider';
-import Search from '@/components/search/search';
-import ProtectedRoute from '@/routers/protected-route';
-import SidebarMenu from '@/components/side-bar/side-bar-menu';
-import LoginRoute from '@/routers/login-route';
-import { PaymentMethodsProvider } from '@/contexts/payment-methods-provider';
+import { SearchProvider } from '@/contexts/search-provider.jsx';
+import Search from '@/components/search/search.jsx';
+import ProtectedRoute from '@/routers/protected-route.jsx';
+import SidebarMenu from '@/components/side-bar/side-bar-menu.jsx';
+import LoginRoute from '@/routers/login-route.jsx';
+import { PaymentMethodsProvider } from '@/contexts/payment-methods-provider.jsx';
 
 function App() {
     return (
