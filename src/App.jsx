@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { privateRouters, publicRouters } from '@routers/routers';
 import { Suspense } from 'react';
 import { SidebarProvider } from '@/contexts/sidebar-provider.jsx';
-import Sidebar from '@/components/Sidebar/sidebar';
+import Sidebar from '@/components/Sidebar/sidebar.jsx';
 import { ToastProvider } from '@/contexts/toast-provider';
 import { StoreProvider } from '@/contexts/store-provider';
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
