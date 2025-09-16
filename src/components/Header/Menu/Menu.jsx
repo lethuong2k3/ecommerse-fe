@@ -2,9 +2,9 @@ import styles from '../styles.module.scss';
 
 import { useContext, useState } from 'react';
 import { SidebarContext } from '@/contexts/sidebar-provider';
-import { StoreContext } from '@contexts/StoreProvider';
+import { StoreContext } from '@/contexts/store-provider';
 import { useNavigate } from 'react-router-dom';
-import { SearchContext } from '@contexts/SearchProvider';
+import { SearchContext } from '@/contexts/search-provider';
 import { accountMenu } from '@components/Header/constants';
 import { FaRegUser } from 'react-icons/fa';
 

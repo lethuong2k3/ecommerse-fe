@@ -1,10 +1,10 @@
-import Header from '@components/Header/Header';
+import Header from '@/components/Header/header';
 import styles from './styles.module.scss';
-import PageHeader from '@components/PageHeader/PageHeader';
-import MainLayout from '@components/Layout/Layout';
-import Button from '@components/Button/Button';
-import MyFooter from '@components/Footer/Footer';
-import EmptyItem from '@components/EmptyItem/EmptyItem';
+import PageHeader from '@/components/PageHeader/page-header';
+import MainLayout from '@/components/Layout/layout';
+import Button from '@/components/Button/button';
+import MyFooter from '@/components/Footer/footer';
+import EmptyItem from '@/components/EmptyItem/empty-item';
 
 import { useContext, useEffect, useRef, useState } from 'react';
 import { TfiReload } from 'react-icons/tfi';
@@ -14,14 +14,14 @@ import { SidebarContext } from '@/contexts/sidebar-provider';
 import { useNavigate } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa6';
 import { IoMdClose } from 'react-icons/io';
-import { deleteCompare, deleteAllCompare } from '@apis/compareService';
-import LoadMore from '@components/Loading/LoadMore';
+import { deleteCompare, deleteAllCompare } from '@/apis/compare-service';
+import LoadMore from '@/components/Loading/load-more';
 import Cookies from 'js-cookie';
-import CheckBox from '@components/CheckBox/CheckBox';
+import CheckBox from '@/components/CheckBox/check-box';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { IoWarningOutline } from 'react-icons/io5';
-import { ToastContext } from '@contexts/ToastProvider';
-import { getPriceRange } from '@hooks/useFomatPrice';
+import { ToastContext } from '@/contexts/toast-provider';
+import { getPriceRange } from '@/hooks/fomat-price';
 
 function Compare() {
     const { compareList, handleGetListCompare } = useContext(SidebarContext);

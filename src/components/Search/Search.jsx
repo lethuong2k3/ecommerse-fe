@@ -1,17 +1,17 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
-import { getCategories } from '@apis/categoryService';
+import { getCategories } from '@/apis/category-service';
 import { MdClear } from 'react-icons/md';
 import { IoIosSearch } from 'react-icons/io';
 import { TfiClose } from 'react-icons/tfi';
-import LoadMore from '@components/Loading/LoadMore';
-import { SearchContext } from '@contexts/SearchProvider';
+import LoadMore from '@/components/Loading/load-more';
+import { SearchContext } from '@/contexts/search-provider';
 import cls from 'classnames';
 import { useNavigate } from 'react-router-dom';
-import { getProducts } from '@apis/productsService';
-import useDebounce from '@hooks/useDebounce';
-import Categories from '@components/Search/Categories/Categories';
-import Products from '@components/Search/Products/Products';
+import { getProducts } from '@/apis/product-service';
+import useDebounce from '@/hooks/debounce';
+import Categories from '@/components/Search/Categories/categories';
+import Products from '@/components/Search/Products/products';
 
 function Search() {
     const [categories, setCategories] = useState([]);

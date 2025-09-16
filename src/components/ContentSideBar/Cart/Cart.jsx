@@ -1,14 +1,14 @@
-import HeaderSideBar from '@components/ContentSideBar/components/HeaderSideBar/HeaderSideBar';
+import HeaderSideBar from '@/components/ContentSideBar/components/HeaderSideBar/header-side-bar';
 import styles from './styles.module.scss';
-import ItemProduct from '@components/ContentSideBar/components/ItemProduct/ItemProduct';
-import Button from '@components/Button/Button';
+import ItemProduct from '@/components/ContentSideBar/components/ItemProduct/item-product';
+import Button from '@/components/Button/button';
 import { BsCart3 } from 'react-icons/bs';
 import { useContext } from 'react';
 import { SidebarContext } from '@/contexts/sidebar-provider';
 import { useNavigate } from 'react-router-dom';
-import { formatPrice } from '@hooks/useFomatPrice';
+import { formatPrice } from '@/hooks/fomat-price';
 
-import LoadMore from '@components/Loading/LoadMore';
+import LoadMore from '@/components/Loading/load-more';
 import cls from 'classnames';
 
 function Cart() {

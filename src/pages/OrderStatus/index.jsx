@@ -1,12 +1,12 @@
-import Header from '@components/Header/Header';
-import Steps from '@components/Steps/Steps';
+import Header from '@/components/Header/header';
+import Steps from '@/components/Steps/steps';
 import styles from './styles.module.scss';
-import MainLayout from '@components/Layout/Layout';
+import MainLayout from '@/components/Layout/layout';
 import { FaCheckCircle } from 'react-icons/fa';
 import { IoCloseCircle } from 'react-icons/io5';
 import { useEffect, useState } from 'react';
-import Status from '@pages/OrderStatus/Status/Status';
-import MyFooter from '@components/Footer/Footer';
+import Status from '@/pages/OrderStatus/Status/status';
+import MyFooter from '@/components/Footer/footer';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function OrderStatus() {

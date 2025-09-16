@@ -3,12 +3,12 @@ import styles from './styles.module.scss';
 import { SidebarContext } from '@/contexts/sidebar-provider';
 import classNames from 'classnames';
 
-import Login from '@components/ContentSideBar/Login/Login';
-import Compare from '@components/ContentSideBar/Compare/Compare';
+import Login from '@/components/ContentSideBar/Login/login';
+import Compare from '@/components/ContentSideBar/Compare/compare';
 import { MdClose } from 'react-icons/md';
-import WishList from '@components/ContentSideBar/WishList/WishList';
-import Cart from '@components/ContentSideBar/Cart/Cart';
-import DetailProduct from '@components/ContentSideBar/ViewProduct/ViewProduct';
+import WishList from '@/components/ContentSideBar/WishList/wish-list';
+import Cart from '@/components/ContentSideBar/Cart/cart';
+import DetailProduct from '@/components/ContentSideBar/ViewProduct/view-product';
 
 function Sidebar() {
     const { isOpen, setIsOpen, type } = useContext(SidebarContext);

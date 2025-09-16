@@ -1,18 +1,18 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["./src/*"],
-            "@components/*": ["./src/components/*"],
-            "@styles/*": ["./src/assets/styles/*"],
-            "@images/*": ["./src/assets/images/*"],
-            "@icons/*": ["./src/assets/icons/*"],
-            "@apis/*": ["./src/apis/*"],
-            "@routers/*": ["./src/routers/*"],
-            "@hooks/*": ["./src/hooks/*"],
-            "@contexts/*": ["./src/contexts/*"],
-            "@pages/*": ["./src/pages/*"]
-        }
-    },
-    "include": ["src/**/*"]
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"],
+      "@components/*": ["components/*"],
+      "@styles/*": ["assets/styles/*"],
+      "@images/*": ["assets/images/*"],
+      "@icons/*": ["assets/icons/*"],
+      "@apis/*": ["apis/*"],
+      "@routers/*": ["routers/*"],
+      "@hooks/*": ["hooks/*"],
+      "@contexts/*": ["contexts/*"],
+      "@pages/*": ["pages/*"]
+    }
+  },
+  "include": ["src"]
 }

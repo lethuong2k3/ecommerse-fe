@@ -1,4 +1,4 @@
-import Button from '@components/Button/Button';
+import Button from '@/components/Button/button';
 import styles from '../styles.module.scss';
 
 function Categories({ categories, handleNavigateToShop }) {

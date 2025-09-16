@@ -1,12 +1,12 @@
-import Header from '@components/Header/Header';
-import MainLayout from '@components/Layout/Layout';
+import Header from '@/components/Header/header';
+import MainLayout from '@/components/Layout/layout';
 import styles from './styles.module.scss';
-import FormAboutUs from '@components/FormAboutUs/FormAboutUs';
-import { createContact } from '@apis/contactService';
+import FormAboutUs from '@/components/FormAboutUs/form-about-us';
+import { createContact } from '@/apis/contact-service';
 import { useContext } from 'react';
-import { ToastContext } from '@contexts/ToastProvider';
-import MyFooter from '@components/Footer/Footer';
-import Breadcrumbs from '@components/Breadcrumbs/Breadcrumbs';
+import { ToastContext } from '@/contexts/toast-provider';
+import MyFooter from '@/components/Footer/footer';
+import Breadcrumbs from '@/components/Breadcrumbs/bread-crumbs';
 
 function Contact() {
     const { toast } = useContext(ToastContext);

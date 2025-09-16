@@ -1,11 +1,11 @@
-import HeaderSideBar from '@components/ContentSideBar/components/HeaderSideBar/HeaderSideBar';
+import HeaderSideBar from '@/components/ContentSideBar/components/HeaderSideBar/header-side-bar';
 import { TfiReload } from 'react-icons/tfi';
 import styles from './styles.module.scss';
-import ItemProduct from '@components/ContentSideBar/components/ItemProduct/ItemProduct';
-import Button from '@components/Button/Button';
+import ItemProduct from '@/components/ContentSideBar/components/ItemProduct/item-product';
+import Button from '@/components/Button/button';
 import { useContext } from 'react';
 import { SidebarContext } from '@/contexts/sidebar-provider';
-import LoadMore from '@components/Loading/LoadMore';
+import LoadMore from '@/components/Loading/load-more';
 import { useNavigate } from 'react-router-dom';
 
 function Compare() {

@@ -1,10 +1,10 @@
-import BoxIcon from './BoxIcon/BoxIcon';
+import BoxIcon from './BoxIcon/box-icon';
 import { dataBoxIcon, dataMenu } from './constants';
-import Menu from './Menu/Menu';
+import Menu from './Menu/menu';
 import styles from './styles.module.scss';
 import Logo from '@images/Logo.png';
 
-import useScrollHandling from '@hooks/useScrollHandling';
+import useScrollHandling from '@/hooks/scroll-handling';
 import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { SidebarContext } from '@/contexts/sidebar-provider';

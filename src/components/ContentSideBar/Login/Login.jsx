@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
-import HeaderSideBar from '@components/ContentSideBar/components/HeaderSideBar/HeaderSideBar';
-import RegisterFilter from '@components/ContentSideBar/Login/RegisterFilter/RegisterFilter';
-import LoginFilter from '@components/ContentSideBar/Login/LoginFilter/LoginFilter';
+import HeaderSideBar from '@/components/ContentSideBar/components/HeaderSideBar/header-side-bar';
+import RegisterFilter from '@/components/ContentSideBar/Login/RegisterFilter/register-filter';
+import LoginFilter from '@/components/ContentSideBar/Login/LoginFilter/login-filter';
 import { useCallback, useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SidebarContext } from '@/contexts/sidebar-provider';

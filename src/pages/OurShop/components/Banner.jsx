@@ -1,6 +1,6 @@
-import CountDownTimer from '@components/CountDownTimer/CountDownTimer';
+import CountDownTimer from '@/components/CountDownTimer/count-down-timer';
 import styles from '../styles.module.scss';
-import Button from '@components/Button/Button';
+import Button from '@/components/Button/button';
 
 function Banner() {
     const targetDate = '2025-07-28T00:00:00';

@@ -2,16 +2,16 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { privateRouters, publicRouters } from '@routers/routers';
 import { Suspense } from 'react';
 import { SidebarProvider } from '@/contexts/sidebar-provider.jsx';
-import Sidebar from '@components/Sidebar/Sidebar';
-import { ToastProvider } from '@contexts/ToastProvider';
-import { StoreProvider } from '@contexts/StoreProvider';
+import Sidebar from '@/components/Sidebar/sidebar';
+import { ToastProvider } from '@/contexts/toast-provider';
+import { StoreProvider } from '@/contexts/store-provider';
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
-import { SearchProvider } from '@contexts/SearchProvider';
-import Search from '@components/Search/Search';
-import ProtectedRoute from '@routers/ProtectedRoute';
-import SidebarMenu from '@components/Sidebar/SidebarMenu';
-import LoginRoute from '@routers/LoginRoute';
-import { PaymentMethodsProvider } from '@contexts/PaymentMethodsProvider';
+import { SearchProvider } from '@/contexts/search-provider';
+import Search from '@/components/Search/search';
+import ProtectedRoute from '@/routers/protected-route';
+import SidebarMenu from '@/components/Sidebar/sidebar-menu';
+import LoginRoute from '@/routers/login-route';
+import { PaymentMethodsProvider } from '@/contexts/payment-methods-provider';
 
 function App() {
     return (

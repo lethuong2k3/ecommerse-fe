@@ -2,8 +2,8 @@ import { TfiLayoutGrid4 } from 'react-icons/tfi';
 import { CiCircleList } from 'react-icons/ci';
 import styles from '../styles.module.scss';
 import { useContext } from 'react';
-import { OurShopContext } from '@contexts/OurShopProvider';
-import SelectBox from '@pages/OurShop/components/SelectBox';
+import { OurShopContext } from '@/contexts/our-shop-provider';
+import SelectBox from '@/pages/OurShop/components/select-box';
 
 function Filter() {
     const { sortOptions, showOptions, setSortId, setShowId, setIsShowGrid } =

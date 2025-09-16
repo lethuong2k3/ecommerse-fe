@@ -1,11 +1,11 @@
-import Button from '@components/Button/Button';
-import InputGroup from '@pages/DetailProduct/components/InputGroup';
+import Button from '@/components/Button/button';
+import InputGroup from '@/pages/DetailProduct/components/input-group';
 import styles from '../styles.module.scss';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
-import { createReview } from '@apis/reviewService';
-import LoadMore from '@components/Loading/LoadMore';
+import { createReview } from '@/apis/review-service';
+import LoadMore from '@/components/Loading/load-more';
 
 function ReviewProduct({
     toast,

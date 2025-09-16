@@ -1,5 +1,5 @@
 import { dataInfo } from '@components/Info/constants';
-import InfoCard from '@components/Info/InfoCard/InfoCard';
+import InfoCard from '@/components/Info/InfoCard/info-card';
 import styles from './styles.module.scss';
 
 function Info() {

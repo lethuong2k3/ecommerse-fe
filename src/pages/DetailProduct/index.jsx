@@ -1,18 +1,18 @@
-import Header from '@components/Header/Header';
-import MainLayout from '@components/Layout/Layout';
+import Header from '@/components/Header/header';
+import MainLayout from '@/components/Layout/layout';
 import styles from './styles.module.scss';
-import Button from '@components/Button/Button';
-import PaymentMethods from '@components/PaymentMethods/PaymentMethods';
+import Button from '@/components/Button/button';
+import PaymentMethods from '@/components/PaymentMethods/payment-methods';
 import AccordionMenu from '@components/AccordionMenu';
-import InformationProduct from '@pages/DetailProduct/components/informartion';
-import ReviewProduct from '@pages/DetailProduct/components/Review';
-import MyFooter from '@components/Footer/Footer';
-import SliderCommon from '@components/SliderCommon/SliderCommon';
+import InformationProduct from '@/pages/DetailProduct/components/informartion';
+import ReviewProduct from '@/pages/DetailProduct/components/review';
+import MyFooter from '@/components/Footer/footer';
+import SliderCommon from '@/components/SliderCommon/slider-common';
 import ReactImageMagnifier from 'simple-image-magnifier/react';
-import Size from '@components/ProductItem/Size/Size';
-import Color from '@components/ProductItem/Color/Color';
+import Size from '@/components/ProductItem/Size/size';
+import Color from '@/components/ProductItem/Color/color';
 import _ from 'lodash';
-import QuantitySelector from '@components/QuantitySelector/QuantitySelector';
+import QuantitySelector from '@/components/QuantitySelector/quantity-selector';
 import Cookies from 'js-cookie';
 
 import { useContext, useEffect, useMemo, useReducer, useState } from 'react';
@@ -22,28 +22,28 @@ import {
     getRelatedProducts,
     getProduct,
     getProductDetail,
-} from '@apis/productsService';
-import { addProductToCart } from '@apis/cartService';
+} from '@/apis/product-service';
+import { addProductToCart } from '@/apis/cart-service';
 
 import { useParams } from 'react-router-dom';
 import { SidebarContext } from '@/contexts/sidebar-provider';
-import { ToastContext } from '@contexts/ToastProvider';
+import { ToastContext } from '@/contexts/toast-provider';
 import { BsCart3 } from 'react-icons/bs';
-import LoadMore from '@components/Loading/LoadMore';
-import { getPriceRange, formatPrice } from '@hooks/useFomatPrice';
+import LoadMore from '@/components/Loading/load-more';
+import { getPriceRange, formatPrice } from '@/hooks/fomat-price';
 import {
     createCompare,
     deleteCompare,
     getCompareByProduct,
-} from '@apis/compareService';
+} from '@/apis/compare-service';
 import {
     deleteWishList,
     createWishList,
     getWListByProductAndUser,
-} from '@apis/wishlistService';
-import { getReviews, getReview } from '@apis/reviewService';
+} from '@/apis/wishlist-service';
+import { getReviews, getReview } from '@/apis/review-service';
 import userImg from '@images/user.jpg';
-import { StoreContext } from '@contexts/StoreProvider';
+import { StoreContext } from '@/contexts/store-provider';
 
 function DetailProduct() {
     const {

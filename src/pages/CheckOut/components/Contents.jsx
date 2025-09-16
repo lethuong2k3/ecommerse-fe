@@ -1,12 +1,12 @@
 import cls from 'classnames';
-import Button from '@components/Button/Button';
-import PaymentMethods from '@components/PaymentMethods/PaymentMethods';
-import QuantitySelector from '@components/QuantitySelector/QuantitySelector';
+import Button from '@/components/Button/button';
+import PaymentMethods from '@/components/PaymentMethods/payment-methods';
+import QuantitySelector from '@/components/QuantitySelector/quantity-selector';
 import SelectSearch from 'react-select-search';
-import InputCommon from '@components/InputCommon/InputCommon';
+import InputCommon from '@/components/InputCommon/input-common';
 import styles from '../styles.module.scss';
-import Loading from '@components/Loading/Loading';
-import { formatPrice } from '@hooks/useFomatPrice';
+import Loading from '@/components/Loading/loading';
+import { formatPrice } from '@/hooks/fomat-price';
 
 function Contents({
     payment,

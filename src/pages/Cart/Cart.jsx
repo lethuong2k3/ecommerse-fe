@@ -1,9 +1,9 @@
-import MyFooter from '@components/Footer/Footer';
-import Header from '@components/Header/Header';
-import Contents from '@pages/Cart/components/contents/Contents';
+import MyFooter from '@/components/Footer/footer';
+import Header from '@/components/Header/header';
+import Contents from '@/pages/Cart/components/contents/contents';
 import styles from './styles.module.scss';
-import MainLayout from '@components/Layout/Layout';
-import Steps from '@components/Steps/Steps';
+import MainLayout from '@/components/Layout/layout';
+import Steps from '@/components/Steps/steps';
 
 function Cart() {
     return (
