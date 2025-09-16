@@ -1,11 +1,11 @@
 import styles from '../styles.module.scss';
 
 import { useContext, useState } from 'react';
-import { SidebarContext } from '@/contexts/sidebar-provider';
-import { StoreContext } from '@/contexts/store-provider';
+import { SidebarContext } from '@contexts/SideBarProvider';
+import { StoreContext } from '@contexts/StoreProvider';
 import { useNavigate } from 'react-router-dom';
-import { SearchContext } from '@/contexts/search-provider';
-import { accountMenu } from '@/components/header/constants';
+import { SearchContext } from '@contexts/SearchProvider';
+import { accountMenu } from '@components/Header/constants';
 import { FaRegUser } from 'react-icons/fa';
 
 function Menu({ content, href }) {

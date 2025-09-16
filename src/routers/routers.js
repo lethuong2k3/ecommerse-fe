@@ -3,65 +3,65 @@ import { lazy } from 'react';
 const publicRouters = [
     {
         path: '/',
-        component: lazy(() => import('@/components/home-page/home-page')),
+        component: lazy(() => import('@components/HomePage/HomePage')),
     },
     {
         path: '/shop',
-        component: lazy(() => import('@/pages/our-shop/our-shop')),
+        component: lazy(() => import('@pages/OurShop/OurShop')),
     },
     {
         path: '/shop/:categoryName',
-        component: lazy(() => import('@/pages/our-shop/our-shop')),
+        component: lazy(() => import('@pages/OurShop/OurShop')),
     },
     {
         path: '/shop/:categoryName/:keyword',
-        component: lazy(() => import('@/pages/our-shop/our-shop')),
+        component: lazy(() => import('@pages/OurShop/OurShop')),
     },
     {
         path: '/gio-hang',
-        component: lazy(() => import('@/pages/cart/cart')),
+        component: lazy(() => import('@pages/Cart/Cart')),
     },
     {
         path: '/san-pham-chi-tiet/:id',
-        component: lazy(() => import('@/pages/detail-product')),
+        component: lazy(() => import('@pages/DetailProduct')),
     },
     {
         path: '/yeu-thich',
-        component: lazy(() => import('@/pages/wish-list/wish-list')),
+        component: lazy(() => import('@pages/WishList/WishList')),
     },
     {
         path: '/so-sanh',
-        component: lazy(() => import('@/pages/compare/compare')),
+        component: lazy(() => import('@pages/Compare/Compare')),
     },
     {
         path: '/gioi-thieu',
-        component: lazy(() => import('@/pages/about-us/about-us')),
+        component: lazy(() => import('@pages/AboutUs/AboutUs')),
     },
     {
         path: '/lien-he',
-        component: lazy(() => import('@/pages/contact/contact')),
+        component: lazy(() => import('@pages/Contact/Contact')),
     },
 ];
 
 const privateRouters = [
     {
         path: '/thanh-toan',
-        component: lazy(() => import('@/pages/check-out/check-out')),
+        component: lazy(() => import('@pages/CheckOut/CheckOut')),
     },
     {
         path: '/thanh-toan/ket-qua',
-        component: lazy(() => import('@/pages/order-status')),
+        component: lazy(() => import('@pages/OrderStatus')),
     },
     {
         path: '/danh-sach-don-hang',
         component: lazy(() =>
-            import('@/pages/check-out-tracking/check-out-tracking')
+            import('@pages/CheckOutTracking/CheckOutTracking')
         ),
     },
     {
         path: '/danh-sach-don-hang/:orderCode',
         component: lazy(() =>
-            import('@/pages/check-out-tracking/check-out-details')
+            import('@pages/CheckOutTracking/CheckOutDetails')
         ),
     },
 ];

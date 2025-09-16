@@ -1,27 +1,27 @@
-import Header from '@/components/header/header';
+import Header from '@components/Header/Header';
 import styles from './styles.module.scss';
-import PageHeader from '@/components/page-header/page-header';
-import MainLayout from '@/components/layout/layout';
-import Button from '@/components/button/button';
-import MyFooter from '@/components/footer/footer';
-import EmptyItem from '@/components/empty-item/empty-item';
+import PageHeader from '@components/PageHeader/PageHeader';
+import MainLayout from '@components/Layout/Layout';
+import Button from '@components/Button/Button';
+import MyFooter from '@components/Footer/Footer';
+import EmptyItem from '@components/EmptyItem/EmptyItem';
 
 import { useContext, useEffect, useRef, useState } from 'react';
 import { TfiReload } from 'react-icons/tfi';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import { FaRegTrashCan } from 'react-icons/fa6';
-import { SidebarContext } from '@/contexts/sidebar-provider';
+import { SidebarContext } from '@contexts/SideBarProvider';
 import { useNavigate } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa6';
 import { IoMdClose } from 'react-icons/io';
-import { deleteCompare, deleteAllCompare } from '@/apis/compare-service';
-import LoadMore from '@/components/loading/load-more';
+import { deleteCompare, deleteAllCompare } from '@apis/compareService';
+import LoadMore from '@components/Loading/LoadMore';
 import Cookies from 'js-cookie';
-import CheckBox from '@/components/check-box/check-box';
+import CheckBox from '@components/CheckBox/CheckBox';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { IoWarningOutline } from 'react-icons/io5';
-import { ToastContext } from '@/contexts/toast-provider';
-import { getPriceRange } from '@/hooks/fomat-price';
+import { ToastContext } from '@contexts/ToastProvider';
+import { getPriceRange } from '@hooks/useFomatPrice';
 
 function Compare() {
     const { compareList, handleGetListCompare } = useContext(SidebarContext);

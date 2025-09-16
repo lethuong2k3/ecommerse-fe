@@ -1,9 +1,9 @@
-import { dataMenu } from '@/components/footer/constants';
+import { dataMenu } from '@components/Footer/constants';
 import styles from './styles.module.scss';
 import Logo from '@images/Logo.png';
 import { useContext } from 'react';
-import { PaymentMethodsContext } from '@/contexts/payment-methods-provider';
-import LoadMore from '@/components/loading/load-more';
+import { PaymentMethodsContext } from '@contexts/PaymentMethodsProvider';
+import LoadMore from '@components/Loading/LoadMore';
 
 function MyFooter() {
     const { listMethod, isLoading } = useContext(PaymentMethodsContext);

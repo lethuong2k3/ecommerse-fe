@@ -1,16 +1,16 @@
-import CartTable from '@/pages/cart/components/contents/cart-table';
+import CartTable from '@pages/Cart/components/contents/CartTable';
 import styles from '../../styles.module.scss';
-import CartSummary from '@/pages/cart/components/contents/cart-summary';
-import Button from '@/components/button/button';
+import CartSummary from '@pages/Cart/components/contents/CartSummary';
+import Button from '@components/Button/Button';
 import { FaRegTrashCan } from 'react-icons/fa6';
 import { useContext, useState } from 'react';
-import { SidebarContext } from '@/contexts/sidebar-provider';
-import { updateItem, deleteItem, deleteCart } from '@/apis/cart-service';
+import { SidebarContext } from '@contexts/SideBarProvider';
+import { updateItem, deleteItem, deleteCart } from '@apis/cartService';
 import { BsCart3 } from 'react-icons/bs';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import { ToastContext } from '@/contexts/toast-provider';
-import EmptyItem from '@/components/empty-item/empty-item';
+import { ToastContext } from '@contexts/ToastProvider';
+import EmptyItem from '@components/EmptyItem/EmptyItem';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { IoWarningOutline } from 'react-icons/io5';
 

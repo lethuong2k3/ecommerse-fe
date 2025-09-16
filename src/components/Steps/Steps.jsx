@@ -1,4 +1,4 @@
-import Stepper from '@/components/steps/stepper';
+import Stepper from '@components/Steps/Stepper';
 import styles from './styles.module.scss';
 import cls from 'classnames';
 

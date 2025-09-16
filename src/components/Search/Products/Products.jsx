@@ -1,7 +1,7 @@
-import { getPriceRange } from '@/hooks/fomat-price';
+import { getPriceRange } from '@hooks/useFomatPrice';
 import styles from '../styles.module.scss';
 import { BsCart3 } from 'react-icons/bs';
-import highlightText from '@/hooks/highlight-text';
+import highlightText from '@hooks/useHighlightText';
 
 function Products({ data, searchValue, handleNavigateToDetail }) {
     return (

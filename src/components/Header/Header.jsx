@@ -1,13 +1,13 @@
-import BoxIcon from './box-icon/box-icon';
+import BoxIcon from './BoxIcon/BoxIcon';
 import { dataBoxIcon, dataMenu } from './constants';
-import Menu from './menu/menu';
+import Menu from './Menu/Menu';
 import styles from './styles.module.scss';
 import Logo from '@images/Logo.png';
 
-import useScrollHandling from '@/hooks/scroll-handling';
+import useScrollHandling from '@hooks/useScrollHandling';
 import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { SidebarContext } from '@/contexts/sidebar-provider';
+import { SidebarContext } from '@contexts/SideBarProvider';
 import { TfiReload } from 'react-icons/tfi';
 import { BsHeart } from 'react-icons/bs';
 import { BsCart3 } from 'react-icons/bs';
