@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 import Button from '@components/Button/Button';
 import PaymentMethods from '@components/PaymentMethods/PaymentMethods';
 import AccordionMenu from '@components/AccordionMenu';
-import InformationProduct from '@pages/DetailProduct/components/informartion';
+import InformationProduct from '@pages/DetailProduct/components/Informartion';
 import ReviewProduct from '@pages/DetailProduct/components/Review';
 import MyFooter from '@components/Footer/Footer';
 import SliderCommon from '@components/SliderCommon/SliderCommon';

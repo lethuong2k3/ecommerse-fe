@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { privateRouters, publicRouters } from '@routers/routers';
 import { Suspense } from 'react';
-import { SidebarProvider } from '@contexts/SidebarProvider';
+import { SidebarProvider } from '@contexts/SideBarProvider';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { ToastProvider } from '@contexts/ToastProvider';
 import { StoreProvider } from '@contexts/StoreProvider';
