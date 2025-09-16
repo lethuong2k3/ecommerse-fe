@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import Logo from '@images/Logo.png';
-import dataMenu from '@components/Sidebar/constans';
+import dataMenu from '@/components/side-bar/constans';
 import useDebounce from '@/hooks/debounce';
 import LoadMore from '@/components/Loading/load-more';
 
