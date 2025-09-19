@@ -1,3 +1,4 @@
+import '@styles/main.module.scss';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { privateRouters, publicRouters } from '@routers/routers';
 import { Suspense } from 'react';
@@ -12,6 +13,7 @@ import ProtectedRoute from '@routers/ProtectedRoute';
 import SidebarMenu from '@components/Sidebar/SidebarMenu';
 import LoginRoute from '@routers/LoginRoute';
 import { PaymentMethodsProvider } from '@contexts/PaymentMethodsProvider';
+
 
 function App() {
     return (

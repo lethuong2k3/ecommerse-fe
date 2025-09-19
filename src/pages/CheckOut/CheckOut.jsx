@@ -113,7 +113,12 @@ function CheckOut() {
             saveOrder(body)
                 .then(res => {
                     setLoadingSubmit(false);
-                    openPaymentDialog(res.data.data);
+                    let order = res.data.data;
+                    if (payment === 1) {
+                        navigate(`/thanh-toan/ket-qua?orderCode=${order.orderCode}`)
+                    } else if (payment === 2) {
+                        openPaymentDialog(order);
+                    }
                 })
                 .catch(err => {
                     setLoadingSubmit(false);
@@ -122,10 +127,10 @@ function CheckOut() {
         },
     });
 
-    const handleCancelOrder = orderId => {
-        cancelOrder(orderId)
+    const handleCancelOrder = orderCode => {
+        cancelOrder(orderCode)
             .then(res => {
-                console.log(res.data);
+                navigate(`/thanh-toan/ket-qua?orderCode=${orderCode}`)
             })
             .catch(err => {
                 console.log(err);
@@ -145,10 +150,9 @@ function CheckOut() {
                     console.log(event);
                 },
                 onSuccess: async event => {
-                    console.log(event);
+                    navigate(`/thanh-toan/ket-qua?orderCode=${event.orderCode}`)
                 },
                 onCancel: async event => {
-                    console.log(event);
                     handleCancelOrder(event.orderCode);
                 },
             });

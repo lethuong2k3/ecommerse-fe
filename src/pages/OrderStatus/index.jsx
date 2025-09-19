@@ -8,27 +8,33 @@ import { useEffect, useState } from 'react';
 import Status from '@pages/OrderStatus/Status/Status';
 import MyFooter from '@components/Footer/Footer';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getOrder } from '@apis/orderService';
 
 function OrderStatus() {
     const [status, setStatus] = useState({});
     const location = useLocation();
     const navigate = useNavigate();
-    useEffect(() => {
-        const searchParams = new URLSearchParams(location.search);
-        const orderId = searchParams.get('orderId');
-        const requestId = searchParams.get('requestId');
-        momoIpn(orderId, requestId)
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const orderCode = searchParams.get('orderCode');
+
+    if (orderCode) {
+        getOrder(orderCode)
             .then(res => {
-                if (res.status === 200) {
-                    return handleOrderStatus(res.status);
+                let orderStatus = res.data.data.orderStatus;
+                if (orderStatus === "PENDING" || orderStatus === "PAID") {
+                    handleOrderStatus(200);
+                } else {
+                    handleOrderStatus(400);
                 }
             })
-            .catch(err => {
-                if (err.status === 400) {
-                    return handleOrderStatus(err.status);
-                }
+            .catch(() => {
+                handleOrderStatus(400);
             });
-    }, [location.search]);
+    } else {
+        handleOrderStatus(400);
+    }
+}, [location.search]);
     const handleNavigateToShop = () => {
         navigate('/shop');
     };

@@ -9,7 +9,7 @@ function Status({
     return (
         <>
             {status.icon}
-            <h3 className={styles.title}>Thanh toán {status.title}!</h3>
+            <h3 className={styles.title}>Đặt hàng {status.title}!</h3>
             <p>{status.description}</p>
             <p>{status.text}</p>
             {status.title === 'Failed' ? (
