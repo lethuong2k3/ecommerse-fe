@@ -112,12 +112,12 @@ function CheckOut() {
             setLoadingSubmit(true);
             saveOrder(body)
                 .then(res => {
+                    let order = res.data;
                     setLoadingSubmit(false);
-                    let order = res.data.data;
                     if (payment === 1) {
                         navigate(`/thanh-toan/ket-qua?orderCode=${order.orderCode}`)
                     } else if (payment === 2) {
-                        openPaymentDialog(order);
+                        openPaymentDialog(order.data);
                     }
                 })
                 .catch(err => {
