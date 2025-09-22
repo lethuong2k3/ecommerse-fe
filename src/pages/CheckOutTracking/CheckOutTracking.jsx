@@ -24,7 +24,7 @@ function CheckOutTracking() {
     const [checkOutTrackings, setCheckOutTrackings] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
-    const [pageSize, setPageSize] = useState(7);
+    const [pageSize, setPageSize] = useState(6);
     const [searchValue, setSearchValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const debouncedValue = useDebounce(searchValue, 1000);

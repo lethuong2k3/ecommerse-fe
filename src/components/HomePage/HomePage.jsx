@@ -10,10 +10,12 @@ import MainLayout from '@components/Layout/Layout';
 import SaleHomePage from '@components/SaleHomePage/SaleHomePage';
 import MyFooter from '@components/Footer/Footer';
 import Loading from '@components/Loading/Loading';
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
     const [lstProduct, setLstProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
     useEffect(() => {
         const query = {
             page: 0,
@@ -27,11 +29,17 @@ function HomePage() {
             setLoading(false);
         });
     }, []);
+    const handleNavToShop = () => {
+        navigate('/shop')
+    }
+    const handleNavToSale = () => {
+        navigate('/san-pham-chi-tiet/1')
+    }
     return (
         <>
             <div className={styles.container}>
                 <Header />
-                <Banner />
+                <Banner handleNavToShop={handleNavToShop} />
                 <MainLayout>
                     <Info />
                     <AdvanceHeadling />
@@ -41,7 +49,7 @@ function HomePage() {
                         <PopularProduct data={lstProduct} />
                     )}
                 </MainLayout>
-                <SaleHomePage />
+                <SaleHomePage handleNavToSale={handleNavToSale} />
                 <MyFooter />
             </div>
         </>

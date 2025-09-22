@@ -48,7 +48,6 @@ function CheckOut() {
         checkForExisting: true,
     });
     const RETURN_URL = `${window.location.href}/ket-qua`;
-    const CANCEL_URL = `${window.location.href}/ket-qua`;
 
     const errSelect = idSelect => {
         switch (idSelect) {
@@ -245,10 +244,13 @@ function CheckOut() {
     };
 
     useEffect(() => {
-        if (listProductCart?.length == 0 || !listProductCart) {
-            navigate('/gio-hang');
-            return;
-        }
+         const timer = setTimeout(() => {
+            if (!listProductCart || listProductCart.length === 0) {
+                navigate('/gio-hang');
+            }
+        }, 500);
+       
+        return () => clearTimeout(timer);
     }, [listProductCart]);
 
     useEffect(() => {

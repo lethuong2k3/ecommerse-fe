@@ -3,7 +3,7 @@ import styles from '../styles.module.scss';
 import Button from '@components/Button/Button';
 
 function Banner() {
-    const targetDate = '2025-07-28T00:00:00';
+    const targetDate = '2025-11-01T00:00:00';
     return (
         <>
             <div className={styles.containerBanner}>

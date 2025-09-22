@@ -25,7 +25,7 @@ import {
 } from '@apis/productsService';
 import { addProductToCart } from '@apis/cartService';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { SidebarContext } from '@contexts/SideBarProvider';
 import { ToastContext } from '@contexts/ToastProvider';
 import { BsCart3 } from 'react-icons/bs';
@@ -83,6 +83,7 @@ function DetailProduct() {
 
     const [state, dispatch] = useReducer(reducer, initialState);
     const param = useParams();
+    const navigate = useNavigate();
 
     const productDetailCart = listProductCart?.filter(
         lst => lst.productDetail.id === state.dataDetail?.id
@@ -139,7 +140,7 @@ function DetailProduct() {
         dispatch({ type: 'dataDetail', payload: null });
     };
 
-    const handleAddToCart = () => {
+   const handleAddToCart = async (isBuy = false) => {
         if (!userId) {
             setIsOpen(true);
             setType('login');
@@ -163,26 +164,31 @@ function DetailProduct() {
                 },
             ],
         };
+
         dispatch({ type: 'isLoadingCart', payload: true });
-        addProductToCart(query)
-            .then(res => {
-                if (res.data.errors) {
-                    console.log(res.data.errors);
-                    toast.error(res.data.errors['400']);
-                    handleGetListProductsCart(userId);
-                    dispatch({ type: 'isLoadingCart', payload: false });
-                    return;
-                }
+        try {
+            const res = await addProductToCart(query);
+            if (res.data.errors) {
+                toast.error(res.data.errors['400']);
+                handleGetListProductsCart(userId);
+                dispatch({ type: 'isLoadingCart', payload: false });
+                return;
+            }
+
+            if (isBuy) {
+                handleGetListProductsCart(userId);
+                navigate('/thanh-toan'); 
+            } else {
                 setIsOpen(true);
                 setType('cart');
                 toast.success('Thêm vào giỏ thành công');
-                dispatch({ type: 'isLoadingCart', payload: false });
                 handleGetListProductsCart(userId);
-            })
-            .catch(err => {
-                console.log(err);
-                dispatch({ type: 'isLoadingCart', payload: false });
-            });
+            }
+        } catch (err) {
+            console.log(err);
+        } finally {
+            dispatch({ type: 'isLoadingCart', payload: false });
+        }
     };
 
     const handleAddToCompare = () => {
@@ -434,6 +440,7 @@ function DetailProduct() {
             dispatch({ type: 'quantity', payload: state.quantity + 1 });
         }
     };
+
     return (
         <div>
             <Header />
@@ -585,16 +592,21 @@ function DetailProduct() {
                                     <Button
                                         content={
                                             <>
+                                                {state.isLoadingCart && (
+                                                    <LoadMore />
+                                                )}
                                                 <BsCart3 /> <div>Mua ngay</div>
                                             </>
                                         }
                                         disabled={
-                                            !state.sizeSelected ||
-                                            !state.colorSelected ||
-                                            +state.dataDetail?.amount -
-                                                +productDetailCart?.quantity ===
-                                                0
-                                        }
+                                                !state.sizeSelected ||
+                                                !state.colorSelected ||
+                                                +state.dataDetail?.amount -
+                                                    +productDetailCart?.quantity ===
+                                                    0 ||
+                                                state.isLoadingCart
+                                            }
+                                        onClick={() => handleAddToCart(true)}
                                     />
                                 </div>
                                 <div className={styles.addFunction}>

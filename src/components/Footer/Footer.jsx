@@ -4,9 +4,12 @@ import Logo from '@images/Logo.png';
 import { useContext } from 'react';
 import { PaymentMethodsContext } from '@contexts/PaymentMethodsProvider';
 import LoadMore from '@components/Loading/LoadMore';
+import { useNavigate } from 'react-router-dom';
 
 function MyFooter() {
     const { listMethod, isLoading } = useContext(PaymentMethodsContext);
+    const navigate = useNavigate();
+    
     return (
         <div className={styles.container}>
             <div>
@@ -20,7 +23,7 @@ function MyFooter() {
             </div>
             <div className={styles.boxNav}>
                 {dataMenu.map((item, key) => (
-                    <div key={key}>{item.content}</div>
+                    <div key={key} onClick={() => navigate(item.href)}>{item.content}</div>
                 ))}
             </div>
             <div>

@@ -7,6 +7,7 @@ import InputCommon from '@components/InputCommon/InputCommon';
 import styles from '../styles.module.scss';
 import Loading from '@components/Loading/Loading';
 import { formatPrice } from '@hooks/useFomatPrice';
+import LoadMore from '@components/Loading/LoadMore';
 
 function Contents({
     payment,
@@ -178,10 +179,13 @@ function Contents({
                 </div>
                 <div className={styles.last}>
                     <h3 className={styles.titleStep}>Thanh toán</h3>
-                    {isLoadingCart == true ? (
-                        <Loading />
-                    ) : (
-                        <>
+                    {isLoadingCart && (
+                        <div className={styles.overlayLoading}>
+                            <LoadMore />
+                        </div>
+                    )}
+                     <>
+                             
                             <div className={styles.products}>
                                 {listProductCart?.map((item, index) => {
                                     return (
@@ -333,7 +337,6 @@ function Contents({
                                 <PaymentMethods />
                             </div>
                         </>
-                    )}
                 </div>
             </form>
         </div>

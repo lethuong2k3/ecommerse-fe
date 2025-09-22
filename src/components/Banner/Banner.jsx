@@ -1,7 +1,7 @@
 import Button from '@components/Button/Button';
 import styles from './styles.module.scss';
 
-function Banner() {
+function Banner({handleNavToShop}) {
     return (
         <div className={styles.container}>
             <div className={styles.content}>
@@ -11,7 +11,7 @@ function Banner() {
                     về bảo vệ môi trường, các sản phẩm của Fpoly Clothes ưu tiên
                     sử dụng các chất liệu có nguồn gốc từ thiên nhiên.
                 </div>
-                <Button content={'Go to shop'}></Button>
+                <Button content={'Go to shop'} onClick={() => handleNavToShop()}></Button>
             </div>
         </div>
     );
