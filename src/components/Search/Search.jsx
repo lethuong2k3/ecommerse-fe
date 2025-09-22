@@ -27,19 +27,19 @@ function Search() {
 
     const trendingSearches = [
         {
-            title: 'Shirt',
+            title: 'Hendrerit',
             href: '/#',
         },
         {
-            title: 'Shoes',
+            title: 'Duis',
             href: '/#',
         },
         {
-            title: 'Cap',
+            title: 'Gravida',
             href: '/#',
         },
         {
-            title: 'Skirt',
+            title: 'Dignissim',
             href: '/#',
         },
     ];
@@ -61,7 +61,7 @@ function Search() {
     };
 
     const handleNavigateToDetail = id => {
-        var path = `/product/${id}`;
+        var path = `/san-pham-chi-tiet/${id}`;
         setShowSearch(false);
         navigate(path);
     };

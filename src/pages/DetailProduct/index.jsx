@@ -44,6 +44,7 @@ import {
 import { getReviews, getReview } from '@apis/reviewService';
 import userImg from '@images/user.jpg';
 import { StoreContext } from '@contexts/StoreProvider';
+import Loading from '@components/Loading/Loading';
 
 function DetailProduct() {
     const {
@@ -445,8 +446,8 @@ function DetailProduct() {
         <div>
             <Header />
             <MainLayout />
-            {!state.isLoadingDetail ? (
-                <div className={styles.container}>
+             <div className={styles.container}>
+                {!state.isLoadingDetail ? (
                     <MainLayout>
                         <div className={styles.navigateSection}>
                             <div className={styles.breadcrumb}>
@@ -684,10 +685,11 @@ function DetailProduct() {
                             )}
                         </div>
                     </MainLayout>
+                ) : (
+                    <Loading />
+                )}
                 </div>
-            ) : (
-                <div>...Loading</div>
-            )}
+          
             <MyFooter />
         </div>
     );

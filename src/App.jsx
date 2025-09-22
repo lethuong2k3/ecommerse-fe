@@ -26,7 +26,7 @@ function App() {
                                 <Sidebar />
                                 <SidebarMenu />
                                 <Search />
-                                <Suspense fallback={<div>...Loading</div>}>
+                                <Suspense>
                                     <Routes>
                                         <Route
                                             path='/dang-nhap'
