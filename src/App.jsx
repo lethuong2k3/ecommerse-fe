@@ -1,4 +1,5 @@
-import '@styles/main.module.scss';
+import '@styles/_global.module.scss';
+import 'normalize.css/normalize.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { privateRouters, publicRouters } from '@routers/routers';
 import { Suspense } from 'react';

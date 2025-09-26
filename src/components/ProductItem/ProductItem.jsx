@@ -216,13 +216,8 @@ function ProductItem({
                 });
         }
     };
-
-    const handleAddToCart = () => {
+const handleAddToCart = async (isBuy = false) => {
         if (state.isLoadingCart) return;
-        if (isHomePage) {
-            handleNavigateToDetail();
-            return;
-        }
         if (!userId) {
             setIsOpen(true);
             setType('login');
@@ -230,7 +225,6 @@ function ProductItem({
             return;
         }
         if (!state.sizeChoose) {
-            dispatch({ type: 'showSizeChoose', payload: true });
             toast.warning('Vui lòng chọn size');
             return;
         }
@@ -247,25 +241,32 @@ function ProductItem({
                 },
             ],
         };
+
         dispatch({ type: 'isLoadingCart', payload: true });
-        addProductToCart(query)
-            .then(res => {
-                if (res.data.errors) {
-                    toast.error(res.data.errors['401']);
-                    handleGetListProductsCart(userId);
-                    dispatch({ type: 'isLoadingCart', payload: false });
-                    return;
-                }
+        try {
+            const res = await addProductToCart(query);
+            if (res.data.errors) {
+                toast.error(res.data.errors['400']);
+                handleGetListProductsCart(userId);
+                dispatch({ type: 'isLoadingCart', payload: false });
+                return;
+            }
+
+            if (isBuy) {
+                handleGetListProductsCart(userId);
+                setIsOpen(false);
+                navigate('/thanh-toan'); 
+            } else {
                 setIsOpen(true);
                 setType('cart');
-                toast.success('Thêm sản phẩm vào giỏ hàng thành công');
-                dispatch({ type: 'isLoadingCart', payload: false });
+                toast.success('Thêm vào giỏ thành công');
                 handleGetListProductsCart(userId);
-            })
-            .catch(err => {
-                console.log(err);
-                dispatch({ type: 'isLoadingCart', payload: false });
-            });
+            }
+        } catch (err) {
+            console.log(err);
+        } finally {
+            dispatch({ type: 'isLoadingCart', payload: false });
+        }
     };
 
     const handleClear = () => {
@@ -626,7 +627,7 @@ function ProductItem({
                                         +productDetailCart?.quantity ===
                                     0
                                 }
-                                onClick={handleAddToCart}
+                                onClick={() => handleAddToCart()}
                             />
                         </div>
 
@@ -647,7 +648,7 @@ function ProductItem({
                         <Button
                             content={'Mua ngay'}
                             style={{ width: '100%' }}
-                            onClick={() => handleBuyNow()}
+                            onClick={() => handleAddToCart(true)}
                         />
 
                         <div

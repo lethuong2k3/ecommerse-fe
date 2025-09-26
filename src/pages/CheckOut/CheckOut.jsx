@@ -245,10 +245,10 @@ function CheckOut() {
 
     useEffect(() => {
          const timer = setTimeout(() => {
-            if (!listProductCart || listProductCart.length === 0) {
+            if (listProductCart?.length === 0) {
                 navigate('/gio-hang');
             }
-        }, 500);
+        }, 1000);
        
         return () => clearTimeout(timer);
     }, [listProductCart]);

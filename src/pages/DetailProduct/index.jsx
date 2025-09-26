@@ -142,6 +142,7 @@ function DetailProduct() {
     };
 
    const handleAddToCart = async (isBuy = false) => {
+        if (state.isLoadingCart) return;
         if (!userId) {
             setIsOpen(true);
             setType('login');
