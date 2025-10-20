@@ -3,7 +3,7 @@ import styles from '../styles.module.scss';
 import moment from 'moment';
 import Button from '@components/Button/Button';
 
-function CheckOutTable({
+function Table({
     checkOutTrackings,
     useOrderStatus,
     formatPrice,
@@ -45,6 +45,7 @@ function CheckOutTable({
                                     <Button
                                         content={'Xem đơn hàng'}
                                         isPrimary={false}
+                                        onClick={() => handleNavCheckoutDT(order.orderCode)}
                                     />
                                 </td>
                             </tr>
@@ -65,4 +66,4 @@ function CheckOutTable({
     );
 }
 
-export default CheckOutTable;
+export default Table;

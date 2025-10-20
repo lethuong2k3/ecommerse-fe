@@ -34,10 +34,14 @@ function CheckOut() {
     const [loadingSubmit, setLoadingSubmit] = useState(false);
     const [isLoadingMethods, setIsLoadingMethods] = useState(false);
     const [province, setProvince] = useState([]);
+    const [provinceName, setProvinceName] = useState('');
     const [district, setDistrict] = useState([]);
+    const [districName, setDistrictName] = useState('');
     const [ward, setWard] = useState([]);
+    const [wardName, setWardName] = useState('');
     const [fee, setFee] = useState(0);
 
+    const phoneRegExp = /^(0[3|5|7|8|9][0-9]{8}|(\+84)[3|5|7|8|9][0-9]{8})$/;
     const userId = Cookies.get('id');
     const navigate = useNavigate();
     const subTotal = listProductCart?.reduce((acc, item) => {
@@ -65,8 +69,11 @@ function CheckOut() {
             firstName: '',
             lastName: '',
             provinceID: '',
+            provinceName: '',
             districtID: '',
+            districtName: '',
             wardID: '',
+            wardName:'',
             streetAddress: '',
             phone: '',
             email: '',
@@ -79,7 +86,7 @@ function CheckOut() {
             provinceID: Yup.string().required(),
             districtID: Yup.string().required(),
             wardID: Yup.string().required(),
-            phone: Yup.number().required(),
+            phone: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ").required(),
             email: Yup.string().email().required(),
         }),
         onSubmit: async values => {
@@ -99,7 +106,7 @@ function CheckOut() {
                 shipmentRequest: {
                     firstName: firstName,
                     lastName: lastName,
-                    address: streetAddress,
+                    address: `${streetAddress}, ${wardName}, ${districName}, ${provinceName}`,
                     idAddress: `${provinceID}, ${districtID}, ${wardID}`,
                     phone: phone,
                     email: email,
@@ -192,9 +199,13 @@ function CheckOut() {
             });
     };
 
-    const handleProvinceChange = value => {
-        formik.setFieldValue('provinceID', value);
-        getDistrict(value)
+    const handleProvinceChange = provinceID => {
+        const provinceName = province.find(p => p.ProvinceID === Number(provinceID)).ProvinceName;
+        formik.setFieldValue('provinceID', provinceID);
+        setProvinceName(provinceName);
+        setDistrictName('');
+        setWardName('');
+        getDistrict(provinceID)
             .then(res => {
                 setDistrict(res.data.data);
                 setWard([]);
@@ -207,9 +218,12 @@ function CheckOut() {
             });
     };
 
-    const handleDistrictChange = value => {
-        formik.setFieldValue('districtID', value);
-        getWard(value)
+    const handleDistrictChange = districtID => {
+        const districtName = district.find(d => d.DistrictID === Number(districtID)).DistrictName;
+        formik.setFieldValue('districtID', districtID);
+        setDistrictName(districtName);
+        setWardName('');
+        getWard(districtID)
             .then(res => {
                 setWard(res.data.data);
                 setFee(0);
@@ -220,14 +234,16 @@ function CheckOut() {
             });
     };
 
-    const handleWardChange = value => {
-        formik.setFieldValue('wardID', value);
+    const handleWardChange = wardID => {
+        const wardName = ward.find(w => w.WardCode == wardID).WardName;
+        formik.setFieldValue('wardID', wardID);
+        setWardName(wardName);
         let body = {
             service_type_id: 2,
             insurance_value: subTotal,
             from_district_id: 3695,
             to_district_id: formik.values.districtID,
-            to_ward_code: String(value),
+            to_ward_code: String(wardID),
             height: 15,
             length: 15,
             weight: 1000,

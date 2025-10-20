@@ -153,7 +153,7 @@ function Contents({
                     <InputCommon
                         id='phone'
                         label={'Số điện thoại'}
-                        type={'number'}
+                        type={'text'}
                         formik={formik}
                         borderErr
                         isRequired

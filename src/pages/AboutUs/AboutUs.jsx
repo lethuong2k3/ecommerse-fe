@@ -96,7 +96,10 @@ function AboutUs() {
             <Header />
             <MainLayout>
                 <div className={styles.container}>
-                    <Breadcrumbs title={'Giới thiệu'} />
+                    <Breadcrumbs  items={[
+                        { label: "Trang chủ", path: "/" },
+                        { label: "Giới thiệu"}
+                    ]}/>
                     <section className={styles.header}>
                         <span>chúng tôi cố gắng hết mình vì bạn</span>
                         <h2>Chào mừng đến với Fpoly Clothes</h2>

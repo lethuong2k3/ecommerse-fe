@@ -14,7 +14,10 @@ function OurShop() {
             <Header />
             <MainLayout>
                 <div className={styles.container}>
-                    <Breadcrumbs title={'Shop'} />
+                    <Breadcrumbs  items={[
+                        { label: "Trang chủ", path: "/" },
+                        { label: "Shop"}
+                    ]}/>
                 </div>
                 <Banner />
                 <div>

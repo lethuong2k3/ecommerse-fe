@@ -2,6 +2,7 @@
 @import '@styles/variables.module.scss';
 
 .container {
+    margin: 10px 0px;
     .title {
         @include flex_box_custom(flex-start, center, 10px);
         padding: 9px 15px;

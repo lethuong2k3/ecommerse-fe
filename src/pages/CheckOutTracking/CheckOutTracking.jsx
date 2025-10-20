@@ -2,7 +2,7 @@ import Breadcrumbs from '@components/Breadcrumbs/Breadcrumbs';
 import Header from '@components/Header/Header';
 import styles from './styles.module.scss';
 import MainLayout from '@components/Layout/Layout';
-import CheckOutTable from '@pages/CheckOutTracking/components/CheckOutTable';
+import Table from '@pages/CheckOutTracking/components/Table';
 import '@pages/CheckOutTracking/style.css';
 import LoadMore from '@components/Loading/LoadMore';
 import useOrderStatus from '@hooks/useOrderStatus';
@@ -83,7 +83,10 @@ function CheckOutTracking() {
             <Header />
             <MainLayout>
                 <div className={styles.container}>
-                    <Breadcrumbs title={'Danh sách đơn hàng'} />
+                    <Breadcrumbs  items={[
+                        { label: "Trang chủ", path: "/" },
+                        { label: "Danh sách đơn hàng"}
+                    ]}/>
                     <div className={styles.containerSearch}>
                         <div className={styles.searchInput}>
                             <input
@@ -133,7 +136,7 @@ function CheckOutTracking() {
                         </div>
                     </div>
                     <div className={styles.containerStatus}></div>
-                    <CheckOutTable
+                    <Table
                         checkOutTrackings={checkOutTrackings}
                         handleNavigateToDetail={handleNavigateToDetail}
                         formatPrice={formatPrice}

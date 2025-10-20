@@ -45,6 +45,7 @@ import { getReviews, getReview } from '@apis/reviewService';
 import userImg from '@images/user.jpg';
 import { StoreContext } from '@contexts/StoreProvider';
 import Loading from '@components/Loading/Loading';
+import Breadcrumbs from '@components/Breadcrumbs/Breadcrumbs';
 
 function DetailProduct() {
     const {
@@ -450,22 +451,11 @@ function DetailProduct() {
              <div className={styles.container}>
                 {!state.isLoadingDetail ? (
                     <MainLayout>
-                        <div className={styles.navigateSection}>
-                            <div className={styles.breadcrumb}>
-                                Trang chủ &gt;{' '}
-                                <span style={{ color: '#000' }}>
-                                    {state.data.category &&
-                                        state.data.category.name}
-                                </span>
-                            </div>
-                            <div
-                                className={styles.previousPage}
-                                style={{ cursor: 'pointer' }}
-                            >
-                                {' '}
-                                &lt; Quay lại trang trước đó
-                            </div>
-                        </div>
+                        <Breadcrumbs  items={[
+                            { label: "Trang chủ", path: "/" },
+                            { label: state.data.name}
+                        ]}/>
+                       
                         <div className={styles.contentSection}>
                             <div className={styles.imageBox}>
                                 {state.data.images?.map(image => {

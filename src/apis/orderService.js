@@ -12,8 +12,12 @@ const orderTrackings = async body => {
     return await axiosUser.post('/user/order-tracking', body);
 };
 
-const orderHistories = async orderCode => {
+const getOrderDetails = async orderCode => {
     return await axiosUser.get(`/user/order-details/${orderCode}`);
 };
 
-export { saveOrder, orderTrackings, orderHistories, getOrder };
+const cancelOrder = async orderCode => {
+    return await axiosUser.post(`/user/order/cancel/${orderCode}`);
+}
+
+export { saveOrder, orderTrackings, getOrderDetails, getOrder, cancelOrder };

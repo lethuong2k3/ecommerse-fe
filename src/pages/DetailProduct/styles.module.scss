@@ -4,23 +4,6 @@
 .container {
     padding-top: 83px;
 
-    .navigateSection {
-        @include flex_box_custom(space-between, center, 0px);
-        color: $seconddary_color;
-        font-size: 14px;
-        font-weight: 300;
-        padding: 10px 0px;
-
-        @include respond(mobile-tablet) {
-            .previousPage {
-                display: none;
-            }
-
-            .breadcrumb {
-                padding: 0px 15px;
-            }
-        }
-    }
 
     .containerRelatedProduct {
         padding: 15px;
